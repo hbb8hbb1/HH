@@ -53,6 +53,7 @@ HR在LinkedIn上联系的我。初步沟通主要是一些标准的行为问题�
     usefulVotes: 32,
     uselessVotes: 1,
     userVote: 'useful',
+    shareCount: 15,
     isFavorited: true,
     favoritedAt: new Date().toISOString(), // Initial favorite timestamp
     authorName: '匿名用户',
@@ -79,6 +80,7 @@ HR在LinkedIn上联系的我。初步沟通主要是一些标准的行为问题�
     createdAt: new Date(Date.now() - 86400000).toISOString(),
     usefulVotes: 15,
     uselessVotes: 0,
+    shareCount: 2,
     isFavorited: false,
     authorName: 'Offer收割机',
     authorIsPro: false
@@ -104,6 +106,7 @@ Spring Boot 的启动流程，Bean 的生命周期。
     createdAt: new Date(Date.now() - 172800000).toISOString(),
     usefulVotes: 8,
     uselessVotes: 0,
+    shareCount: 0,
     isFavorited: false,
     authorName: 'JavaBoy',
     authorIsPro: false
@@ -195,7 +198,7 @@ function App() {
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
   const [isSubscriptionModalOpen, setIsSubscriptionModalOpen] = useState(false);
   
-  const { user, logout } = useAuth();
+  const { user, logout, grantFreePro } = useAuth();
 
   // --- Handlers for Interviews ---
 
@@ -208,6 +211,7 @@ function App() {
       createdAt: new Date().toISOString(),
       usefulVotes: 0,
       uselessVotes: 0,
+      shareCount: 0,
       authorId: user?.id || 'anonymous',
       authorName: user?.name || '匿名用户',
       authorIsPro: user?.isPro
@@ -254,33 +258,75 @@ function App() {
     }));
   };
 
+  // Contributor Logic Check
+  const checkContributorStatus = (post: InterviewPost) => {
+    if (!user) return;
+    
+    // Check if the current user is the author of this post
+    if (post.authorId === user.id && !user.isPro) {
+      // Criteria: 10 useful votes OR 3 shares
+      if (post.usefulVotes >= 10 || post.shareCount >= 3) {
+        grantFreePro();
+        alert(`恭喜！您的面经《${post.title}》受到了社区的欢迎（${post.usefulVotes} 赞 / ${post.shareCount} 分享）。\n\n您已解锁永久 Pro 会员权益！感谢您的贡献。`);
+      }
+    }
+  };
+
   const handleVote = (postId: string, type: 'useful' | 'useless') => {
     if (!user) {
       setIsAuthModalOpen(true);
       return;
     }
-    setPosts(posts.map(post => {
+    
+    setPosts(prevPosts => prevPosts.map(post => {
       if (post.id !== postId) return post;
       
+      let updatedPost = { ...post };
+
       // Toggle logic
       if (post.userVote === type) {
         // Cancel vote
-        return {
-          ...post,
-          userVote: undefined,
-          usefulVotes: type === 'useful' ? post.usefulVotes - 1 : post.usefulVotes,
-          uselessVotes: type === 'useless' ? post.uselessVotes - 1 : post.uselessVotes
-        };
+        updatedPost.userVote = undefined;
+        updatedPost.usefulVotes = type === 'useful' ? post.usefulVotes - 1 : post.usefulVotes;
+        updatedPost.uselessVotes = type === 'useless' ? post.uselessVotes - 1 : post.uselessVotes;
       } else {
         // Change vote
         const oldVote = post.userVote;
-        return {
-          ...post,
-          userVote: type,
-          usefulVotes: type === 'useful' ? post.usefulVotes + 1 : (oldVote === 'useful' ? post.usefulVotes - 1 : post.usefulVotes),
-          uselessVotes: type === 'useless' ? post.uselessVotes + 1 : (oldVote === 'useless' ? post.uselessVotes - 1 : post.uselessVotes)
-        };
+        updatedPost.userVote = type;
+        updatedPost.usefulVotes = type === 'useful' ? post.usefulVotes + 1 : (oldVote === 'useful' ? post.usefulVotes - 1 : post.usefulVotes);
+        updatedPost.uselessVotes = type === 'useless' ? post.uselessVotes + 1 : (oldVote === 'useless' ? post.uselessVotes - 1 : post.uselessVotes);
       }
+
+      // Check for free pro status trigger
+      // Note: We check *after* the vote is applied. 
+      // Optimization: In a real app this would be server-side, but here we simulate it client-side.
+      // We need to call the check function *after* state update, or pass the updated object.
+      // Since checkContributorStatus uses the 'user' from closure which might be stale if we rely on it inside this map,
+      // we'll run the check immediately with the updated object and the current user from context.
+      
+      // We can't easily call checkContributorStatus inside map purely because of side effects, but for this mock app it's okay, 
+      // or better, do it in a useEffect or separate logic.
+      // For simplicity in this mock, we will invoke it here if the author matches.
+      
+      if (updatedPost.authorId === user.id) {
+          // Use setTimeout to allow render cycle to finish or just call it directly
+          setTimeout(() => checkContributorStatus(updatedPost), 0);
+      }
+
+      return updatedPost;
+    }));
+  };
+
+  const handleShare = (postId: string) => {
+    setPosts(prevPosts => prevPosts.map(post => {
+      if (post.id !== postId) return post;
+      const updatedPost = { ...post, shareCount: post.shareCount + 1 };
+      
+      if (updatedPost.authorId === user?.id) {
+         setTimeout(() => checkContributorStatus(updatedPost), 0);
+      }
+      
+      return updatedPost;
     }));
   };
 
@@ -515,6 +561,7 @@ function App() {
                         onAddComment={handleAddComment}
                         onVote={handleVote}
                         onToggleFavorite={handleToggleFavorite}
+                        onShare={handleShare}
                       />
                     ))}
                     {displayPosts.length === 0 && (

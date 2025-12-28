@@ -8,6 +8,7 @@ interface PostCardProps {
   onAddComment?: (postId: string, content: string, parentId?: string) => void;
   onVote?: (postId: string, type: 'useful' | 'useless') => void;
   onToggleFavorite?: (postId: string) => void;
+  onShare?: (postId: string) => void;
 }
 
 const getAvatarColor = (name: string, isPro?: boolean) => {
@@ -189,7 +190,7 @@ const CommentItem: React.FC<CommentItemProps> = ({ comment, postId, onReply, dep
 };
 
 
-const PostCard: React.FC<PostCardProps> = ({ post, onAddComment, onVote, onToggleFavorite }) => {
+const PostCard: React.FC<PostCardProps> = ({ post, onAddComment, onVote, onToggleFavorite, onShare }) => {
   const [expanded, setExpanded] = useState(false);
   const [showComments, setShowComments] = useState(false);
   const [commentText, setCommentText] = useState('');
@@ -230,6 +231,9 @@ const PostCard: React.FC<PostCardProps> = ({ post, onAddComment, onVote, onToggl
   };
 
   const handleShare = async () => {
+    // Notify parent to update share count
+    onShare?.(post.id);
+
     const shareData = {
       title: post.title,
       text: `【OfferMagnet】${post.company} ${post.role} 面经分享：${post.title}`,
@@ -388,6 +392,7 @@ const PostCard: React.FC<PostCardProps> = ({ post, onAddComment, onVote, onToggl
                 >
                    {copied ? <Check size={16} className="mr-1.5" /> : <Share2 size={16} className="mr-1.5" />}
                    {copied ? '已复制' : '分享'}
+                   {post.shareCount > 0 && <span className="text-xs ml-0.5">({post.shareCount})</span>}
                 </button>
 
                 <button 

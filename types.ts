@@ -31,6 +31,8 @@ export interface InterviewPost {
   usefulVotes: number;
   uselessVotes: number;
   userVote?: 'useful' | 'useless';
+  // Share fields
+  shareCount: number;
   // User specific fields
   isFavorited?: boolean;
   favoritedAt?: string; // Timestamp when the user favorited the post
