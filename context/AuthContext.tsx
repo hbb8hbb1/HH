@@ -8,6 +8,7 @@ interface AuthContextType {
   register: (name: string, email: string, password: string) => Promise<void>;
   logout: () => void;
   upgradeToPro: () => Promise<void>;
+  grantFreePro: () => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -89,8 +90,16 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     });
   };
 
+  const grantFreePro = () => {
+    if (user && !user.isPro) {
+      const updatedUser = { ...user, isPro: true };
+      setUser(updatedUser);
+      localStorage.setItem('offerMagnet_user', JSON.stringify(updatedUser));
+    }
+  };
+
   return (
-    <AuthContext.Provider value={{ user, isLoading, login, register, logout, upgradeToPro }}>
+    <AuthContext.Provider value={{ user, isLoading, login, register, logout, upgradeToPro, grantFreePro }}>
       {children}
     </AuthContext.Provider>
   );
