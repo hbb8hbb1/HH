@@ -1,0 +1,5 @@
+{
+  "name": "OfferMagnet",
+  "description": "一个AI驱动的求职面经整理平台。使用 Gemini 3 Flash 将原始、零散的面试笔记转化为专业、匿名且结构化的求职指南。",
+  "requestFramePermissions": []
+}
