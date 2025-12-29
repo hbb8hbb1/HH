@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { PenTool, Search, Filter, LayoutGrid, Github, ArrowUpDown, ChevronDown, LogIn, LogOut, User as UserIcon, Crown, Zap, Briefcase, Plus, Menu } from 'lucide-react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { PenTool, Search, Filter, LayoutGrid, Github, ArrowUpDown, ChevronDown, LogIn, LogOut, User as UserIcon, Crown, Zap, Briefcase, Plus, Menu, Loader2, RotateCcw, WifiOff } from 'lucide-react';
 import PostCard from './components/PostCard';
 import JobCard from './components/JobCard';
 import EditorModal from './components/EditorModal';
@@ -8,10 +8,12 @@ import AuthModal from './components/AuthModal';
 import ProfileModal from './components/ProfileModal';
 import SubscriptionModal from './components/SubscriptionModal';
 import Sidebar from './components/Sidebar';
-import { InterviewPost, ProcessedResponse, Comment, JobPost, JobType } from './types';
+import { InterviewPost, ProcessedResponse, Comment, JobPost, JobType, User } from './types';
 import { useAuth } from './context/AuthContext';
 
-// Initial Mock Data for Interviews
+const API_URL = 'http://localhost:5000/api';
+
+// --- Mock Data Fallback ---
 const INITIAL_POSTS: InterviewPost[] = [
   {
     id: '1',
@@ -31,89 +33,17 @@ HR在LinkedIn上联系的我。初步沟通主要是一些标准的行为问题�
     role: '前端工程师',
     difficulty: 4,
     tags: ['系统设计', 'JavaScript', '动态规划'],
-    comments: [
-      {
-        id: 'c1',
-        author: '路人甲',
-        content: '楼主，请问系统设计那轮具体的 QPS 假设是多少？',
-        createdAt: new Date(Date.now() - 10000000).toISOString(),
-        replies: [
-           {
-             id: 'c1-r1',
-             author: '匿名用户', // Author replying
-             authorIsPro: true, // Mock pro user
-             content: '当时面试官给的假设是 100M DAU，读写比 100:1。',
-             createdAt: new Date(Date.now() - 9000000).toISOString(),
-             replies: []
-           }
-        ]
-      }
-    ],
+    comments: [],
     createdAt: new Date().toISOString(),
     usefulVotes: 32,
     uselessVotes: 1,
-    userVote: 'useful',
     shareCount: 15,
     isFavorited: true,
-    favoritedAt: new Date().toISOString(), // Initial favorite timestamp
     authorName: '匿名用户',
     authorIsPro: true
-  },
-  {
-    id: '2',
-    title: '字节跳动后端开发 - 飞书部门',
-    originalContent: '...',
-    processedContent: `## 笔试
-两道题目，一道是简单的数组操作，另一道是较难的图论题目。
-
-## 面试流程
-一共经历了4轮面试。非常注重基础，特别是计算机网络和操作系统。
-每一轮都会手写代码，要求 Bug Free。
-
-## 建议
-刷题要扎实。Bar Raiser 环节会深挖你的项目细节，特别是遇到分歧时如何处理。`,
-    company: 'ByteDance',
-    role: '后端开发工程师',
-    difficulty: 5,
-    tags: ['计算机网络', '图论', '操作系统'],
-    comments: [],
-    createdAt: new Date(Date.now() - 86400000).toISOString(),
-    usefulVotes: 15,
-    uselessVotes: 0,
-    shareCount: 2,
-    isFavorited: false,
-    authorName: 'Offer收割机',
-    authorIsPro: false
-  },
-  {
-    id: '3',
-    title: '美团外卖 Java 工程师一面',
-    originalContent: '...',
-    processedContent: `## 基础知识
-聊了很多 JVM 内存模型，垃圾回收算法（CMS vs G1）。
-HashMap 的源码细节，扩容机制，红黑树转化的阈值等。
-
-## 框架
-Spring Boot 的启动流程，Bean 的生命周期。
-
-## 算法
-手写 LRU Cache。`,
-    company: 'Meituan',
-    role: 'Java 工程师',
-    difficulty: 3,
-    tags: ['Java', 'JVM', 'Spring'],
-    comments: [],
-    createdAt: new Date(Date.now() - 172800000).toISOString(),
-    usefulVotes: 8,
-    uselessVotes: 0,
-    shareCount: 0,
-    isFavorited: false,
-    authorName: 'JavaBoy',
-    authorIsPro: false
   }
 ];
 
-// Initial Mock Data for Jobs
 const INITIAL_JOBS: JobPost[] = [
   {
     id: 'j1',
@@ -136,9 +66,10 @@ const INITIAL_JOBS: JobPost[] = [
     applyLink: 'https://jobs.bytedance.com',
     createdAt: new Date().toISOString(),
     authorName: 'ByteHR',
-    authorIsPro: true
+    authorIsPro: true,
+    isFavorited: false
   },
-   {
+  {
     id: 'j2',
     title: '2025届秋招 - 后端开发管培生',
     company: '美团',
@@ -156,36 +87,24 @@ const INITIAL_JOBS: JobPost[] = [
     tags: ['Java', '高并发', '校招'],
     createdAt: new Date(Date.now() - 86400000).toISOString(),
     authorName: '美团校招',
-    authorIsPro: true
-  },
-  {
-    id: 'j3',
-    title: 'AI 算法实习生 (LLM方向)',
-    company: 'Minimax',
-    role: '算法工程师',
-    location: '上海',
-    salaryRange: '400-600/天',
-    type: 'intern',
-    description: `### 工作内容
-1. 参与大语言模型的预训练、微调及强化学习算法研究；
-2. 跟踪 NLP 领域最新论文，复现并改进算法。
-
-### 要求
-1. 计算机、数学等相关专业硕士/博士在读；
-2. 熟悉 PyTorch，有 NLP 相关项目经验；
-3. 至少实习 3 个月以上。`,
-    tags: ['LLM', 'NLP', 'PyTorch'],
-    createdAt: new Date(Date.now() - 172800000).toISOString(),
-    authorName: 'Minimax Tech',
-    authorIsPro: false
+    authorIsPro: true,
+    isFavorited: true
   }
 ];
 
 function App() {
-  const [posts, setPosts] = useState<InterviewPost[]>(INITIAL_POSTS);
-  const [jobs, setJobs] = useState<JobPost[]>(INITIAL_JOBS);
+  const [posts, setPosts] = useState<InterviewPost[]>([]);
+  const [jobs, setJobs] = useState<JobPost[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [activeTab, setActiveTab] = useState<'interviews' | 'jobs'>('interviews');
+  const [isLoading, setIsLoading] = useState(true);
+  const [isOffline, setIsOffline] = useState(false);
+  
+  // Pagination State
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
+  const [isFetchingMore, setIsFetchingMore] = useState(false);
+  const observer = useRef<IntersectionObserver | null>(null);
   
   // Filters
   const [activeFilter, setActiveFilter] = useState('all'); // for interviews
@@ -200,141 +119,280 @@ function App() {
   
   const { user, logout, grantFreePro } = useAuth();
 
-  // --- Handlers for Interviews ---
-
-  const handleSavePost = (processedData: ProcessedResponse, original: string) => {
-    const newPost: InterviewPost = {
-      id: Date.now().toString(),
-      ...processedData,
-      originalContent: original,
-      comments: [],
-      createdAt: new Date().toISOString(),
-      usefulVotes: 0,
-      uselessVotes: 0,
-      shareCount: 0,
-      authorId: user?.id || 'anonymous',
-      authorName: user?.name || '匿名用户',
-      authorIsPro: user?.isPro
-    };
-    setPosts([newPost, ...posts]);
-    setIsModalOpen(false);
+  // --- Data Normalization Helpers ---
+  
+  // Recursively maps _id to id for Comments
+  const normalizeComments = (comments: any[]): Comment[] => {
+    if (!comments) return [];
+    return comments.map((c: any) => ({
+      ...c,
+      id: c._id || c.id,
+      replies: c.replies ? normalizeComments(c.replies) : []
+    }));
   };
 
-  const handleAddComment = (postId: string, content: string, parentId?: string) => {
+  // Maps backend Post to frontend InterviewPost
+  const normalizePost = (p: any, currentUser: User | null): InterviewPost => {
+    return {
+      ...p,
+      id: p._id || p.id,
+      comments: normalizeComments(p.comments),
+      // User-specific states
+      userVote: currentUser && p.upvoters?.includes(currentUser.id) ? 'useful' : (currentUser && p.downvoters?.includes(currentUser.id) ? 'useless' : undefined),
+      isFavorited: currentUser && p.favoritedBy?.includes(currentUser.id),
+      favoritedAt: currentUser && p.favoritedBy?.includes(currentUser.id) ? new Date().toISOString() : undefined // Mock time if backend doesn't store per-user time yet
+    };
+  };
+
+  // Maps backend Job to frontend JobPost
+  const normalizeJob = (j: any, currentUser: User | null): JobPost => {
+    return {
+      ...j,
+      id: j._id || j.id,
+      isFavorited: currentUser && j.favoritedBy?.includes(currentUser.id)
+    };
+  };
+
+  // --- Infinite Scroll Logic ---
+  const lastPostRef = useCallback((node: HTMLDivElement) => {
+    if (isLoading || isFetchingMore) return;
+    if (observer.current) observer.current.disconnect();
+    
+    observer.current = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting && hasMore) {
+        setPage(prevPage => prevPage + 1);
+      }
+    });
+    
+    if (node) observer.current.observe(node);
+  }, [isLoading, isFetchingMore, hasMore]);
+
+
+  // Fetch Data on Mount
+  const fetchPosts = async (pageNum = 1, reset = false) => {
+      if(reset) setIsLoading(true);
+      else setIsFetchingMore(true);
+      
+      try {
+          const res = await fetch(`${API_URL}/posts?page=${pageNum}&limit=10`);
+          if (!res.ok) throw new Error("Network response was not ok");
+          
+          const newPostsData = await res.json();
+          const normalizedNewPosts = newPostsData.map((p: any) => normalizePost(p, user));
+          
+          if (reset) {
+              setPosts(normalizedNewPosts);
+              setPage(1);
+              setHasMore(newPostsData.length === 10);
+          } else {
+              if (newPostsData.length === 0) {
+                  setHasMore(false);
+              } else {
+                  setPosts(prev => {
+                      const existingIds = new Set(prev.map(p => p.id));
+                      const uniquePosts = normalizedNewPosts.filter((p: InterviewPost) => !existingIds.has(p.id));
+                      return [...prev, ...uniquePosts];
+                  });
+                  if (newPostsData.length < 10) setHasMore(false);
+              }
+          }
+          setIsOffline(false);
+      } catch (e) {
+          // Use warn instead of error to avoid cluttering console during development without backend
+          console.warn("Backend unavailable, entering offline mode."); 
+          setIsOffline(true);
+          if(reset) setPosts(INITIAL_POSTS);
+      } finally {
+          setIsLoading(false);
+          setIsFetchingMore(false);
+      }
+  };
+
+  useEffect(() => {
+    const initData = async () => {
+       setIsLoading(true);
+       await fetchPosts(1, true);
+
+       try {
+        const jobsRes = await fetch(`${API_URL}/jobs`);
+        if(!jobsRes.ok) throw new Error("Failed to fetch jobs");
+        const jobsData = await jobsRes.json();
+        setJobs(jobsData.map((j: any) => normalizeJob(j, user)));
+       } catch (e) {
+          console.warn("Failed to load jobs, using mock data");
+          setJobs(INITIAL_JOBS);
+       }
+    };
+    
+    initData();
+  }, [user]); 
+
+  // Load More Posts Effect
+  useEffect(() => {
+    if (page === 1) return;
+    fetchPosts(page, false);
+  }, [page]);
+
+  // --- Handlers for Interviews ---
+
+  const handleSavePost = async (processedData: ProcessedResponse, original: string) => {
+    if (!user) return;
+    try {
+      const res = await fetch(`${API_URL}/posts`, {
+        method: 'POST',
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('offerMagnet_token')}`
+        },
+        body: JSON.stringify({
+           ...processedData,
+           originalContent: original
+        })
+      });
+
+      if (res.ok) {
+        const newPostData = await res.json();
+        const newPost = normalizePost(newPostData, user);
+        setPosts([newPost, ...posts]);
+        setIsModalOpen(false);
+      } else {
+         throw new Error('Failed to save');
+      }
+    } catch (e) {
+      console.error(e);
+      // Mock success for demo if backend is down
+      const newPost: InterviewPost = {
+         id: Date.now().toString(),
+         ...processedData,
+         originalContent: original,
+         comments: [],
+         createdAt: new Date().toISOString(),
+         usefulVotes: 0,
+         uselessVotes: 0,
+         shareCount: 0,
+         authorId: user.id,
+         authorName: user.name,
+         authorIsPro: user.isPro
+      };
+      setPosts([newPost, ...posts]);
+      setIsModalOpen(false);
+      alert('注意：后端未连接，数据仅保存在本地临时展示。');
+    }
+  };
+
+  const handleAddComment = async (postId: string, content: string, parentId?: string) => {
     if (!user) {
       setIsAuthModalOpen(true);
       return;
     }
 
-    const newComment: Comment = {
-      id: Date.now().toString(),
-      author: user.name,
-      authorIsPro: user.isPro,
-      content,
-      createdAt: new Date().toISOString(),
-      replies: []
-    };
+    try {
+      const res = await fetch(`${API_URL}/posts/${postId}/comments`, {
+        method: 'POST',
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('offerMagnet_token')}`
+        },
+        body: JSON.stringify({ content, parentId })
+      });
 
-    setPosts(posts.map(post => {
-      if (post.id !== postId) return post;
-      
-      if (parentId) {
-        // Helper to find and update nested comments
-        const updateReplies = (comments: Comment[]): Comment[] => {
-          return comments.map(c => {
-            if (c.id === parentId) {
-              return { ...c, replies: [...(c.replies || []), newComment] };
-            }
-            if (c.replies) {
-              return { ...c, replies: updateReplies(c.replies) };
-            }
-            return c;
-          });
-        };
-        return { ...post, comments: updateReplies(post.comments) };
+      if (res.ok) {
+        const updatedPostData = await res.json();
+        const updatedPost = normalizePost(updatedPostData, user);
+        setPosts(posts.map(p => p.id === postId ? updatedPost : p));
       }
+    } catch (e) {
+      console.error(e);
+      // Fallback: Optimistic update without backend
+      const newComment: Comment = {
+          id: Date.now().toString(),
+          author: user.name,
+          authorIsPro: user.isPro,
+          content,
+          createdAt: new Date().toISOString(),
+          replies: []
+      };
       
-      return { ...post, comments: [...post.comments, newComment] };
-    }));
+      const updateComments = (comments: Comment[]): Comment[] => {
+          if (!parentId) return [...comments, newComment];
+          return comments.map(c => {
+             if (c.id === parentId) return { ...c, replies: [...(c.replies || []), newComment] };
+             if (c.replies) return { ...c, replies: updateComments(c.replies) };
+             return c;
+          });
+      };
+      
+      setPosts(posts.map(p => p.id === postId ? { ...p, comments: updateComments(p.comments) } : p));
+    }
   };
 
   // Contributor Logic Check
   const checkContributorStatus = (post: InterviewPost) => {
     if (!user) return;
-    
-    // Check if the current user is the author of this post
     if (post.authorId === user.id && !user.isPro) {
-      // Criteria: 10 useful votes OR 3 shares
       if (post.usefulVotes >= 10 || post.shareCount >= 3) {
         grantFreePro();
-        alert(`恭喜！您的面经《${post.title}》受到了社区的欢迎（${post.usefulVotes} 赞 / ${post.shareCount} 分享）。\n\n您已解锁永久 Pro 会员权益！感谢您的贡献。`);
+        alert(`恭喜！您的面经《${post.title}》受到了社区的欢迎。\n\n您已解锁永久 Pro 会员权益！`);
       }
     }
   };
 
-  const handleVote = (postId: string, type: 'useful' | 'useless') => {
+  const handleVote = async (postId: string, type: 'useful' | 'useless') => {
     if (!user) {
       setIsAuthModalOpen(true);
       return;
     }
     
+    // Optimistic UI Update
     setPosts(prevPosts => prevPosts.map(post => {
       if (post.id !== postId) return post;
       
       let updatedPost = { ...post };
-
-      // Toggle logic
+      // Logic for optimistic update (simplified)
       if (post.userVote === type) {
-        // Cancel vote
-        updatedPost.userVote = undefined;
-        updatedPost.usefulVotes = type === 'useful' ? post.usefulVotes - 1 : post.usefulVotes;
-        updatedPost.uselessVotes = type === 'useless' ? post.uselessVotes - 1 : post.uselessVotes;
+         updatedPost.userVote = undefined;
+         updatedPost.usefulVotes = type === 'useful' ? post.usefulVotes - 1 : post.usefulVotes;
+         updatedPost.uselessVotes = type === 'useless' ? post.uselessVotes - 1 : post.uselessVotes;
       } else {
-        // Change vote
-        const oldVote = post.userVote;
-        updatedPost.userVote = type;
-        updatedPost.usefulVotes = type === 'useful' ? post.usefulVotes + 1 : (oldVote === 'useful' ? post.usefulVotes - 1 : post.usefulVotes);
-        updatedPost.uselessVotes = type === 'useless' ? post.uselessVotes + 1 : (oldVote === 'useless' ? post.uselessVotes - 1 : post.uselessVotes);
+         const oldVote = post.userVote;
+         updatedPost.userVote = type;
+         updatedPost.usefulVotes = type === 'useful' ? post.usefulVotes + 1 : (oldVote === 'useful' ? post.usefulVotes - 1 : post.usefulVotes);
+         updatedPost.uselessVotes = type === 'useless' ? post.uselessVotes + 1 : (oldVote === 'useless' ? post.uselessVotes - 1 : post.uselessVotes);
       }
-
-      // Check for free pro status trigger
-      // Note: We check *after* the vote is applied. 
-      // Optimization: In a real app this would be server-side, but here we simulate it client-side.
-      // We need to call the check function *after* state update, or pass the updated object.
-      // Since checkContributorStatus uses the 'user' from closure which might be stale if we rely on it inside this map,
-      // we'll run the check immediately with the updated object and the current user from context.
-      
-      // We can't easily call checkContributorStatus inside map purely because of side effects, but for this mock app it's okay, 
-      // or better, do it in a useEffect or separate logic.
-      // For simplicity in this mock, we will invoke it here if the author matches.
-      
-      if (updatedPost.authorId === user.id) {
-          // Use setTimeout to allow render cycle to finish or just call it directly
-          setTimeout(() => checkContributorStatus(updatedPost), 0);
-      }
-
       return updatedPost;
     }));
+
+    try {
+      await fetch(`${API_URL}/posts/${postId}/vote`, {
+        method: 'POST',
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('offerMagnet_token')}`
+        },
+        body: JSON.stringify({ type })
+      });
+    } catch (e) { console.error(e); }
   };
 
   const handleShare = (postId: string) => {
+    // In real backend, wed hit an API to increment share count
     setPosts(prevPosts => prevPosts.map(post => {
       if (post.id !== postId) return post;
       const updatedPost = { ...post, shareCount: post.shareCount + 1 };
-      
       if (updatedPost.authorId === user?.id) {
          setTimeout(() => checkContributorStatus(updatedPost), 0);
       }
-      
       return updatedPost;
     }));
   };
 
-  const handleToggleFavorite = (postId: string) => {
+  const handleToggleFavorite = async (postId: string) => {
     if (!user) {
       setIsAuthModalOpen(true);
       return;
     }
+    
+    // Optimistic
     setPosts(posts.map(post => {
       if (post.id !== postId) return post;
       return {
@@ -343,21 +401,77 @@ function App() {
         favoritedAt: !post.isFavorited ? new Date().toISOString() : undefined
       };
     }));
+
+    try {
+      await fetch(`${API_URL}/posts/${postId}/favorite`, {
+        method: 'POST',
+        headers: { 'Authorization': `Bearer ${localStorage.getItem('offerMagnet_token')}` }
+      });
+    } catch (e) { console.error(e); }
   };
 
   // --- Handlers for Jobs ---
 
-  const handleSaveJob = (newJobData: Omit<JobPost, 'id' | 'createdAt' | 'authorId' | 'authorName' | 'authorIsPro'>) => {
-    const newJob: JobPost = {
-      ...newJobData,
-      id: Date.now().toString(),
-      createdAt: new Date().toISOString(),
-      authorId: user?.id || 'anonymous',
-      authorName: user?.name || '匿名用户',
-      authorIsPro: user?.isPro
-    };
-    setJobs([newJob, ...jobs]);
-    setIsJobModalOpen(false);
+  const handleSaveJob = async (newJobData: Omit<JobPost, 'id' | 'createdAt' | 'authorId' | 'authorName' | 'authorIsPro'>) => {
+    if (!user) return;
+    try {
+      const res = await fetch(`${API_URL}/jobs`, {
+        method: 'POST',
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('offerMagnet_token')}`
+        },
+        body: JSON.stringify(newJobData)
+      });
+
+      if (res.ok) {
+        const savedJobData = await res.json();
+        const savedJob = normalizeJob(savedJobData, user);
+        setJobs([savedJob, ...jobs]);
+        setIsJobModalOpen(false);
+      } else {
+        throw new Error("Failed to save job");
+      }
+    } catch (e) {
+      console.error(e);
+      // Fallback
+      const newJob: JobPost = {
+         id: Date.now().toString(),
+         ...newJobData,
+         createdAt: new Date().toISOString(),
+         authorId: user.id,
+         authorName: user.name,
+         authorIsPro: user.isPro,
+         isFavorited: false
+      };
+      setJobs([newJob, ...jobs]);
+      setIsJobModalOpen(false);
+      alert('注意：后端连接失败，职位已本地发布。');
+    }
+  };
+
+  const handleToggleJobFavorite = async (jobId: string) => {
+    if (!user) {
+      setIsAuthModalOpen(true);
+      return;
+    }
+    
+    // Optimistic
+    setJobs(jobs.map(job => {
+      if (job.id !== jobId) return job;
+      return {
+        ...job,
+        isFavorited: !job.isFavorited,
+        favoritedAt: !job.isFavorited ? new Date().toISOString() : undefined
+      };
+    }));
+
+    try {
+      await fetch(`${API_URL}/jobs/${jobId}/favorite`, {
+        method: 'POST',
+        headers: { 'Authorization': `Bearer ${localStorage.getItem('offerMagnet_token')}` }
+      });
+    } catch (e) { console.error(e); }
   };
 
   // --- Filtering Logic ---
@@ -367,21 +481,23 @@ function App() {
                           post.company.toLowerCase().includes(searchQuery.toLowerCase()) ||
                           post.tags.some(t => t.toLowerCase().includes(searchQuery.toLowerCase()));
     
-    if (activeFilter === 'latest') return matchesSearch; // Already sorted by date naturally in this mock
-    if (activeFilter === 'popular') return matchesSearch; // In real app, sort by votes
+    if (activeFilter === 'latest') return matchesSearch; 
+    if (activeFilter === 'popular') return matchesSearch; 
     return matchesSearch;
   });
 
-  // Sort logic for display
   const displayPosts = [...filteredPosts].sort((a, b) => {
      if (activeFilter === 'popular') return b.usefulVotes - a.usefulVotes;
      return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
   });
 
   const filteredJobs = jobs.filter(job => {
-      const matchesSearch = job.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                            job.company.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                            job.tags.some(t => t.toLowerCase().includes(searchQuery.toLowerCase()));
+      const query = searchQuery.toLowerCase();
+      const matchesSearch = job.title.toLowerCase().includes(query) || 
+                            job.company.toLowerCase().includes(query) ||
+                            job.tags.some(t => t.toLowerCase().includes(query)) ||
+                            job.description.toLowerCase().includes(query); 
+      
       const matchesType = activeJobFilter === 'all' || job.type === activeJobFilter;
       return matchesSearch && matchesType;
   });
@@ -412,7 +528,7 @@ function App() {
                </div>
                <input
                  type="text"
-                 placeholder={activeTab === 'interviews' ? "搜索面经、公司或职位..." : "搜索职位、公司..."}
+                 placeholder={activeTab === 'interviews' ? "搜索面经、公司或职位..." : "搜索职位、公司、详情..."}
                  className="w-full pl-10 pr-4 py-2 bg-gray-100 border-transparent text-gray-900 placeholder-gray-400 rounded-full focus:outline-none focus:bg-white focus:ring-2 focus:ring-blue-100 focus:border-blue-300 transition-all text-sm"
                  value={searchQuery}
                  onChange={(e) => setSearchQuery(e.target.value)}
@@ -501,10 +617,30 @@ function App() {
 
       {/* Main Layout */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-8">
+        
+        {/* Offline Banner */}
+        {isOffline && (
+           <div className="mb-6 bg-amber-50 border border-amber-200 rounded-xl p-3 flex items-center justify-center text-sm font-medium text-amber-800 animate-in fade-in slide-in-from-top-2">
+              <WifiOff size={16} className="mr-2" />
+              无法连接到服务器，目前显示为本地演示数据 (离线模式)
+           </div>
+        )}
+
         <div className="flex flex-col lg:flex-row gap-8">
           
           {/* Sidebar (Desktop) */}
-          <Sidebar activeTab={activeTab} onChangeTab={setActiveTab} />
+          <Sidebar 
+            activeTab={activeTab} 
+            onChangeTab={setActiveTab} 
+            onParticipate={() => {
+               if (!user) {
+                 setIsAuthModalOpen(true);
+               } else {
+                 setActiveTab('interviews');
+                 setIsModalOpen(true);
+               }
+            }}
+          />
           
           {/* Main Content */}
           <main className="flex-1 min-w-0">
@@ -550,27 +686,66 @@ function App() {
                         热门精选
                       </button>
                     </div>
+
+                    <button 
+                        onClick={() => fetchPosts(1, true)} 
+                        className="p-2 bg-white border border-gray-200 rounded-full hover:bg-gray-50 text-gray-500 transition-colors"
+                        title="刷新列表"
+                    >
+                        <RotateCcw size={16} className={isLoading ? 'animate-spin' : ''} />
+                    </button>
                   </div>
 
                   {/* Interview Posts Grid */}
                   <div className="grid gap-6 grid-cols-1">
-                    {displayPosts.map(post => (
-                      <PostCard 
-                        key={post.id} 
-                        post={post} 
-                        onAddComment={handleAddComment}
-                        onVote={handleVote}
-                        onToggleFavorite={handleToggleFavorite}
-                        onShare={handleShare}
-                      />
-                    ))}
+                    {displayPosts.map((post, index) => {
+                      // Attach ref to the last post for infinite scrolling
+                      if (displayPosts.length === index + 1) {
+                         return (
+                            <div ref={lastPostRef} key={post.id}>
+                              <PostCard 
+                                post={post} 
+                                onAddComment={handleAddComment}
+                                onVote={handleVote}
+                                onToggleFavorite={handleToggleFavorite}
+                                onShare={handleShare}
+                              />
+                            </div>
+                         );
+                      }
+                      return (
+                        <PostCard 
+                          key={post.id} 
+                          post={post} 
+                          onAddComment={handleAddComment}
+                          onVote={handleVote}
+                          onToggleFavorite={handleToggleFavorite}
+                          onShare={handleShare}
+                        />
+                      );
+                    })}
+                    
+                    {isFetchingMore && (
+                        <div className="flex justify-center items-center py-4">
+                            <Loader2 className="animate-spin text-blue-600" size={24} />
+                            <span className="ml-2 text-gray-500 text-sm">加载更多...</span>
+                        </div>
+                    )}
+
+                    {!hasMore && displayPosts.length > 0 && !isLoading && (
+                        <div className="text-center py-8 text-gray-400 text-sm">
+                            没有更多内容了
+                        </div>
+                    )}
+
                     {displayPosts.length === 0 && (
                       <div className="text-center py-20 bg-white rounded-2xl border border-dashed border-gray-200">
                         <div className="inline-flex justify-center items-center w-16 h-16 rounded-full bg-gray-50 mb-4">
                           <Search size={24} className="text-gray-400" />
                         </div>
-                        <p className="text-gray-500 font-medium">未找到相关内容</p>
-                        <p className="text-gray-400 text-sm mt-1">换个关键词试试？</p>
+                        <p className="text-gray-500 font-medium">
+                          {isLoading ? '加载中...' : '未找到相关内容'}
+                        </p>
                       </div>
                     )}
                   </div>
@@ -598,14 +773,20 @@ function App() {
                    {/* Jobs Grid */}
                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                       {filteredJobs.map(job => (
-                         <JobCard key={job.id} job={job} />
+                         <JobCard 
+                           key={job.id} 
+                           job={job} 
+                           onToggleFavorite={handleToggleJobFavorite}
+                         />
                       ))}
                       {filteredJobs.length === 0 && (
                         <div className="col-span-full text-center py-20 bg-white rounded-2xl border border-dashed border-gray-200">
                           <div className="inline-flex justify-center items-center w-16 h-16 rounded-full bg-gray-50 mb-4">
                             <Briefcase size={24} className="text-gray-400" />
                           </div>
-                          <p className="text-gray-500 font-medium">暂时没有该类别的职位</p>
+                          <p className="text-gray-500 font-medium">
+                            {isLoading ? '加载中...' : '暂时没有该类别的职位'}
+                          </p>
                         </div>
                       )}
                    </div>
