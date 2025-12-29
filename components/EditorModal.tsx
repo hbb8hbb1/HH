@@ -112,7 +112,7 @@ const EditorModal: React.FC<EditorModalProps> = ({ onClose, onSave }) => {
                    AI 智能助手
                  </h3>
                  <p className="text-xs text-indigo-700 mt-1">
-                   在正文中粘贴杂乱的面试笔记，点击右侧按钮，AI 将自动提取标题、公司、职位并润色正文。
+                   支持直接粘贴 HTML 网页源码或杂乱笔记。点击右侧按钮，AI 将自动去除反爬虫噪音、提取标题并润色正文。
                  </p>
                </div>
                <button
@@ -124,7 +124,7 @@ const EditorModal: React.FC<EditorModalProps> = ({ onClose, onSave }) => {
                      : 'bg-indigo-600 hover:bg-indigo-700 hover:shadow-md'}`}
                >
                  {isProcessing ? <Loader2 className="animate-spin" size={14} /> : <Sparkles size={14} />}
-                 {isProcessing ? '分析中...' : '一键智能填充'}
+                 {isProcessing ? '清洗并提取' : '一键智能填充'}
                </button>
             </div>
 
@@ -228,7 +228,7 @@ const EditorModal: React.FC<EditorModalProps> = ({ onClose, onSave }) => {
                   {activeTab === 'edit' ? (
                     <textarea
                       className="w-full h-full p-4 resize-none focus:outline-none text-sm leading-relaxed text-gray-700"
-                      placeholder="在这里输入面试经过、题目细节和心得体会...&#10;&#10;💡 小贴士：你可以直接粘贴杂乱的笔记，然后点击上方的“一键智能填充”来整理内容。"
+                      placeholder="在这里粘贴面试 HTML 源码、笔记或杂乱的文本...&#10;&#10;💡 小贴士：粘贴后点击上方的“一键智能填充”，AI 会自动去除反爬虫乱码并提取内容。"
                       value={content}
                       onChange={e => setContent(e.target.value)}
                     />

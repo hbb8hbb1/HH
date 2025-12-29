@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { JobPost } from '../types';
-import { Building, MapPin, Clock, Briefcase, Crown, ExternalLink, ChevronDown, ChevronUp, Mail, Send } from 'lucide-react';
+import { Building, MapPin, Clock, Briefcase, Crown, ExternalLink, ChevronDown, ChevronUp, Mail, Bookmark } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 
 interface JobCardProps {
   job: JobPost;
+  onToggleFavorite?: (id: string) => void;
 }
 
-const JobCard: React.FC<JobCardProps> = ({ job }) => {
+const JobCard: React.FC<JobCardProps> = ({ job, onToggleFavorite }) => {
   const [expanded, setExpanded] = useState(false);
 
   // Helper for type styles
@@ -171,6 +172,17 @@ const JobCard: React.FC<JobCardProps> = ({ job }) => {
           </div>
 
           <div className="flex items-center gap-3 shrink-0">
+             <button
+               onClick={(e) => {
+                 e.stopPropagation();
+                 onToggleFavorite?.(job.id);
+               }}
+               className={`p-2 rounded-full transition-colors ${job.isFavorited ? 'text-indigo-600 bg-indigo-50' : 'text-gray-400 hover:bg-gray-100 hover:text-gray-600'}`}
+               title={job.isFavorited ? "取消收藏" : "收藏职位"}
+             >
+                <Bookmark size={18} className={job.isFavorited ? 'fill-indigo-600' : ''} />
+             </button>
+
              <button
                onClick={() => setExpanded(!expanded)}
                className="text-xs font-semibold text-gray-500 hover:text-gray-900 transition-colors flex items-center gap-1 px-2 py-1.5"

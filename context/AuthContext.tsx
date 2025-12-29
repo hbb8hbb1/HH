@@ -13,88 +13,114 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+// Configure this to your backend URL
+const API_URL = 'http://localhost:5000/api';
+
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
+  // Load user from token on mount
   useEffect(() => {
-    // Check local storage for existing session
-    const storedUser = localStorage.getItem('offerMagnet_user');
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
-    setIsLoading(false);
+    const checkAuth = async () => {
+      const token = localStorage.getItem('offerMagnet_token');
+      if (!token) {
+        setIsLoading(false);
+        return;
+      }
+
+      try {
+        const res = await fetch(`${API_URL}/auth/me`, {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        
+        if (res.ok) {
+          const userData = await res.json();
+          setUser(userData);
+        } else {
+          // Token invalid
+          localStorage.removeItem('offerMagnet_token');
+        }
+      } catch (error) {
+        console.error("Auth check failed:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    checkAuth();
   }, []);
 
   const login = async (email: string, password: string): Promise<void> => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        // Mock validation
-        if (password.length < 6) {
-          reject(new Error('密码长度不能少于6位'));
-          return;
-        }
-        // Mock successful login
-        // Check if this mock user was saved as pro in a previous session (simplified logic)
-        const savedUserStr = localStorage.getItem('offerMagnet_user');
-        const savedUser = savedUserStr ? JSON.parse(savedUserStr) : null;
-        
-        const mockUser: User = {
-          id: 'u_' + Date.now(),
-          name: email.split('@')[0], // Use part of email as name for mock
-          email: email,
-          isPro: savedUser?.email === email ? savedUser.isPro : false
-        };
-        setUser(mockUser);
-        localStorage.setItem('offerMagnet_user', JSON.stringify(mockUser));
-        resolve();
-      }, 800); // Simulate network delay
-    });
+    try {
+      const res = await fetch(`${API_URL}/auth/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || '登录失败');
+      }
+
+      localStorage.setItem('offerMagnet_token', data.token);
+      setUser(data.user);
+    } catch (error) {
+      throw error;
+    }
   };
 
   const register = async (name: string, email: string, password: string): Promise<void> => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if (!name || !email || !password) {
-           reject(new Error('请填写所有必填项'));
-           return;
-        }
-        const mockUser: User = {
-          id: 'u_' + Date.now(),
-          name: name,
-          email: email,
-          isPro: false,
-        };
-        setUser(mockUser);
-        localStorage.setItem('offerMagnet_user', JSON.stringify(mockUser));
-        resolve();
-      }, 800);
-    });
+    try {
+      const res = await fetch(`${API_URL}/auth/register`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, password }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || '注册失败');
+      }
+
+      localStorage.setItem('offerMagnet_token', data.token);
+      setUser(data.user);
+    } catch (error) {
+      throw error;
+    }
   };
 
   const logout = () => {
     setUser(null);
-    localStorage.removeItem('offerMagnet_user');
+    localStorage.removeItem('offerMagnet_token');
   };
 
   const upgradeToPro = async (): Promise<void> => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        if (user) {
-          const updatedUser = { ...user, isPro: true };
-          setUser(updatedUser);
-          localStorage.setItem('offerMagnet_user', JSON.stringify(updatedUser));
+    try {
+      const token = localStorage.getItem('offerMagnet_token');
+      const res = await fetch(`${API_URL}/users/upgrade`, {
+        method: 'POST',
+        headers: { 
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
         }
-        resolve();
-      }, 1500); // Simulate payment processing
-    });
+      });
+
+      if (res.ok && user) {
+        setUser({ ...user, isPro: true });
+      }
+    } catch (error) {
+      console.error("Upgrade failed:", error);
+    }
   };
 
-  const grantFreePro = () => {
+  const grantFreePro = async () => {
+    // Re-use upgrade logic for now, or create a specific endpoint for free grants logic
     if (user && !user.isPro) {
-      const updatedUser = { ...user, isPro: true };
-      setUser(updatedUser);
-      localStorage.setItem('offerMagnet_user', JSON.stringify(updatedUser));
+      await upgradeToPro();
     }
   };
 

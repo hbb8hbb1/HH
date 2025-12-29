@@ -4,9 +4,10 @@ import { BookOpen, Briefcase, LayoutGrid, Award, TrendingUp } from 'lucide-react
 interface SidebarProps {
   activeTab: 'interviews' | 'jobs';
   onChangeTab: (tab: 'interviews' | 'jobs') => void;
+  onParticipate?: () => void;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ activeTab, onChangeTab }) => {
+const Sidebar: React.FC<SidebarProps> = ({ activeTab, onChangeTab, onParticipate }) => {
   return (
     <div className="w-64 flex-shrink-0 hidden lg:block">
       <div className="sticky top-24 space-y-8">
@@ -61,7 +62,10 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, onChangeTab }) => {
         </div>
 
         {/* Banner/Ad */}
-        <div className="bg-gradient-to-br from-violet-600 to-indigo-600 rounded-2xl p-5 text-white shadow-lg relative overflow-hidden group cursor-pointer">
+        <div 
+          onClick={onParticipate}
+          className="bg-gradient-to-br from-violet-600 to-indigo-600 rounded-2xl p-5 text-white shadow-lg relative overflow-hidden group cursor-pointer"
+        >
             <div className="relative z-10">
                <div className="flex items-center gap-2 mb-2 opacity-90">
                   <Award size={16} />

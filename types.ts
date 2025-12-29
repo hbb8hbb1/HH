@@ -74,4 +74,6 @@ export interface JobPost {
   authorId?: string;
   authorName?: string;
   authorIsPro?: boolean;
+  isFavorited?: boolean;
+  favoritedAt?: string;
 }
