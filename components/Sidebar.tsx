@@ -1,5 +1,5 @@
 import React from 'react';
-import { BookOpen, Briefcase, LayoutGrid, Award, TrendingUp } from 'lucide-react';
+import { BookOpen, Briefcase, Award, TrendingUp } from 'lucide-react';
 
 interface SidebarProps {
   activeTab: 'interviews' | 'jobs';
@@ -45,19 +45,16 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, onChangeTab, onParticipate
           </button>
         </div>
 
-        {/* Recommended Topics (Static for now) */}
+        {/* Recommended Topics */}
         <div className="space-y-1">
           <h3 className="px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">热门话题</h3>
           <div className="space-y-1">
-             <a href="#" className="block px-3 py-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-white/50 rounded-lg transition-colors flex items-center gap-2">
+             <div className="px-3 py-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-white/50 rounded-lg transition-colors flex items-center gap-2 cursor-pointer">
                <TrendingUp size={16} className="text-gray-400" /> 2024 春招补录
-             </a>
-             <a href="#" className="block px-3 py-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-white/50 rounded-lg transition-colors flex items-center gap-2">
+             </div>
+             <div className="px-3 py-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-white/50 rounded-lg transition-colors flex items-center gap-2 cursor-pointer">
                <TrendingUp size={16} className="text-gray-400" /> 字节跳动内推
-             </a>
-             <a href="#" className="block px-3 py-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-white/50 rounded-lg transition-colors flex items-center gap-2">
-               <TrendingUp size={16} className="text-gray-400" /> 前端高频面试题
-             </a>
+             </div>
           </div>
         </div>
 
@@ -71,9 +68,11 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, onChangeTab, onParticipate
                   <Award size={16} />
                   <span className="text-xs font-bold uppercase tracking-wide">OfferMagnet Pro</span>
                </div>
-               <h4 className="font-bold text-lg leading-tight mb-2">免费解锁 Pro 权益</h4>
-               <p className="text-xs text-indigo-100 opacity-80 mb-3">发布面经获 10 赞或 3 次分享，即可免费获取 Pro 会员！</p>
-               <button className="text-xs bg-white text-indigo-600 px-3 py-1.5 rounded-lg font-bold shadow-sm group-hover:scale-105 transition-transform">立即参与</button>
+               <h4 className="font-bold text-lg leading-tight mb-2">分享面经获好礼</h4>
+               <p className="text-xs text-indigo-100 opacity-80 mb-3">发布面经或招聘信息，助力他人获取更高薪 Offer！</p>
+               <button className="text-xs bg-white text-indigo-600 px-4 py-2 rounded-lg font-bold shadow-sm group-hover:scale-105 transition-transform">
+                  立即发布
+               </button>
             </div>
             <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-white/10 rounded-full blur-2xl group-hover:bg-white/20 transition-colors"></div>
         </div>

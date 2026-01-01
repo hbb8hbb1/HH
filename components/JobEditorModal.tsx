@@ -1,13 +1,17 @@
+
 import React, { useState } from 'react';
 import { X, Building, MapPin, Briefcase, Banknote, Tag as TagIcon, Save, Loader2 } from 'lucide-react';
 import { JobPost, JobType } from '../types';
 
 interface JobEditorModalProps {
+  isOpen: boolean;
   onClose: () => void;
   onSave: (job: Omit<JobPost, 'id' | 'createdAt' | 'authorId' | 'authorName' | 'authorIsPro'>) => void;
 }
 
-const JobEditorModal: React.FC<JobEditorModalProps> = ({ onClose, onSave }) => {
+const JobEditorModal: React.FC<JobEditorModalProps> = ({ isOpen, onClose, onSave }) => {
+  if (!isOpen) return null;
+
   const [title, setTitle] = useState('');
   const [company, setCompany] = useState('');
   const [role, setRole] = useState('');
@@ -27,7 +31,6 @@ const JobEditorModal: React.FC<JobEditorModalProps> = ({ onClose, onSave }) => {
     }
     
     setIsSubmitting(true);
-    // Simulate API delay
     setTimeout(() => {
         onSave({
             title,
@@ -59,7 +62,7 @@ const JobEditorModal: React.FC<JobEditorModalProps> = ({ onClose, onSave }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-in fade-in duration-200">
+    <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-in fade-in duration-200">
       <div className="bg-white rounded-2xl shadow-2xl w-full max-w-3xl h-[85vh] flex flex-col overflow-hidden animate-in zoom-in-95 duration-200">
         
         {/* Header */}
@@ -78,8 +81,6 @@ const JobEditorModal: React.FC<JobEditorModalProps> = ({ onClose, onSave }) => {
         {/* Content */}
         <div className="flex-1 overflow-y-auto custom-scrollbar bg-gray-50/50 p-6">
            <div className="max-w-2xl mx-auto space-y-6">
-              
-              {/* Type Selection */}
               <div className="flex gap-4">
                  {(['social', 'campus', 'intern'] as const).map((t) => (
                     <label key={t} className={`flex-1 cursor-pointer border rounded-xl p-3 flex items-center justify-center gap-2 transition-all ${type === t ? 'bg-indigo-50 border-indigo-200 text-indigo-700 ring-1 ring-indigo-200' : 'bg-white border-gray-200 text-gray-600 hover:border-indigo-100'}`}>
@@ -93,7 +94,6 @@ const JobEditorModal: React.FC<JobEditorModalProps> = ({ onClose, onSave }) => {
                  ))}
               </div>
 
-              {/* Basic Info */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                  <div className="col-span-full">
                     <label className="block text-xs font-semibold text-gray-500 mb-1.5 uppercase">职位名称 <span className="text-red-500">*</span></label>
@@ -151,7 +151,6 @@ const JobEditorModal: React.FC<JobEditorModalProps> = ({ onClose, onSave }) => {
                  </div>
               </div>
 
-              {/* Tags */}
               <div>
                 <label className="block text-xs font-semibold text-gray-500 mb-1.5 uppercase flex items-center gap-1"><TagIcon size={12}/> 技能标签 (回车添加)</label>
                 <div className="bg-white border border-gray-200 px-3 py-2 rounded-xl flex flex-wrap gap-2 focus-within:ring-2 focus-within:ring-indigo-500 focus-within:border-transparent">
@@ -172,7 +171,6 @@ const JobEditorModal: React.FC<JobEditorModalProps> = ({ onClose, onSave }) => {
                 </div>
               </div>
               
-              {/* Description */}
               <div>
                  <label className="block text-xs font-semibold text-gray-500 mb-1.5 uppercase">职位描述 & 要求 <span className="text-red-500">*</span></label>
                  <textarea
@@ -193,11 +191,9 @@ const JobEditorModal: React.FC<JobEditorModalProps> = ({ onClose, onSave }) => {
                    placeholder="https://... 或 hr@company.com"
                  />
               </div>
-
            </div>
         </div>
 
-        {/* Footer */}
         <div className="px-6 py-4 border-t border-gray-100 bg-white flex justify-end gap-3">
           <button 
             onClick={onClose}

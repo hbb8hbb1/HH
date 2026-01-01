@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, Mail, Lock, User as UserIcon, Loader2, ArrowRight } from 'lucide-react';
+import { X, Mail, Lock, User as UserIcon, Loader2, ArrowRight, UserCheck } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
 interface AuthModalProps {
@@ -16,7 +16,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, initialView = 'l
   const [error, setError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   
-  const { login, register } = useAuth();
+  const { login, register, loginAsGuest } = useAuth();
 
   if (!isOpen) return null;
 
@@ -39,6 +39,11 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, initialView = 'l
     }
   };
 
+  const handleGuestLogin = () => {
+    loginAsGuest();
+    onClose();
+  };
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-in fade-in duration-200">
       <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden animate-in zoom-in-95 duration-200">
@@ -52,6 +57,10 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, initialView = 'l
              <X size={20} />
            </button>
            
+           <div className="inline-flex items-center justify-center w-12 h-12 bg-blue-50 text-blue-600 rounded-full mb-4">
+              <UserCheck size={24} />
+           </div>
+
            <h2 className="text-2xl font-bold text-gray-900 mb-2">
              {view === 'login' ? '欢迎回来' : '加入 OfferMagnet'}
            </h2>
@@ -63,7 +72,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, initialView = 'l
         </div>
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="px-8 pb-8 space-y-4">
+        <form onSubmit={handleSubmit} className="px-8 pb-4 space-y-4">
           {view === 'register' && (
             <div className="space-y-1.5">
               <label className="text-xs font-semibold text-gray-700 ml-1">昵称</label>
@@ -139,6 +148,22 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, initialView = 'l
             )}
           </button>
         </form>
+
+        <div className="px-8 pb-6">
+           <div className="relative py-4 flex items-center">
+              <div className="flex-grow border-t border-gray-100"></div>
+              <span className="flex-shrink mx-4 text-gray-400 text-[10px] font-bold uppercase tracking-widest">或者</span>
+              <div className="flex-grow border-t border-gray-100"></div>
+           </div>
+           
+           <button
+             onClick={handleGuestLogin}
+             className="w-full py-2.5 border-2 border-gray-100 hover:border-gray-200 hover:bg-gray-50 text-gray-600 font-bold text-sm rounded-xl transition-all flex items-center justify-center gap-2"
+           >
+             <UserIcon size={16} />
+             以游客身份体验
+           </button>
+        </div>
 
         {/* Footer */}
         <div className="bg-gray-50 px-8 py-4 text-center border-t border-gray-100">

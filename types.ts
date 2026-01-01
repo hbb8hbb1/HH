@@ -1,3 +1,4 @@
+
 export interface User {
   id: string;
   name: string;
@@ -35,10 +36,11 @@ export interface InterviewPost {
   shareCount: number;
   // User specific fields
   isFavorited?: boolean;
-  favoritedAt?: string; // Timestamp when the user favorited the post
+  favoritedAt?: string;
   authorId?: string;
   authorName?: string;
-  authorIsPro?: boolean; // Visual badge for post author
+  authorIsPro?: boolean;
+  isAnonymous?: boolean; // New: privacy control
 }
 
 export interface ProcessedResponse {
@@ -48,14 +50,13 @@ export interface ProcessedResponse {
   role: string;
   difficulty: number;
   tags: string[];
+  isAnonymous?: boolean;
 }
 
 export enum ViewState {
   FEED = 'FEED',
   CREATE = 'CREATE'
 }
-
-// --- New Job Related Types ---
 
 export type JobType = 'social' | 'campus' | 'intern';
 
@@ -65,11 +66,11 @@ export interface JobPost {
   company: string;
   role: string;
   location: string;
-  salaryRange?: string; // e.g. "20k-40k"
+  salaryRange?: string;
   type: JobType;
-  description: string; // Markdown supported
+  description: string;
   tags: string[];
-  applyLink?: string; // External link or email
+  applyLink?: string;
   createdAt: string;
   authorId?: string;
   authorName?: string;
