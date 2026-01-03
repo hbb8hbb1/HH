@@ -1,4 +1,5 @@
-import { GoogleGenAI, Type, Schema } from "@google/genai";
+
+import { GoogleGenAI, Type } from "@google/genai";
 import { ProcessedResponse } from '../types';
 
 // Initialize the Gemini client
@@ -7,7 +8,7 @@ const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
 const modelId = 'gemini-3-flash-preview';
 
-const responseSchema: Schema = {
+const responseSchema = {
   type: Type.OBJECT,
   properties: {
     title: {
@@ -65,6 +66,7 @@ export const processInterviewContent = async (rawText: string): Promise<Processe
       """
     `;
 
+    // Query GenAI using the recommended ai.models.generateContent method
     const response = await ai.models.generateContent({
       model: modelId,
       contents: prompt,
