@@ -1,3 +1,4 @@
+
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { User } from '../types';
 
@@ -14,15 +15,13 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-const API_URL = 'http://localhost:5000/api';
-
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const checkAuth = async () => {
-      const token = localStorage.getItem('offerMagnet_token');
+    const checkAuth = () => {
+      const storedUser = localStorage.getItem('offerMagnet_user');
       const isGuest = localStorage.getItem('offerMagnet_isGuest') === 'true';
 
       if (isGuest) {
@@ -32,72 +31,49 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
           email: 'guest@offermagnet.demo',
           isPro: false
         });
-        setIsLoading(false);
-        return;
-      }
-
-      if (!token) {
-        setIsLoading(false);
-        return;
-      }
-
-      try {
-        const res = await fetch(`${API_URL}/auth/me`, {
-          headers: { 'Authorization': `Bearer ${token}` }
-        });
-        
-        if (res.ok) {
-          const userData = await res.json();
-          setUser(userData);
-        } else {
-          localStorage.removeItem('offerMagnet_token');
+      } else if (storedUser) {
+        try {
+          setUser(JSON.parse(storedUser));
+        } catch (e) {
+          localStorage.removeItem('offerMagnet_user');
         }
-      } catch (error) {
-        console.warn("Auth check failed, likely backend is offline.");
-      } finally {
-        setIsLoading(false);
       }
+      setIsLoading(false);
     };
 
     checkAuth();
   }, []);
 
   const login = async (email: string, password: string): Promise<void> => {
-    try {
-      const res = await fetch(`${API_URL}/auth/login`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
-      });
+    // Simulating API delay
+    await new Promise(resolve => setTimeout(resolve, 800));
+    
+    // In a real app, we'd fetch from server. Here we just mock it.
+    const mockUser: User = {
+      id: Math.random().toString(36).substr(2, 9),
+      name: email.split('@')[0],
+      email: email,
+      isPro: false
+    };
 
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || '登录失败');
-
-      localStorage.removeItem('offerMagnet_isGuest');
-      localStorage.setItem('offerMagnet_token', data.token);
-      setUser(data.user);
-    } catch (error) {
-      throw error;
-    }
+    localStorage.removeItem('offerMagnet_isGuest');
+    localStorage.setItem('offerMagnet_user', JSON.stringify(mockUser));
+    setUser(mockUser);
   };
 
   const register = async (name: string, email: string, password: string): Promise<void> => {
-    try {
-      const res = await fetch(`${API_URL}/auth/register`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, password }),
-      });
+    await new Promise(resolve => setTimeout(resolve, 800));
+    
+    const mockUser: User = {
+      id: Math.random().toString(36).substr(2, 9),
+      name,
+      email,
+      isPro: false
+    };
 
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || '注册失败');
-
-      localStorage.removeItem('offerMagnet_isGuest');
-      localStorage.setItem('offerMagnet_token', data.token);
-      setUser(data.user);
-    } catch (error) {
-      throw error;
-    }
+    localStorage.removeItem('offerMagnet_isGuest');
+    localStorage.setItem('offerMagnet_user', JSON.stringify(mockUser));
+    setUser(mockUser);
   };
 
   const loginAsGuest = () => {
@@ -109,32 +85,21 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     };
     setUser(guestUser);
     localStorage.setItem('offerMagnet_isGuest', 'true');
-    localStorage.removeItem('offerMagnet_token');
+    localStorage.removeItem('offerMagnet_user');
   };
 
   const logout = () => {
     setUser(null);
-    localStorage.removeItem('offerMagnet_token');
+    localStorage.removeItem('offerMagnet_user');
     localStorage.removeItem('offerMagnet_isGuest');
   };
 
   const upgradeToPro = async (): Promise<void> => {
-    if (user?.id === 'guest_temp') {
-      setUser({ ...user, isPro: true });
-      return;
-    }
-    try {
-      const token = localStorage.getItem('offerMagnet_token');
-      const res = await fetch(`${API_URL}/users/upgrade`, {
-        method: 'POST',
-        headers: { 
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        }
-      });
-      if (res.ok && user) setUser({ ...user, isPro: true });
-    } catch (error) {
-      console.error("Upgrade failed:", error);
+    if (!user) return;
+    const updatedUser = { ...user, isPro: true };
+    setUser(updatedUser);
+    if (user.id !== 'guest_temp') {
+      localStorage.setItem('offerMagnet_user', JSON.stringify(updatedUser));
     }
   };
 

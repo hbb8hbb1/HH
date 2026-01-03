@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-const { GoogleGenAI, Type, Schema } = require("@google/genai");
+const { GoogleGenAI, Type } = require("@google/genai");
 require('dotenv').config();
 
 const User = require('./models/User');
