@@ -10,8 +10,10 @@ export default defineConfig(({ mode }) => {
         host: '0.0.0.0',
         proxy: {
           '/api': {
-            target: 'http://localhost:5001',
+            target: 'http://localhost:5001',  // 修复：后端实际运行在 5001 端口（5000 被 macOS AirPlay 占用）
             changeOrigin: true,
+            secure: false,
+            rewrite: (path) => path,  // 保持路径不变
           }
         }
       },

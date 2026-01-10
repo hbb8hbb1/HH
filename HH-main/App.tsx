@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { Search, RotateCcw, Plus, ChevronDown, Compass, Building2, Cpu, Banknote, ShoppingBag, Layers, Filter as FilterIcon, Check, MapPin, Award, PartyPopper, Trash2, Briefcase, Tag as TagIcon, X, Zap, Loader2, ChevronLeft, ChevronRight } from 'lucide-react';
 import PostCard from './components/PostCard';
 import JobCard from './components/JobCard';
@@ -196,11 +196,17 @@ function App() {
         console.log('✅ 获取到数据:', result);
         
         // 处理新的 API 响应格式（包含 pagination）
-        const data = result.posts || result; // 兼容新旧格式
-        const pagination = result.pagination || { page, limit: POSTS_PER_PAGE, total: data.length, totalPages: 1 };
+        const postsArray = result.posts || (Array.isArray(result) ? result : []); // 兼容新旧格式
+        const pagination = result.pagination || { page, limit: POSTS_PER_PAGE, total: postsArray.length, totalPages: 1 };
+        
+        console.log('📦 收到的数据:', {
+          hasPosts: !!result.posts,
+          postsLength: postsArray.length,
+          pagination: pagination
+        });
         
         // 转换后端数据格式为前端格式
-        const formattedPosts: InterviewPost[] = (Array.isArray(data) ? data : []).map((post: any) => ({
+        const formattedPosts: InterviewPost[] = postsArray.map((post: any) => ({
           id: post._id || post.id,
           title: post.title || '',
           originalContent: post.originalContent || '',
@@ -309,12 +315,19 @@ function App() {
     }
   }, [currentPage, filters.company, filters.location, filters.recruitType, filters.category, filters.experience, filters.salary, searchQuery, activeTab]);
 
-  // 模拟搜索和过滤的加载效果
+  // 模拟搜索和过滤的加载效果（只在筛选条件改变时触发，不要阻塞初始加载）
+  const prevFiltersRef = useRef<string>('');
   useEffect(() => {
-    setIsFiltering(true);
-    const timer = setTimeout(() => setIsFiltering(false), 300);
-    return () => clearTimeout(timer);
-  }, [filters, searchQuery, activeTab]);
+    const currentFilters = JSON.stringify({ filters, searchQuery });
+    // 只在筛选条件真正改变时显示过滤动画（不是初始加载）
+    if (prevFiltersRef.current && prevFiltersRef.current !== currentFilters) {
+      setIsFiltering(true);
+      const timer = setTimeout(() => setIsFiltering(false), 300);
+      prevFiltersRef.current = currentFilters;
+      return () => clearTimeout(timer);
+    }
+    prevFiltersRef.current = currentFilters;
+  }, [filters.company, filters.location, filters.recruitType, filters.category, filters.experience, filters.salary, searchQuery]);
 
   const handleFilterChange = (key: keyof Filters, value: string) => {
     setFilters(prev => ({
@@ -362,19 +375,16 @@ function App() {
   };
 
   // 注意：由于筛选已由后端API完成，前端只需要做基本的内容过滤
-  // 保留此函数用于向后兼容和额外的客户端过滤（如果需要）
-  const filteredPosts = posts.filter(post => {
-    // 只显示有内容的帖子（过滤掉只有标题没有内容的）
-    const hasContent = (post.originalContent && post.originalContent.trim().length > 50) || 
-                       (post.processedContent && post.processedContent.trim().length > 50);
-    if (!hasContent) {
-      return false; // 跳过没有内容的帖子
-    }
-    
-    // 由于筛选已由后端完成，这里只做基本的内容检查
-    // 如果需要额外的客户端过滤，可以在这里添加
-    return true;
-  });
+  // 后端已经在内存中过滤了内容长度 >= 50 的帖子，这里不需要再次过滤
+  // 但为了安全，保留一个宽松的检查（避免显示完全空的帖子）
+  const filteredPosts = useMemo(() => {
+    return posts.filter(post => {
+      // 宽松的内容检查：只要有 originalContent 或 processedContent 就显示
+      const hasContent = (post.originalContent && post.originalContent.trim().length > 0) || 
+                         (post.processedContent && post.processedContent.trim().length > 0);
+      return hasContent;
+    });
+  }, [posts]);
 
   const filteredJobs = jobs.filter(job => {
     const matchesCompany = filters.company === '' || job.company === filters.company;
@@ -481,24 +491,20 @@ function App() {
 
              {/* --- Content List with Loading Overlay --- */}
              <div className="relative min-h-[400px]">
-                {isFiltering && (
-                   <div className="absolute inset-0 z-40 bg-slate-50/50 backdrop-blur-[1px] flex items-center justify-center rounded-3xl animate-in fade-in duration-200">
+                {/* 只在初始加载时显示加载动画 */}
+                {isLoading && posts.length === 0 ? (
+                   <div className="absolute inset-0 z-40 bg-slate-50/50 backdrop-blur-[1px] flex items-center justify-center rounded-3xl">
                       <div className="flex flex-col items-center gap-3">
                          <div className="w-12 h-12 border-4 border-indigo-200 border-t-indigo-600 rounded-full animate-spin"></div>
-                         <span className="text-xs font-black text-indigo-600 uppercase tracking-widest">Searching...</span>
+                         <span className="text-xs font-black text-indigo-600 uppercase tracking-widest">加载中...</span>
                       </div>
                    </div>
-                )}
+                ) : null}
 
-                <div className={`space-y-6 transition-all duration-300 ${isFiltering || isLoading ? 'opacity-30 blur-sm scale-[0.98]' : 'opacity-100 scale-100'}`}>
+                <div className={`space-y-6 transition-all duration-300 ${isFiltering && posts.length > 0 ? 'opacity-70' : 'opacity-100'}`}>
                   {activeTab === 'interviews' && (
                     <>
-                      {isLoading && posts.length === 0 ? (
-                        <div className="py-32 flex flex-col items-center justify-center">
-                          <div className="w-12 h-12 border-4 border-indigo-200 border-t-indigo-600 rounded-full animate-spin mb-4"></div>
-                          <p className="text-sm text-slate-500">加载中...</p>
-                        </div>
-                      ) : filteredPosts.length > 0 ? (
+                      {filteredPosts.length > 0 ? (
                         <>
                           {filteredPosts.map(post => <PostCard key={post.id} post={post} onVote={handleVote} searchQuery={searchQuery} />)}
                           

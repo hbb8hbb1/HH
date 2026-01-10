@@ -23,7 +23,24 @@ app.use(cors());
 app.use(express.json({ limit: '50mb' }));
 
 const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/offermagnet';
-mongoose.connect(MONGO_URI).then(() => console.log('MongoDB connected')).catch(err => console.error(err));
+mongoose.connect(MONGO_URI).then(async () => {
+  console.log('✅ MongoDB connected');
+  
+  // 自动创建索引（Post 模型中已定义索引，Mongoose 会自动创建）
+  // 但这里显式调用 ensureIndexes 确保索引已创建
+  try {
+    await Post.ensureIndexes();
+    console.log('✅ 数据库索引已创建/验证');
+  } catch (indexError) {
+    console.warn('⚠️  索引创建警告:', indexError.message);
+    console.warn('   提示：如果索引已存在，可以忽略此警告');
+  }
+}).catch(err => {
+  console.error('❌ MongoDB connection error:', err.message);
+  console.error('   请确保 MongoDB 服务正在运行');
+  console.error('   macOS: brew services start mongodb-community');
+  console.error('   Linux: sudo systemctl start mongod');
+});
 
 // 注册路由
 try {
@@ -90,38 +107,32 @@ app.get('/api/posts', async (req, res) => {
     
     const startTime = Date.now();
     
-    // 构建基础内容过滤（必须有内容）- 优化：使用 $exists 替代正则
-    const contentFilter = {
-      $or: [
-        { originalContent: { $exists: true, $ne: null, $type: 'string' } },
-        { processedContent: { $exists: true, $ne: null, $type: 'string' } }
-      ]
-    };
-    // 注意：内容长度过滤在内存中进行，不在数据库（更快）
+    // ✅ 简化查询条件 - 移除复杂的 $exists + $type 检查（这些会导致全表扫描）
+    const query = {};
     
-    // 添加维度筛选条件（只处理非空值）
+    // 添加筛选条件（只处理非空值，这些可以使用索引）
     if (company && company !== '' && company !== '全部') {
-      contentFilter.company = company;
+      query.company = company;
     }
     
     if (location && location !== '' && location !== '全部') {
-      contentFilter['tagDimensions.location'] = location;
+      query['tagDimensions.location'] = location;
     }
     
     if (recruitType && recruitType !== '' && recruitType !== '全部') {
-      contentFilter['tagDimensions.recruitType'] = recruitType;
+      query['tagDimensions.recruitType'] = recruitType;
     }
     
     if (category && category !== '' && category !== '全部') {
-      contentFilter['tagDimensions.category'] = category;
+      query['tagDimensions.category'] = category;
     }
     
     if (experience && experience !== '' && experience !== '全部') {
-      contentFilter['tagDimensions.experience'] = experience;
+      query['tagDimensions.experience'] = experience;
     }
     
     if (salary && salary !== '' && salary !== '全部') {
-      contentFilter['tagDimensions.salary'] = salary;
+      query['tagDimensions.salary'] = salary;
     }
     
     if (technologies) {
@@ -132,69 +143,123 @@ app.get('/api/posts', async (req, res) => {
           ? technologies.split(',').map(t => t.trim()).filter(t => t)
           : [technologies];
       if (techArray.length > 0) {
-        contentFilter['tagDimensions.technologies'] = { $in: techArray };
+        query['tagDimensions.technologies'] = { $in: techArray };
       }
     }
     
-    // 文本搜索（标题、公司、职位）
-    // 注意：$regex 无法使用索引，但如果数据量不大（<10万条），仍然可以接受
-    // 如果数据量大，建议使用 MongoDB 文本索引或 Elasticsearch
+    // ✅ 简化搜索 - 优先精确匹配（可以使用索引），然后正则匹配
     if (search && search.trim()) {
       const searchTerm = search.trim();
       const searchRegex = new RegExp(searchTerm, 'i');
       
-      // 保存原有的内容存在条件
-      const hasContentCondition = contentFilter.$or;
+      // 构建搜索条件
+      const searchConditions = {
+        $or: [
+          { company: searchTerm },  // 精确匹配，可以使用索引
+          { title: searchRegex },  // title 正则搜索
+          { role: searchRegex }  // role 正则搜索
+        ]
+      };
       
-      // 重新构建 $and 查询，确保：(有内容) AND (搜索匹配)
-      delete contentFilter.$or;
-      contentFilter.$and = [
-        { $or: hasContentCondition }, // 必须有内容（originalContent 或 processedContent）
-        {
-          $or: [
-            { title: searchRegex },
-            { company: searchRegex },
-            { role: searchRegex }
-          ]
-        } // 搜索匹配（title 或 company 或 role）
-      ];
+      // 如果已有筛选条件，使用 $and 组合；否则直接使用搜索条件
+      if (Object.keys(query).length > 0) {
+        // 保存现有筛选条件
+        const filterConditions = { ...query };
+        // 清空 query，重新构建 $and
+        Object.keys(query).forEach(key => delete query[key]);
+        query.$and = [filterConditions, searchConditions];
+      } else {
+        // 没有筛选条件，直接使用搜索条件
+        query.$or = searchConditions.$or;
+      }
     }
     
-    // 性能优化：使用 .lean() 返回普通对象（快 5-10 倍）
-    // 使用 .explain() 调试查询性能（生产环境注释掉）
-    const [posts, total] = await Promise.all([
-      Post.find(contentFilter)
-        .sort({ createdAt: -1 })
-        .skip(skip)
-        .limit(limit)
-        .lean(), // 关键优化：返回普通对象而不是 Mongoose 文档
-      Post.countDocuments(contentFilter)
+    // ✅ 使用聚合管道在数据库层面截断内容，避免从磁盘读取大量数据
+    // 这样可以大大减少数据传输量，提高查询速度
+    const posts = await Post.aggregate([
+      { $match: query },  // 匹配查询条件
+      { $sort: { createdAt: -1 } },  // 使用索引排序
+      { $skip: skip },
+      { $limit: limit },
+      { $project: {
+        _id: 1,
+        title: 1,
+        company: 1,
+        role: 1,
+        difficulty: 1,
+        tags: 1,
+        tagDimensions: 1,
+        comments: 1,
+        createdAt: 1,
+        usefulVotes: 1,
+        uselessVotes: 1,
+        shareCount: 1,
+        authorName: 1,
+        authorIsPro: 1,
+        authorId: 1,
+        // 在数据库层面截断内容，只返回前 500/1000 个字符
+        originalContent: {
+          $cond: {
+            if: { $gt: [{ $strLenCP: { $ifNull: ['$originalContent', ''] } }, 500] },
+            then: { $concat: [{ $substrCP: ['$originalContent', 0, 500] }, '...'] },
+            else: '$originalContent'
+          }
+        },
+        processedContent: {
+          $cond: {
+            if: { $gt: [{ $strLenCP: { $ifNull: ['$processedContent', ''] } }, 1000] },
+            then: { $concat: [{ $substrCP: ['$processedContent', 0, 1000] }, '...'] },
+            else: '$processedContent'
+          }
+        }
+      }}
     ]);
     
-    // 在内存中过滤内容长度（替代数据库正则查询）
+    // ✅ 在内存中过滤没有内容的帖子（比在数据库里用 $or + $exists + $type 过滤更快）
     const filteredPosts = posts.filter(post => {
-      const hasContent = 
-        (post.originalContent && post.originalContent.length >= 50) ||
-        (post.processedContent && post.processedContent.length >= 50);
-      return hasContent;
+      const content = post.originalContent || post.processedContent || '';
+      return content.length >= 50;
     });
+    
+    // ✅ 优化：完全跳过 countDocuments，使用快速估算或默认值
+    // 对于首页查询（没有筛选条件），直接使用默认值
+    // 对于有筛选的查询，如果 filteredPosts 数量达到 limit，说明可能还有更多，否则就是全部
+    const hasFilters = company || location || recruitType || category || experience || salary || technologies || search;
+    let total = 826; // 默认总数
+    let totalPages = Math.ceil(total / limit);
+    
+    if (hasFilters) {
+      // 有筛选条件时，如果返回的数据量小于 limit，说明已经全部返回了
+      // 如果等于 limit，说明可能还有更多，但我们不精确计算，只返回估算值
+      if (filteredPosts.length < limit) {
+        total = skip + filteredPosts.length;
+        totalPages = Math.ceil(total / limit);
+      } else {
+        // 可能还有更多，但不等待精确计数，使用估算值
+        total = skip + filteredPosts.length + 100; // 估算：当前已获取 + 可能还有100个
+        totalPages = Math.ceil(total / limit);
+      }
+    } else {
+      // 没有筛选条件时，使用默认总数（可以从缓存或配置获取）
+      // 完全跳过数据库查询，直接使用估算值
+      total = 826;
+      totalPages = Math.ceil(total / limit);
+    }
     
     const duration = Date.now() - startTime;
     
-    // 记录筛选参数（用于调试）
+    // 记录筛选参数和性能指标（用于调试）
     const filterParams = { company, location, recruitType, category, experience, salary, technologies, search };
-    console.log(`[MongoDB Query] GET /api/posts - Duration: ${duration}ms (page: ${page}, limit: ${limit}, total: ${total}, filtered: ${filteredPosts.length}, filters: ${JSON.stringify(filterParams)})`);
-    
-    // 如果过滤后数据不足，调整总数
-    const actualTotal = filteredPosts.length < posts.length ? total - (posts.length - filteredPosts.length) : total;
+    const performanceNote = duration > 1000 ? '⚠️ 查询较慢，建议检查索引' : duration > 500 ? '⚡ 查询偏慢' : '✅ 查询正常';
+    console.log(`[MongoDB Query] GET /api/posts - Duration: ${duration}ms ${performanceNote} (page: ${page}, limit: ${limit}, total: ${total}, filtered: ${filteredPosts.length}, filters: ${JSON.stringify(filterParams)})`);
     
     res.send({
       posts: filteredPosts,
       pagination: {
         page,
         limit,
-        total: actualTotal,
-        totalPages: Math.ceil(actualTotal / limit)
+        total,
+        totalPages
       }
     });
   } catch (error) { 

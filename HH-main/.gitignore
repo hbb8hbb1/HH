@@ -38,6 +38,7 @@ test.html
 *.pid
 frontend.pid
 server.pid
+server/server.pid
 
 # Build outputs
 build
@@ -47,3 +48,11 @@ out
 # Cache
 .cache
 .parcel-cache
+
+# Temporary files and logs
+server/server.log
+frontend.pid
+../GPT_PROMPT_SUMMARY.md
+../MULTI_DIMENSION_FILTER_FILES.md
+../config/
+../hh_pipeline/tag_extractor.py

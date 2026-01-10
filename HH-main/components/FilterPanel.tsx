@@ -291,6 +291,18 @@ export const FilterPanel: React.FC<Props> = ({ filters, onFilterChange, isLoadin
     });
   }, [onFilterChange]);
 
+  // ✅ 所有 hooks 必须在早期返回之前调用，遵循 React Hooks 规则
+  // 按顺序排序维度 - 使用 useMemo 缓存
+  const sortedDimensions = useMemo(() => {
+    return [...DIMENSION_CONFIG].sort((a, b) => a.order - b.order);
+  }, []);
+
+  // 使用 useMemo 缓存活跃筛选状态
+  const hasActiveFilters = useMemo(() => {
+    return Object.values(filters).some(v => v && v !== '');
+  }, [filters]);
+
+  // 早期返回必须在所有 hooks 之后
   if (loading || isLoading) {
     return (
       <div className="flex items-center justify-center p-8">
@@ -314,16 +326,6 @@ export const FilterPanel: React.FC<Props> = ({ filters, onFilterChange, isLoadin
       </div>
     );
   }
-
-  // 按顺序排序维度 - 使用 useMemo 缓存
-  const sortedDimensions = useMemo(() => {
-    return [...DIMENSION_CONFIG].sort((a, b) => a.order - b.order);
-  }, []);
-
-  // 使用 useMemo 缓存活跃筛选状态
-  const hasActiveFilters = useMemo(() => {
-    return Object.values(filters).some(v => v && v !== '');
-  }, [filters]);
 
   return (
     <div className="filter-panel">
