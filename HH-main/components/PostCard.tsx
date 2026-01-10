@@ -393,4 +393,15 @@ const PostCard: React.FC<PostCardProps> = ({ post, onAddComment, onVote, onToggl
   );
 };
 
-export default PostCard;
+// 使用React.memo优化渲染性能，避免不必要的重渲染
+export default React.memo(PostCard, (prevProps, nextProps) => {
+  // 自定义比较函数：只有这些属性变化时才重新渲染
+  return (
+    prevProps.post.id === nextProps.post.id &&
+    prevProps.post.usefulVotes === nextProps.post.usefulVotes &&
+    prevProps.post.uselessVotes === nextProps.post.uselessVotes &&
+    prevProps.post.shareCount === nextProps.post.shareCount &&
+    prevProps.post.comments?.length === nextProps.post.comments?.length &&
+    prevProps.searchQuery === nextProps.searchQuery
+  );
+});

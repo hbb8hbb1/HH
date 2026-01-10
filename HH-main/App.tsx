@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import { Search, RotateCcw, Plus, ChevronDown, Compass, Building2, Cpu, Banknote, ShoppingBag, Layers, Filter as FilterIcon, Check, MapPin, Award, PartyPopper, Trash2, Briefcase, Tag as TagIcon, X, Zap, Loader2, ChevronLeft, ChevronRight } from 'lucide-react';
 import PostCard from './components/PostCard';
 import JobCard from './components/JobCard';
@@ -126,9 +126,6 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const POSTS_PER_PAGE = 20;
   
-  // 添加调试信息
-  console.log('🎨 App 组件渲染，当前 posts 数量:', posts.length);
-  console.log('🎨 当前 jobs 数量:', jobs.length);
   const [activeTab, setActiveTab] = useState<'interviews' | 'jobs' | 'coaching'>('interviews');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
@@ -136,6 +133,23 @@ function App() {
   const [isFiltering, setIsFiltering] = useState(false);
   const [showMilestoneToast, setShowMilestoneToast] = useState(false);
   const [isSticky, setIsSticky] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string>('');
+  const [successMessage, setSuccessMessage] = useState<string>('');
+
+  // 自动关闭Toast通知
+  useEffect(() => {
+    if (errorMessage) {
+      const timer = setTimeout(() => setErrorMessage(''), 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [errorMessage]);
+
+  useEffect(() => {
+    if (successMessage) {
+      const timer = setTimeout(() => setSuccessMessage(''), 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [successMessage]);
 
   // 使用新的筛选结构（与 FilterPanel 兼容）
   const [filters, setFilters] = useState<Filters>(initialFilters);
@@ -155,14 +169,13 @@ function App() {
   // 获取帖子数据（支持分页和筛选）
   const fetchPosts = async (page: number = 1) => {
     setIsLoading(true);
-    console.log('🔄 开始获取 posts 数据，页码:', page);
     try {
       // 构建查询参数
       const params = new URLSearchParams({
         page: page.toString(),
         limit: POSTS_PER_PAGE.toString()
       });
-      
+
       // 添加筛选参数（新结构）
       if (filters.company && filters.company !== '') {
         params.append('company', filters.company);
@@ -185,20 +198,21 @@ function App() {
       if (searchQuery && searchQuery.trim()) {
         params.append('search', searchQuery.trim());
       }
-      
+
       const apiUrl = `/api/posts?${params.toString()}`;
-      console.log('📡 请求 URL:', apiUrl);
       const response = await fetch(apiUrl);
-      console.log('📥 响应状态:', response.status, response.statusText);
-      
+
+      if (!response.ok) {
+        throw new Error(`服务器错误: ${response.status} ${response.statusText}`);
+      }
+
       if (response.ok) {
         const result = await response.json();
-        console.log('✅ 获取到数据:', result);
-        
+
         // 处理新的 API 响应格式（包含 pagination）
         const data = result.posts || result; // 兼容新旧格式
         const pagination = result.pagination || { page, limit: POSTS_PER_PAGE, total: data.length, totalPages: 1 };
-        
+
         // 转换后端数据格式为前端格式
         const formattedPosts: InterviewPost[] = (Array.isArray(data) ? data : []).map((post: any) => ({
           id: post._id || post.id,
@@ -226,16 +240,13 @@ function App() {
           authorName: post.authorName || '匿名用户',
           authorIsPro: post.authorIsPro || false
         }));
-        
-        console.log('📝 格式化后的 posts:', formattedPosts.length, '条');
-        console.log('📄 分页信息:', pagination);
-        
+
         setPosts(formattedPosts.length > 0 ? formattedPosts : (page === 1 ? MOCK_POSTS : []));
         setCurrentPage(pagination.page || page);
         setTotalPages(pagination.totalPages || 1);
         setTotalPosts(pagination.total || formattedPosts.length);
+        setErrorMessage(''); // 清除错误消息
       } else {
-        console.error('❌ 获取 posts 失败:', response.status, response.statusText);
         if (page === 1) {
           setPosts(MOCK_POSTS);
           // 设置分页信息，即使使用 MOCK 数据也显示分页
@@ -249,25 +260,25 @@ function App() {
         }
       }
     } catch (error) {
-      console.error('❌ 获取 posts 出错:', error);
+      const errorMsg = error instanceof Error ? error.message : '获取数据失败，请检查网络连接';
+      setErrorMessage(errorMsg);
+
       if (page === 1) {
         // 如果API失败，尝试从localStorage恢复
         const savedPosts = localStorage.getItem('offermagnet_posts');
         if (savedPosts) {
-          try { 
-            console.log('📦 从 localStorage 恢复数据');
+          try {
             const parsed = JSON.parse(savedPosts);
             setPosts(parsed);
             setTotalPages(Math.ceil(parsed.length / POSTS_PER_PAGE));
             setTotalPosts(parsed.length);
-          } catch (e) { 
-            console.log('⚠️ localStorage 数据解析失败，使用 MOCK 数据');
+            setSuccessMessage('已从本地缓存加载数据');
+          } catch (e) {
             setPosts(MOCK_POSTS);
             setTotalPages(1);
             setTotalPosts(MOCK_POSTS.length);
           }
-        } else { 
-          console.log('⚠️ 没有 localStorage 数据，使用 MOCK 数据');
+        } else {
           setPosts(MOCK_POSTS);
           setTotalPages(1);
           setTotalPosts(MOCK_POSTS.length);
@@ -291,22 +302,42 @@ function App() {
     fetchPosts(1);
   }, []);
 
-  // 当筛选条件改变时，重置到第一页（这会触发页码改变时的useEffect重新获取数据）
-  useEffect(() => {
-    if (activeTab === 'interviews') {
-      if (currentPage !== 1) {
-        setCurrentPage(1);
-      }
-    }
-  }, [filters.company, filters.location, filters.recruitType, filters.category, filters.experience, filters.salary, searchQuery, activeTab]);
+  // 统一处理：当筛选条件改变时重置到第一页，当页码改变时获取数据
+  // 使用useRef追踪上一次的筛选条件，避免重复请求
+  const prevFiltersRef = useRef<string>('');
 
-  // 当页码改变或筛选条件改变时重新获取数据
   useEffect(() => {
-    if (activeTab === 'interviews') {
+    if (activeTab !== 'interviews') return;
+
+    // 序列化当前筛选条件
+    const currentFiltersStr = JSON.stringify({
+      company: filters.company,
+      location: filters.location,
+      recruitType: filters.recruitType,
+      category: filters.category,
+      experience: filters.experience,
+      salary: filters.salary,
+      search: searchQuery
+    });
+
+    // 检查筛选条件是否改变
+    const filtersChanged = prevFiltersRef.current !== '' && prevFiltersRef.current !== currentFiltersStr;
+    prevFiltersRef.current = currentFiltersStr;
+
+    if (filtersChanged) {
+      // 筛选条件改变，重置到第一页并获取数据
+      if (currentPage === 1) {
+        fetchPosts(1);
+      } else {
+        setCurrentPage(1); // 这会触发下面的effect
+      }
+    } else {
+      // 只是页码改变，直接获取数据
       fetchPosts(currentPage);
-      // 滚动到顶部
-      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
+
+    // 滚动到顶部
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [currentPage, filters.company, filters.location, filters.recruitType, filters.category, filters.experience, filters.salary, searchQuery, activeTab]);
 
   // 模拟搜索和过滤的加载效果
@@ -316,20 +347,20 @@ function App() {
     return () => clearTimeout(timer);
   }, [filters, searchQuery, activeTab]);
 
-  const handleFilterChange = (key: keyof Filters, value: string) => {
+  const handleFilterChange = useCallback((key: keyof Filters, value: string) => {
     setFilters(prev => ({
       ...prev,
       [key]: value
     }));
     setOpenDropdown(null);
-  };
+  }, []);
 
-  const clearAllFilters = () => {
+  const clearAllFilters = useCallback(() => {
     setFilters(initialFilters);
     setSearchQuery('');
-  };
+  }, []);
 
-  const handleSavePost = (data: ProcessedResponse, original: string) => {
+  const handleSavePost = useCallback((data: ProcessedResponse, original: string) => {
     const newPost: InterviewPost = {
       ...data,
       id: Math.random().toString(36).substr(2, 9),
@@ -344,11 +375,11 @@ function App() {
       authorIsPro: user?.isPro || false,
       isAnonymous: !!data.isAnonymous
     };
-    setPosts([newPost, ...posts]);
+    setPosts(prev => [newPost, ...prev]);
     setIsModalOpen(false);
-  };
+  }, [user]);
 
-  const handleVote = (postId: string, type: 'useful' | 'useless') => {
+  const handleVote = useCallback((postId: string, type: 'useful' | 'useless') => {
     setPosts(prev => prev.map(post => {
       if (post.id !== postId) return post;
       const isCurrentlyType = post.userVote === type;
@@ -359,22 +390,17 @@ function App() {
         uselessVotes: type === 'useless' ? (isCurrentlyType ? post.uselessVotes - 1 : post.uselessVotes + 1) : post.uselessVotes
       };
     }));
-  };
+  }, []);
 
-  // 注意：由于筛选已由后端API完成，前端只需要做基本的内容过滤
-  // 保留此函数用于向后兼容和额外的客户端过滤（如果需要）
-  const filteredPosts = posts.filter(post => {
-    // 只显示有内容的帖子（过滤掉只有标题没有内容的）
-    const hasContent = (post.originalContent && post.originalContent.trim().length > 50) || 
-                       (post.processedContent && post.processedContent.trim().length > 50);
-    if (!hasContent) {
-      return false; // 跳过没有内容的帖子
-    }
-    
-    // 由于筛选已由后端完成，这里只做基本的内容检查
-    // 如果需要额外的客户端过滤，可以在这里添加
-    return true;
-  });
+  // 使用useMemo优化filteredPosts计算，避免每次渲染都重新过滤
+  const filteredPosts = useMemo(() => {
+    return posts.filter(post => {
+      // 只显示有内容的帖子（过滤掉只有标题没有内容的）
+      const hasContent = (post.originalContent && post.originalContent.trim().length > 50) ||
+                         (post.processedContent && post.processedContent.trim().length > 50);
+      return hasContent;
+    });
+  }, [posts]);
 
   const filteredJobs = jobs.filter(job => {
     const matchesCompany = filters.company === '' || job.company === filters.company;
@@ -538,6 +564,51 @@ function App() {
 
       <EditorModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onSave={handleSavePost} />
       <AuthModal isOpen={isAuthModalOpen} onClose={() => setIsAuthModalOpen(false)} />
+
+      {/* Toast通知 */}
+      {errorMessage && (
+        <div className="fixed bottom-8 right-8 z-[100] animate-in slide-in-from-bottom-4 duration-300">
+          <div className="bg-red-50 border-2 border-red-200 rounded-2xl p-4 shadow-2xl max-w-md">
+            <div className="flex items-start gap-3">
+              <div className="bg-red-100 p-2 rounded-xl">
+                <X size={20} className="text-red-600" />
+              </div>
+              <div className="flex-1">
+                <h4 className="text-sm font-black text-red-900">出错了</h4>
+                <p className="text-xs text-red-700 mt-1">{errorMessage}</p>
+              </div>
+              <button
+                onClick={() => setErrorMessage('')}
+                className="text-red-400 hover:text-red-600 transition-colors"
+              >
+                <X size={18} />
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {successMessage && (
+        <div className="fixed bottom-8 right-8 z-[100] animate-in slide-in-from-bottom-4 duration-300">
+          <div className="bg-green-50 border-2 border-green-200 rounded-2xl p-4 shadow-2xl max-w-md">
+            <div className="flex items-start gap-3">
+              <div className="bg-green-100 p-2 rounded-xl">
+                <Check size={20} className="text-green-600" />
+              </div>
+              <div className="flex-1">
+                <h4 className="text-sm font-black text-green-900">成功</h4>
+                <p className="text-xs text-green-700 mt-1">{successMessage}</p>
+              </div>
+              <button
+                onClick={() => setSuccessMessage('')}
+                className="text-green-400 hover:text-green-600 transition-colors"
+              >
+                <X size={18} />
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

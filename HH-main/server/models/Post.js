@@ -64,8 +64,20 @@ postSchema.index({ 'tagDimensions.technologies': 1 });  // 数组字段索引
 postSchema.index({ company: 1, createdAt: -1 }); // 公司 + 时间排序
 postSchema.index({ 'tagDimensions.location': 1, createdAt: -1 }); // 地点 + 时间排序
 postSchema.index({ 'tagDimensions.category': 1, createdAt: -1 }); // 类别 + 时间排序
+postSchema.index({ 'tagDimensions.recruitType': 1, createdAt: -1 }); // 招聘类型 + 时间排序
 
-// 文本索引：用于全文搜索（可选，如果搜索频繁）
-// postSchema.index({ title: 'text', company: 'text', role: 'text' });
+// 内容存在性索引（优化基础查询）
+postSchema.index({ originalContent: 1 });
+postSchema.index({ processedContent: 1 });
+
+// 文本索引：用于全文搜索（提升搜索性能）
+postSchema.index({ title: 'text', company: 'text', role: 'text' }, {
+  weights: {
+    title: 10,    // 标题权重最高
+    company: 5,   // 公司其次
+    role: 3       // 职位权重较低
+  },
+  name: 'post_text_index'
+});
 
 module.exports = mongoose.model('Post', postSchema);

@@ -99,64 +99,100 @@ app.get('/api/posts', async (req, res) => {
     };
     // 注意：内容长度过滤在内存中进行，不在数据库（更快）
     
-    // 添加维度筛选条件（只处理非空值）
+    // 添加维度筛选条件（优化：支持空值和模糊匹配）
+    const andConditions = [];
+
     if (company && company !== '' && company !== '全部') {
-      contentFilter.company = company;
+      // 精确匹配公司名称
+      andConditions.push({ company: company });
     }
-    
+
     if (location && location !== '' && location !== '全部') {
-      contentFilter['tagDimensions.location'] = location;
+      // 支持 tagDimensions.location 或者从 role/title 中推断
+      andConditions.push({
+        $or: [
+          { 'tagDimensions.location': location },
+          { role: { $regex: location, $options: 'i' } },
+          { title: { $regex: location, $options: 'i' } }
+        ]
+      });
     }
-    
+
     if (recruitType && recruitType !== '' && recruitType !== '全部') {
-      contentFilter['tagDimensions.recruitType'] = recruitType;
+      // 支持 tagDimensions.recruitType 或从 title 推断
+      andConditions.push({
+        $or: [
+          { 'tagDimensions.recruitType': recruitType },
+          { title: { $regex: recruitType, $options: 'i' } }
+        ]
+      });
     }
-    
+
     if (category && category !== '' && category !== '全部') {
-      contentFilter['tagDimensions.category'] = category;
+      // 支持 tagDimensions.category 或从 role 推断
+      andConditions.push({
+        $or: [
+          { 'tagDimensions.category': category },
+          { role: { $regex: category, $options: 'i' } }
+        ]
+      });
     }
-    
+
     if (experience && experience !== '' && experience !== '全部') {
-      contentFilter['tagDimensions.experience'] = experience;
+      // 支持 tagDimensions.experience
+      andConditions.push({ 'tagDimensions.experience': experience });
     }
-    
+
     if (salary && salary !== '' && salary !== '全部') {
-      contentFilter['tagDimensions.salary'] = salary;
+      // 支持 tagDimensions.salary
+      andConditions.push({ 'tagDimensions.salary': salary });
     }
     
     if (technologies) {
       // 支持逗号分隔的字符串或数组
-      const techArray = Array.isArray(technologies) 
-        ? technologies 
-        : typeof technologies === 'string' 
+      const techArray = Array.isArray(technologies)
+        ? technologies
+        : typeof technologies === 'string'
           ? technologies.split(',').map(t => t.trim()).filter(t => t)
           : [technologies];
       if (techArray.length > 0) {
-        contentFilter['tagDimensions.technologies'] = { $in: techArray };
+        andConditions.push({ 'tagDimensions.technologies': { $in: techArray } });
       }
     }
-    
-    // 文本搜索（标题、公司、职位）
-    // 注意：$regex 无法使用索引，但如果数据量不大（<10万条），仍然可以接受
-    // 如果数据量大，建议使用 MongoDB 文本索引或 Elasticsearch
+
+    // 文本搜索（标题、公司、职位）- 使用MongoDB文本索引优化
     if (search && search.trim()) {
       const searchTerm = search.trim();
-      const searchRegex = new RegExp(searchTerm, 'i');
-      
-      // 保存原有的内容存在条件
-      const hasContentCondition = contentFilter.$or;
-      
-      // 重新构建 $and 查询，确保：(有内容) AND (搜索匹配)
-      delete contentFilter.$or;
-      contentFilter.$and = [
-        { $or: hasContentCondition }, // 必须有内容（originalContent 或 processedContent）
-        {
+
+      // 优先使用MongoDB文本索引（更快）
+      // 如果搜索词包含中文或特殊字符，回退到正则表达式
+      const hasChineseOrSpecial = /[\u4e00-\u9fa5]/.test(searchTerm);
+
+      if (!hasChineseOrSpecial && searchTerm.split(/\s+/).length > 1) {
+        // 英文多词搜索：使用文本索引
+        contentFilter.$text = { $search: searchTerm };
+      } else {
+        // 中文或单词搜索：使用正则表达式（更灵活）
+        const searchRegex = new RegExp(searchTerm, 'i');
+        andConditions.push({
           $or: [
             { title: searchRegex },
             { company: searchRegex },
             { role: searchRegex }
           ]
-        } // 搜索匹配（title 或 company 或 role）
+        });
+      }
+    }
+
+    // 合并所有条件
+    if (andConditions.length > 0) {
+      // 保留原有的内容存在条件
+      const hasContentCondition = contentFilter.$or;
+      delete contentFilter.$or;
+
+      contentFilter.$and = [
+        { $or: hasContentCondition }, // 必须有内容
+        ...andConditions // 所有其他筛选条件
       ];
     }
     
@@ -230,5 +266,93 @@ app.post('/api/auth/login', async (req, res) => {
 });
 
 app.get('/api/auth/me', auth, async (req, res) => { res.send({ id: req.user._id, name: req.user.name, email: req.user.email, isPro: req.user.isPro }); });
+
+// 动态获取筛选选项API
+app.get('/api/filter-options', async (req, res) => {
+  try {
+    const startTime = Date.now();
+
+    // 并行查询所有不同的筛选选项
+    const [
+      companies,
+      locations,
+      recruitTypes,
+      categories,
+      experiences,
+      salaries
+    ] = await Promise.all([
+      // 获取所有公司（前20个最常见的）
+      Post.aggregate([
+        { $match: { company: { $exists: true, $ne: '', $ne: null } } },
+        { $group: { _id: '$company', count: { $sum: 1 } } },
+        { $sort: { count: -1 } },
+        { $limit: 50 },
+        { $project: { _id: 0, value: '$_id', count: 1 } }
+      ]),
+
+      // 获取所有地点
+      Post.aggregate([
+        { $match: { 'tagDimensions.location': { $exists: true, $ne: '', $ne: null } } },
+        { $group: { _id: '$tagDimensions.location', count: { $sum: 1 } } },
+        { $sort: { count: -1 } },
+        { $limit: 30 },
+        { $project: { _id: 0, value: '$_id', count: 1 } }
+      ]),
+
+      // 获取所有招聘类型
+      Post.aggregate([
+        { $match: { 'tagDimensions.recruitType': { $exists: true, $ne: '', $ne: null } } },
+        { $group: { _id: '$tagDimensions.recruitType', count: { $sum: 1 } } },
+        { $sort: { count: -1 } },
+        { $project: { _id: 0, value: '$_id', count: 1 } }
+      ]),
+
+      // 获取所有类别
+      Post.aggregate([
+        { $match: { 'tagDimensions.category': { $exists: true, $ne: '', $ne: null } } },
+        { $group: { _id: '$tagDimensions.category', count: { $sum: 1 } } },
+        { $sort: { count: -1 } },
+        { $project: { _id: 0, value: '$_id', count: 1 } }
+      ]),
+
+      // 获取所有经验要求
+      Post.aggregate([
+        { $match: { 'tagDimensions.experience': { $exists: true, $ne: '', $ne: null } } },
+        { $group: { _id: '$tagDimensions.experience', count: { $sum: 1 } } },
+        { $sort: { count: -1 } },
+        { $project: { _id: 0, value: '$_id', count: 1 } }
+      ]),
+
+      // 获取所有薪资范围
+      Post.aggregate([
+        { $match: { 'tagDimensions.salary': { $exists: true, $ne: '', $ne: null } } },
+        { $group: { _id: '$tagDimensions.salary', count: { $sum: 1 } } },
+        { $sort: { count: -1 } },
+        { $project: { _id: 0, value: '$_id', count: 1 } }
+      ])
+    ]);
+
+    const duration = Date.now() - startTime;
+    console.log(`[MongoDB Query] GET /api/filter-options - Duration: ${duration}ms`);
+
+    res.json({
+      companies: ['全部', ...companies.map(c => c.value)],
+      locations: ['全部', ...locations.map(l => l.value)],
+      recruitTypes: ['全部', ...recruitTypes.map(r => r.value)],
+      categories: ['全部', ...categories.map(c => c.value)],
+      experiences: ['全部', ...experiences.map(e => e.value)],
+      salaries: ['全部', ...salaries.map(s => s.value)],
+      stats: {
+        companies: companies.length,
+        locations: locations.length,
+        recruitTypes: recruitTypes.length,
+        categories: categories.length
+      }
+    });
+  } catch (error) {
+    console.error('[API Error] GET /api/filter-options:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
