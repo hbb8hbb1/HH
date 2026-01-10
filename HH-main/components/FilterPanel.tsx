@@ -266,17 +266,134 @@ export const FilterPanel: React.FC<Props> = ({ filters, onFilterChange, isLoadin
       try {
         setLoading(true);
         setError(null);
-        const response = await fetch('/api/filter-options');
-        const data = await response.json();
-        
-        if (data.success) {
-          setFilterOptions(data.data);
-        } else {
-          setError(data.error || '加载筛选选项失败');
+
+        // 设置超时，避免无限加载
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 5000); // 5秒超时
+
+        const response = await fetch('/api/filter-options', {
+          signal: controller.signal
+        });
+
+        clearTimeout(timeoutId);
+
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
         }
+
+        const data = await response.json();
+
+        // 适配API响应格式：直接返回数据对象，不需要success包装
+        // 将API返回的选项数组转换为FilterOptions格式
+        const formattedOptions: FilterOptions = {
+          company: {
+            label: '公司',
+            type: 'dynamic',
+            values: (data.companies || ['全部']).map((c: string) => ({ value: c, label: c }))
+          },
+          location: {
+            label: '地点',
+            type: 'dynamic',
+            values: (data.locations || ['全部']).map((l: string) => ({ value: l, label: l }))
+          },
+          category: {
+            label: '类别',
+            type: 'dynamic',
+            values: (data.categories || ['全部']).map((c: string) => ({ value: c, label: c }))
+          },
+          recruitType: {
+            label: '招聘类型',
+            type: 'dynamic',
+            values: (data.recruitTypes || ['全部']).map((r: string) => ({ value: r, label: r }))
+          },
+          experience: {
+            label: '经验',
+            type: 'dynamic',
+            values: (data.experiences || ['全部']).map((e: string) => ({ value: e, label: e }))
+          },
+          salary: {
+            label: '薪资',
+            type: 'dynamic',
+            values: (data.salaries || ['全部']).map((s: string) => ({ value: s, label: s }))
+          }
+        };
+
+        setFilterOptions(formattedOptions);
+        setError(null);
       } catch (err) {
         console.error('Failed to fetch filter options:', err);
-        setError('网络错误，无法加载筛选选项');
+
+        // 使用默认的筛选选项作为降级方案
+        const defaultOptions: FilterOptions = {
+          company: {
+            label: '公司',
+            type: 'fixed',
+            values: [
+              { value: '', label: '全部' },
+              { value: '字节跳动', label: '字节跳动' },
+              { value: 'Google', label: 'Google' },
+              { value: 'Meta', label: 'Meta' },
+              { value: '腾讯', label: '腾讯' },
+              { value: '阿里巴巴', label: '阿里巴巴' }
+            ]
+          },
+          location: {
+            label: '地点',
+            type: 'fixed',
+            values: [
+              { value: '', label: '全部' },
+              { value: '北京', label: '北京' },
+              { value: '上海', label: '上海' },
+              { value: '深圳', label: '深圳' },
+              { value: '杭州', label: '杭州' }
+            ]
+          },
+          category: {
+            label: '类别',
+            type: 'fixed',
+            values: [
+              { value: '', label: '全部' },
+              { value: '研发', label: '研发' },
+              { value: '算法', label: '算法' },
+              { value: '产品', label: '产品' },
+              { value: '设计', label: '设计' }
+            ]
+          },
+          recruitType: {
+            label: '招聘类型',
+            type: 'fixed',
+            values: [
+              { value: '', label: '全部' },
+              { value: '社招', label: '社招' },
+              { value: '校招', label: '校招' },
+              { value: '实习', label: '实习' }
+            ]
+          },
+          experience: {
+            label: '经验',
+            type: 'fixed',
+            values: [
+              { value: '', label: '全部' },
+              { value: '0-2年', label: '0-2年' },
+              { value: '2-5年', label: '2-5年' },
+              { value: '5年以上', label: '5年以上' }
+            ]
+          },
+          salary: {
+            label: '薪资',
+            type: 'fixed',
+            values: [
+              { value: '', label: '全部' },
+              { value: '10k以下', label: '10k以下' },
+              { value: '10k-20k', label: '10k-20k' },
+              { value: '20k-30k', label: '20k-30k' },
+              { value: '30k以上', label: '30k以上' }
+            ]
+          }
+        };
+
+        setFilterOptions(defaultOptions);
+        setError(null); // 不显示错误，直接使用默认选项
       } finally {
         setLoading(false);
       }
