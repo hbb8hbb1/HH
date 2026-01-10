@@ -1,0 +1,42 @@
+#!/bin/bash
+# GitHub推送脚本
+
+cd "$(dirname "$0")"
+
+echo "🚀 准备推送到GitHub..."
+echo ""
+
+# 检查远程仓库
+if ! git remote get-url origin > /dev/null 2>&1; then
+    echo "❌ 远程仓库未配置"
+    exit 1
+fi
+
+# 检查是否有未提交的更改
+if [ -n "$(git status --porcelain)" ]; then
+    echo "⚠️  有未提交的更改，正在提交..."
+    git add -A
+    git commit -m "chore: 更新代码文件"
+fi
+
+# 如果有环境变量中的token，使用它
+if [ -n "$GIT_TOKEN" ]; then
+    echo "✅ 使用环境变量中的GIT_TOKEN"
+    git remote set-url origin "https://hbb8hbb1:${GIT_TOKEN}@github.com/hbb8hbb1/HH.git"
+    git push -u origin main
+else
+    echo "📝 请提供GitHub Personal Access Token (PAT)"
+    echo ""
+    echo "方式1: 设置环境变量后运行此脚本"
+    echo "  export GIT_TOKEN='your-token'"
+    echo "  ./push_to_github.sh"
+    echo ""
+    echo "方式2: 直接推送（会提示输入用户名和token）"
+    echo "  git push -u origin main"
+    echo "  用户名: hbb8hbb1"
+    echo "  密码: <你的GitHub Token>"
+    echo ""
+    echo "方式3: 手动设置远程URL"
+    echo "  git remote set-url origin https://hbb8hbb1:YOUR_TOKEN@github.com/hbb8hbb1/HH.git"
+    echo "  git push -u origin main"
+fi
