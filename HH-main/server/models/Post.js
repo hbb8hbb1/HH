@@ -22,10 +22,11 @@ const postSchema = new mongoose.Schema({
   // 结构化标签维度
   tagDimensions: {
     technologies: [String],  // 技术栈数组，如 ["React", "TypeScript"]
-    recruitType: String,     // 招聘类型：校招、社招、暑期实习、日常实习、其他
-    location: String,         // 地点，如 "北京"、"上海"
-    category: String,        // 部门类别：研发、算法、产品等
-    subRole: String,         // 子角色：前端、后端、机器学习等
+    recruitType: String,     // 招聘类型：intern, newgrad, experienced
+    location: String,         // 地点，如 "北京"、"San Francisco Bay Area"
+    category: String,        // 部门类别：SWE, Data, PM, Design, Infra, Other
+    experience: String,      // 经验要求：0, 0-2, 2-5, 5-10, 10+
+    salary: String,          // 薪资范围：0-100k, 100k-150k, 150k-200k, 200k-300k, 300k+
     custom: [String]         // 自定义标签数组
   },
   comments: [commentSchema],
@@ -55,7 +56,16 @@ postSchema.index({ company: 1 });  // 公司索引
 postSchema.index({ 'tagDimensions.location': 1 });
 postSchema.index({ 'tagDimensions.recruitType': 1 });
 postSchema.index({ 'tagDimensions.category': 1 });
-postSchema.index({ 'tagDimensions.subRole': 1 });
+postSchema.index({ 'tagDimensions.experience': 1 });
+postSchema.index({ 'tagDimensions.salary': 1 });
 postSchema.index({ 'tagDimensions.technologies': 1 });  // 数组字段索引
+
+// 复合索引：常见查询组合
+postSchema.index({ company: 1, createdAt: -1 }); // 公司 + 时间排序
+postSchema.index({ 'tagDimensions.location': 1, createdAt: -1 }); // 地点 + 时间排序
+postSchema.index({ 'tagDimensions.category': 1, createdAt: -1 }); // 类别 + 时间排序
+
+// 文本索引：用于全文搜索（可选，如果搜索频繁）
+// postSchema.index({ title: 'text', company: 'text', role: 'text' });
 
 module.exports = mongoose.model('Post', postSchema);

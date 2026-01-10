@@ -6,6 +6,7 @@ import JobCard from './components/JobCard';
 import EditorModal from './components/EditorModal';
 import AuthModal from './components/AuthModal';
 import Sidebar from './components/Sidebar';
+import { FilterPanel, initialFilters, Filters } from './components/FilterPanel';
 import { InterviewPost, ProcessedResponse, JobPost } from './types';
 import { useAuth } from './context/AuthContext';
 
@@ -136,17 +137,9 @@ function App() {
   const [showMilestoneToast, setShowMilestoneToast] = useState(false);
   const [isSticky, setIsSticky] = useState(false);
 
-  const [filters, setFilters] = useState({
-    industry: '互联网',
-    company: '全部',
-    location: '全部',
-    recruitType: '全部',
-    category: '研发',
-    subRole: '全部'
-  });
-
+  // 使用新的筛选结构（与 FilterPanel 兼容）
+  const [filters, setFilters] = useState<Filters>(initialFilters);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
-  const currentConfig = INDUSTRY_CONFIGS[filters.industry];
   const filterRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -170,21 +163,24 @@ function App() {
         limit: POSTS_PER_PAGE.toString()
       });
       
-      // 添加筛选参数
-      if (filters.company && filters.company !== '全部') {
+      // 添加筛选参数（新结构）
+      if (filters.company && filters.company !== '') {
         params.append('company', filters.company);
       }
-      if (filters.location && filters.location !== '全部') {
+      if (filters.location && filters.location !== '') {
         params.append('location', filters.location);
       }
-      if (filters.recruitType && filters.recruitType !== '全部') {
+      if (filters.recruitType && filters.recruitType !== '') {
         params.append('recruitType', filters.recruitType);
       }
-      if (filters.category && filters.category !== '全部') {
+      if (filters.category && filters.category !== '') {
         params.append('category', filters.category);
       }
-      if (filters.subRole && filters.subRole !== '全部') {
-        params.append('subRole', filters.subRole);
+      if (filters.experience && filters.experience !== '') {
+        params.append('experience', filters.experience);
+      }
+      if (filters.salary && filters.salary !== '') {
+        params.append('salary', filters.salary);
       }
       if (searchQuery && searchQuery.trim()) {
         params.append('search', searchQuery.trim());
@@ -215,10 +211,11 @@ function App() {
           tags: post.tags || [],  // 保留向后兼容
           tagDimensions: post.tagDimensions || {  // 新增结构化标签
             technologies: [],
-            recruitType: '其他',
+            recruitType: '',
             location: '',
             category: '',
-            subRole: '',
+            experience: '',
+            salary: '',
             custom: []
           },
           comments: post.comments || [],
@@ -301,7 +298,7 @@ function App() {
         setCurrentPage(1);
       }
     }
-  }, [filters.company, filters.location, filters.recruitType, filters.category, filters.subRole, searchQuery, activeTab]);
+  }, [filters.company, filters.location, filters.recruitType, filters.category, filters.experience, filters.salary, searchQuery, activeTab]);
 
   // 当页码改变或筛选条件改变时重新获取数据
   useEffect(() => {
@@ -310,7 +307,7 @@ function App() {
       // 滚动到顶部
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-  }, [currentPage, filters.company, filters.location, filters.recruitType, filters.category, filters.subRole, searchQuery, activeTab]);
+  }, [currentPage, filters.company, filters.location, filters.recruitType, filters.category, filters.experience, filters.salary, searchQuery, activeTab]);
 
   // 模拟搜索和过滤的加载效果
   useEffect(() => {
@@ -319,30 +316,16 @@ function App() {
     return () => clearTimeout(timer);
   }, [filters, searchQuery, activeTab]);
 
-  const updateFilter = (key: string, value: string) => {
-    setFilters(prev => {
-      const next = { ...prev, [key]: value };
-      if (key === 'industry') {
-        next.company = '全部';
-        next.location = '全部';
-        next.category = INDUSTRY_CONFIGS[value].categories[0];
-        next.subRole = '全部';
-      }
-      if (key === 'category') next.subRole = '全部';
-      return next;
-    });
+  const handleFilterChange = (key: keyof Filters, value: string) => {
+    setFilters(prev => ({
+      ...prev,
+      [key]: value
+    }));
     setOpenDropdown(null);
   };
 
   const clearAllFilters = () => {
-    setFilters({
-      industry: '互联网',
-      company: '全部',
-      location: '全部',
-      recruitType: '全部',
-      category: '研发',
-      subRole: '全部'
-    });
+    setFilters(initialFilters);
     setSearchQuery('');
   };
 
@@ -394,15 +377,15 @@ function App() {
   });
 
   const filteredJobs = jobs.filter(job => {
-    const matchesCompany = filters.company === '全部' || job.company === filters.company;
-    const matchesLocation = filters.location === '全部' || job.location === filters.location;
+    const matchesCompany = filters.company === '' || job.company === filters.company;
+    const matchesLocation = filters.location === '' || job.location === filters.location;
     const matchesSearch = searchQuery === '' || 
       job.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
       job.company.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesCompany && matchesLocation && matchesSearch;
   });
 
-  const isFilterActive = filters.company !== '全部' || filters.location !== '全部' || filters.recruitType !== '全部' || filters.subRole !== '全部' || searchQuery !== '';
+  const isFilterActive = filters.company !== '' || filters.location !== '' || filters.recruitType !== '' || filters.category !== '' || filters.experience !== '' || filters.salary !== '' || searchQuery !== '';
 
   return (
     <div className="min-h-screen bg-[#F8FAFC]">
@@ -471,7 +454,7 @@ function App() {
                       <div>
                         <h2 className="text-lg font-black text-slate-900 leading-none">多维度筛选</h2>
                         <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1">
-                          {filters.industry} / {filters.category} {filters.subRole !== '全部' ? `/ ${filters.subRole}` : ''}
+                          {Object.values(filters).filter(v => v && v !== '').join(' · ') || '全部筛选条件'}
                         </p>
                       </div>
                     </div>
@@ -487,28 +470,12 @@ function App() {
                     )}
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 mb-4">
-                    <FilterDropdownLarge icon={<Cpu size={18}/>} label="行业" options={Object.keys(INDUSTRY_CONFIGS)} value={filters.industry} isOpen={openDropdown === 'industry'} onToggle={() => setOpenDropdown(openDropdown === 'industry' ? null : 'industry')} onSelect={(val: string) => updateFilter('industry', val)} />
-                    <FilterDropdownLarge icon={<Layers size={18}/>} label="部门" options={currentConfig.categories} value={filters.category} isOpen={openDropdown === 'category'} onToggle={() => setOpenDropdown(openDropdown === 'category' ? null : 'category')} onSelect={(val: string) => updateFilter('category', val)} />
-                    <FilterDropdownLarge icon={<Building2 size={18}/>} label="公司" options={currentConfig.companies} value={filters.company} isOpen={openDropdown === 'company'} onToggle={() => setOpenDropdown(openDropdown === 'company' ? null : 'company')} onSelect={(val: string) => updateFilter('company', val)} />
-                    <FilterDropdownLarge icon={<MapPin size={18}/>} label="地点" options={currentConfig.locations} value={filters.location} isOpen={openDropdown === 'location'} onToggle={() => setOpenDropdown(openDropdown === 'location' ? null : 'location')} onSelect={(val: string) => updateFilter('location', val)} />
-                    <FilterDropdownLarge icon={<Briefcase size={18}/>} label="招聘类型" options={RECRUIT_TYPES} value={filters.recruitType} isOpen={openDropdown === 'recruitType'} onToggle={() => setOpenDropdown(openDropdown === 'recruitType' ? null : 'recruitType')} onSelect={(val: string) => updateFilter('recruitType', val)} />
-                  </div>
-
-                  <div className="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar">
-                    {(currentConfig.subRoles[filters.category] || ['全部']).map((chip: string) => (
-                      <button
-                        key={chip}
-                        onClick={() => updateFilter('subRole', chip)}
-                        className={`
-                          whitespace-nowrap px-4 py-1.5 rounded-full text-xs font-black transition-all border shrink-0
-                          ${filters.subRole === chip ? 'bg-indigo-600 text-white border-indigo-600 shadow-md' : 'bg-white text-slate-500 border-slate-100 hover:border-indigo-100 hover:bg-indigo-50'}
-                        `}
-                      >
-                        {chip}
-                      </button>
-                    ))}
-                  </div>
+                  {/* 使用新的 FilterPanel 组件 */}
+                  <FilterPanel
+                    filters={filters}
+                    onFilterChange={handleFilterChange}
+                    isLoading={isLoading}
+                  />
                 </div>
              </div>
 

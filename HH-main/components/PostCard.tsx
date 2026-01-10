@@ -291,27 +291,27 @@ const PostCard: React.FC<PostCardProps> = ({ post, onAddComment, onVote, onToggl
                const displayContent = useProcessed ? processed : original;
                
                return isLocked ? (
-                 <div className="space-y-4">
+               <div className="space-y-4">
                     <p className="blur-[4px] select-none">{displayContent.substring(0, 150)}...</p>
-                    <div className="absolute inset-x-0 bottom-0 top-0 flex flex-col items-center justify-center bg-white/40 backdrop-blur-[2px] rounded-xl border border-gray-100 shadow-sm p-8 text-center">
-                       <Lock size={20} className="text-indigo-600 mb-4" />
-                       <h4 className="text-sm font-bold text-gray-900 mb-1 text-center">内容已锁定</h4>
-                       <p className="text-xs text-gray-500 mb-4 max-w-[240px]">升级 Pro 或发布高质量面经即可永久解锁。</p>
-                    </div>
-                 </div>
-               ) : (
-                 <>
+                  <div className="absolute inset-x-0 bottom-0 top-0 flex flex-col items-center justify-center bg-white/40 backdrop-blur-[2px] rounded-xl border border-gray-100 shadow-sm p-8 text-center">
+                     <Lock size={20} className="text-indigo-600 mb-4" />
+                     <h4 className="text-sm font-bold text-gray-900 mb-1 text-center">内容已锁定</h4>
+                     <p className="text-xs text-gray-500 mb-4 max-w-[240px]">升级 Pro 或发布高质量面经即可永久解锁。</p>
+                  </div>
+               </div>
+             ) : (
+               <>
                    {useProcessed ? (
-                     <ReactMarkdown components={{
-                         h2: ({node, ...props}) => <h2 className="text-base font-bold text-gray-800 mt-6 mb-3 flex items-center gap-2 before:content-[''] before:w-1 before:h-4 before:bg-blue-500 before:rounded-full" {...props} />,
-                         code: ({node, inline, className, children, ...props}: any) => {
-                            const match = /language-(\w+)/.exec(className || '');
-                            const isBlock = !inline && (match || (String(children).includes('\n')));
-                            return isBlock ? <CodeBlock className={className} children={children} {...props} /> : <code className="bg-slate-100 text-pink-600 px-1.5 py-0.5 rounded text-xs font-mono" {...props}>{children}</code>;
-                         }
-                     }}>
+                 <ReactMarkdown components={{
+                     h2: ({node, ...props}) => <h2 className="text-base font-bold text-gray-800 mt-6 mb-3 flex items-center gap-2 before:content-[''] before:w-1 before:h-4 before:bg-blue-500 before:rounded-full" {...props} />,
+                     code: ({node, inline, className, children, ...props}: any) => {
+                        const match = /language-(\w+)/.exec(className || '');
+                        const isBlock = !inline && (match || (String(children).includes('\n')));
+                        return isBlock ? <CodeBlock className={className} children={children} {...props} /> : <code className="bg-slate-100 text-pink-600 px-1.5 py-0.5 rounded text-xs font-mono" {...props}>{children}</code>;
+                     }
+                 }}>
                          {displayContent}
-                     </ReactMarkdown>
+                 </ReactMarkdown>
                    ) : (
                      // 显示原始HTML内容（清理HTML标签，只显示文本）
                      <div className="text-gray-700 leading-relaxed">
@@ -329,8 +329,8 @@ const PostCard: React.FC<PostCardProps> = ({ post, onAddComment, onVote, onToggl
                        })()}
                      </div>
                    )}
-                   {!expanded && <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white via-white/80 to-transparent pointer-events-none"></div>}
-                 </>
+                 {!expanded && <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white via-white/80 to-transparent pointer-events-none"></div>}
+               </>
                );
              })()}
         </div>

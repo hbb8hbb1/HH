@@ -33,3 +33,17 @@ dist-ssr
 # Test files
 test.html
 /tmp
+
+# Process ID files
+*.pid
+frontend.pid
+server.pid
+
+# Build outputs
+build
+.next
+out
+
+# Cache
+.cache
+.parcel-cache

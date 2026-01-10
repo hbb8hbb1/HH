@@ -25,6 +25,15 @@ app.use(express.json({ limit: '50mb' }));
 const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/offermagnet';
 mongoose.connect(MONGO_URI).then(() => console.log('MongoDB connected')).catch(err => console.error(err));
 
+// 注册路由
+try {
+  const filtersRouter = require('./routes/filters');
+  app.use('/api', filtersRouter);
+  console.log('✅ Filters路由已注册');
+} catch (error) {
+  console.error('⚠️  Filters路由注册失败:', error.message);
+}
+
 const auth = async (req, res, next) => {
   try {
     const token = req.header('Authorization')?.replace('Bearer ', '');
@@ -64,7 +73,8 @@ app.get('/api/posts', async (req, res) => {
       location,
       recruitType,
       category,
-      subRole,
+      experience,
+      salary,
       technologies,  // 可以是逗号分隔的字符串或数组
       search
     } = req.query;
@@ -80,33 +90,38 @@ app.get('/api/posts', async (req, res) => {
     
     const startTime = Date.now();
     
-    // 构建基础内容过滤（必须有内容）
+    // 构建基础内容过滤（必须有内容）- 优化：使用 $exists 替代正则
     const contentFilter = {
       $or: [
-        { originalContent: { $exists: true, $type: 'string', $regex: /.{50,}/ } },
-        { processedContent: { $exists: true, $type: 'string', $regex: /.{50,}/ } }
+        { originalContent: { $exists: true, $ne: null, $type: 'string' } },
+        { processedContent: { $exists: true, $ne: null, $type: 'string' } }
       ]
     };
+    // 注意：内容长度过滤在内存中进行，不在数据库（更快）
     
-    // 添加维度筛选条件
-    if (company && company !== '全部') {
+    // 添加维度筛选条件（只处理非空值）
+    if (company && company !== '' && company !== '全部') {
       contentFilter.company = company;
     }
     
-    if (location && location !== '全部') {
+    if (location && location !== '' && location !== '全部') {
       contentFilter['tagDimensions.location'] = location;
     }
     
-    if (recruitType && recruitType !== '全部') {
+    if (recruitType && recruitType !== '' && recruitType !== '全部') {
       contentFilter['tagDimensions.recruitType'] = recruitType;
     }
     
-    if (category && category !== '全部') {
+    if (category && category !== '' && category !== '全部') {
       contentFilter['tagDimensions.category'] = category;
     }
     
-    if (subRole && subRole !== '全部') {
-      contentFilter['tagDimensions.subRole'] = subRole;
+    if (experience && experience !== '' && experience !== '全部') {
+      contentFilter['tagDimensions.experience'] = experience;
+    }
+    
+    if (salary && salary !== '' && salary !== '全部') {
+      contentFilter['tagDimensions.salary'] = salary;
     }
     
     if (technologies) {
@@ -122,32 +137,64 @@ app.get('/api/posts', async (req, res) => {
     }
     
     // 文本搜索（标题、公司、职位）
+    // 注意：$regex 无法使用索引，但如果数据量不大（<10万条），仍然可以接受
+    // 如果数据量大，建议使用 MongoDB 文本索引或 Elasticsearch
     if (search && search.trim()) {
-      const searchRegex = new RegExp(search.trim(), 'i');
-      contentFilter.$or.push(
-        { title: searchRegex },
-        { company: searchRegex },
-        { role: searchRegex }
-      );
+      const searchTerm = search.trim();
+      const searchRegex = new RegExp(searchTerm, 'i');
+      
+      // 保存原有的内容存在条件
+      const hasContentCondition = contentFilter.$or;
+      
+      // 重新构建 $and 查询，确保：(有内容) AND (搜索匹配)
+      delete contentFilter.$or;
+      contentFilter.$and = [
+        { $or: hasContentCondition }, // 必须有内容（originalContent 或 processedContent）
+        {
+          $or: [
+            { title: searchRegex },
+            { company: searchRegex },
+            { role: searchRegex }
+          ]
+        } // 搜索匹配（title 或 company 或 role）
+      ];
     }
     
+    // 性能优化：使用 .lean() 返回普通对象（快 5-10 倍）
+    // 使用 .explain() 调试查询性能（生产环境注释掉）
     const [posts, total] = await Promise.all([
-      Post.find(contentFilter).sort({ createdAt: -1 }).skip(skip).limit(limit),
+      Post.find(contentFilter)
+        .sort({ createdAt: -1 })
+        .skip(skip)
+        .limit(limit)
+        .lean(), // 关键优化：返回普通对象而不是 Mongoose 文档
       Post.countDocuments(contentFilter)
     ]);
+    
+    // 在内存中过滤内容长度（替代数据库正则查询）
+    const filteredPosts = posts.filter(post => {
+      const hasContent = 
+        (post.originalContent && post.originalContent.length >= 50) ||
+        (post.processedContent && post.processedContent.length >= 50);
+      return hasContent;
+    });
+    
     const duration = Date.now() - startTime;
     
     // 记录筛选参数（用于调试）
-    const filterParams = { company, location, recruitType, category, subRole, technologies, search };
-    console.log(`[MongoDB Query] GET /api/posts - Duration: ${duration}ms (page: ${page}, limit: ${limit}, total: ${total}, filters: ${JSON.stringify(filterParams)})`);
+    const filterParams = { company, location, recruitType, category, experience, salary, technologies, search };
+    console.log(`[MongoDB Query] GET /api/posts - Duration: ${duration}ms (page: ${page}, limit: ${limit}, total: ${total}, filtered: ${filteredPosts.length}, filters: ${JSON.stringify(filterParams)})`);
+    
+    // 如果过滤后数据不足，调整总数
+    const actualTotal = filteredPosts.length < posts.length ? total - (posts.length - filteredPosts.length) : total;
     
     res.send({
-      posts,
+      posts: filteredPosts,
       pagination: {
         page,
         limit,
-        total,
-        totalPages: Math.ceil(total / limit)
+        total: actualTotal,
+        totalPages: Math.ceil(actualTotal / limit)
       }
     });
   } catch (error) { 
