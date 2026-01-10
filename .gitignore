@@ -1,3 +1,39 @@
-.git
-node_modules
+# Dependencies
+node_modules/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Build outputs
+dist/
+build/
+*.log
+*.log.*
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
 .DS_Store
+Thumbs.db
+
+# Pipeline outputs (ignore processed outputs, keep scripts)
+hh_pipeline/out/bad/*
+hh_pipeline/out/final/*
+hh_pipeline/out/state.sqlite
+hh_pipeline/input_html/*.html
+
+# Test files
+hh_pipeline/test_input/
+*.test.*
