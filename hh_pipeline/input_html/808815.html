@@ -1,0 +1,88 @@
+﻿
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="utf-8">
+            <title>Extracted Content</title>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    line-height: 1.6;
+                    margin: 20px;
+                }
+                .thread_subject {
+                    font-size: 1.5em;
+                    font-weight: bold;
+                    margin-bottom: 20px;
+                }
+                .post_time {
+                    font-size: 0.9em;
+                    color: gray;
+                    margin-bottom: 10px;
+                }
+                .article_body {
+                    margin-top: 20px;
+                }
+                .attachments {
+                    margin-top: 20px;
+                    background: #f9f9f9;
+                    padding: 10px;
+                    border: 1px solid #ddd;
+                }
+                .attachments a {
+                    display: block;
+                    margin: 5px 0;
+                    text-decoration: none;
+                    color: blue;
+                }
+            </style>
+        </head>
+        <body>
+            <div class="thread_subject"><span id="thread_subject">骨骼DS PA 店面</span></div>
+            <div class="post_time">Published on: 2021-10-16 09:38</div>
+            <div class="article_body"><td class="t_f" id="postmessage_16146219" itemprop="articleBody">
+新人第一次发帖，希望得到些大米的鼓励，最近面试急看面经！<font class="jammer"></font><br />
+<font class="jammer"></font><br />
+猎头在领英上联系上的，不是骨骼家自己的猎头 是外包的猎头公司。 和猎头聊了半小时 顺便让我口头填了问卷调查。最后我提问 问这种第三方猎头公司的职位和骨骼自己猎头招的职位有啥不同，对方回答没有不一样，只是狗家自己猎头忙不过来需求又很大 只好外包。由此猜测，要么他家疫情期间走的人太多，招不过来， 要不然他们自家猎头走得太多。。。 反正需求量很大的样子。流程只有两轮，店面和VO。这比很多公司高效很多吧。<font class="jammer"></font><br />
+当我提到还有两个公司马上终面，他们很快安排了店面，赞一个高效。<font class="jammer"></font><br />
+<font class="jammer"></font><br />
+<font class="jammer"></font><br />
+面试官是个很chill 的美国大叔，一开口就感觉是个很好打交道的平和的人。直接进入主题。<font class="jammer"></font><br />
+<font class="jammer"></font><br />
+面试在google doc里进行。<font class="jammer"></font><br />
+<font class="jammer"></font><br />
+两道SQL 题。 第一题非常简单，<div class="locked">以下内容需要积分高于 160 您已经可以浏览</div><font class="jammer"></font><br />
+<div style="border: 1px solid #C2D5E3;padding:8px 8px 8px 24px;">求某种aggregate的最大两个值。用了一个agg function（忘了具体问的啥），然后order by, limit 2 就完事了，简单的让我怀疑是补水没读懂题目。第二题给了个table, 只有两个column, 大概长这样：<font class="jammer"></font><br />
+date&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;|&nbsp; &nbsp;&nbsp;&nbsp;value<font class="jammer"></font><br />
+2021-01-01&nbsp; &nbsp;&nbsp; &nbsp;3000<font class="jammer"></font><br />
+2021-01-02&nbsp; &nbsp;&nbsp;&nbsp;400<font class="jammer"></font><br />
+。。。。。<font class="jammer"></font><br />
+求每天的 cumulative sum。<font class="jammer"></font><br />
+select<font class="jammer"></font><br />
+date<font class="jammer"></font><br />
+, sum(value) over (order by date) as cum_sum<font class="jammer"></font><br />
+from table<font class="jammer"></font><br />
+<font class="jammer"></font><br />
+我还特地解释了这里 by default sum(value) 就是cumulative sum, 所以不用专门写 rows between unbounded preceding to current row。面试官对这个解释很满意，马上在电脑上噼噼一阵敲做评语。<font class="jammer"></font><br />
+<font class="jammer"></font><br />
+第二部分是sudo coding。考察的是python 的数据处理能力。<font class="jammer"></font><br />
+<font class="jammer"></font><br />
+他给我了一个string, 这是一个list of string里的一个element. 让我把这个list处理成一个pandas dataframe<font class="jammer"></font><br />
+&quot;date: 2021-01-01, geo: new^York^, user_id: 123^3432^532&quot;.&nbsp;&nbsp;^ 是乱码需要去掉。<font class="jammer"></font><br />
+<font class="jammer"></font><br />
+面试官很好 当我表示记不住具体的function,他说没事 就说方法sudo code就行。<font class="jammer"></font><br />
+<font class="jammer"></font><br />
+第三部分是ML 。问的建模的流程。对imbalanced data 要怎么处理。用什么模型，为什么（没回答上来，只是说选几个常用的 最后看performance, 面试官也没揪细节就过去啦，不过大家还是要熟悉为什么选每一个模型的理由。），随即森里模型会调什么参数，我正好记得两个随便瞎说，面试官也很nice的就过了。</div><font class="jammer"></font><br />
+<font class="jammer"></font><br />
+最后问答环节 我问 你在骨骼12 年了是什么让你待这么久 本以为他会大吹一堆公司怎么好，没想到人家云淡风轻的说因为离家近福利好，主要还是因为离家近，说了三遍离家近。。。。顿时好感倍增，原来高手林立的狗家也有不思进取躺平享受生活的人啊 对公司也好感增加。觉得是后半段职场生涯可以依靠的公司。<font class="jammer"></font><br />
+<font class="jammer"></font><br />
+大叔还说google doc 会提交上去 不是自己决定，他只是document。<br />
+<span style="display:none"></span><font class="jammer"></font><br />
+第二天HR 就联系说过了 这效率。<font class="jammer"></font><br />
+<font class="jammer"></font><br />
+求大米求大米！走过路过大米不要错过&nbsp;&nbsp;得到鼓励我好继续分享onsite信息。<font class="jammer"></font><br />
+</td></div>
+            <div class="attachments"></div>
+        </body>
+        </html>
+        

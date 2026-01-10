@@ -1,0 +1,22 @@
+{
+  "title": "Google Trust and Safety 组数据分析面试经验",
+  "originalContent": "<div class=\"article_body\"><td class=\"t_f\" id=\"postmessage_15838877\" itemprop=\"articleBody\">\nGoogle小众组 Trust and Safety<br/>\n面试官是个白人manager 在Google这个组待了八年多了 不是tech出身所以问的都是behavior+analytical questions 人很nice<br/>\n<br/>\n1. The most proud thing you gained from school/past work experience<br/>\n2. Describe a task that you feel difficult in your work<br/>\n然后给看了一个有graph 有好几个peak的一个曲线图 去掉了xy轴 说x轴是任意单位的时间 没有y值<br/>\n1. 让你interpret这个图 e.g. 自己定义y 只要make sense就可以 非常open-ended<br/>\n2. 你觉得哪几个peak看起来不同于其他的peak and why<br/>\n<span style=\"display:none\"></span>3. 如果y轴是number of accounts created on Google globally, 你要怎么解释这个图？(这里我说的是因为比如china不能用google 所以在中国时间白天美国时间晚上的话可能就注册用户会很少 相反就会很多 所以才有了峰顶和低点) 然后对于之前选出来的那几个不同的peak来analyze原因 看什么data<br/>\n后面还问了关于phishing website的问题<br/>\n1. 你会怎么向五岁的孩子描述phishing website<br/>\n2. 看哪些metrics/data来detect phishing website<br/>\n<br/>\n很不常规的data面试 完全无coding 可能因为面试官也不是tech出身。。。面完感觉表现很一般 估计凉了 anyway求大米！</td></div>",
+  "processedContent": "## 基本信息（公司/岗位/结果/难度）\n\n- **公司**：Google\n- **岗位**：Trust and Safety 组 - 数据分析相关岗位（非纯技术岗）\n- **结果**：未提及（候选人自评表现一般，估计未通过）\n- **难度**：3\n\n## 时间线\n\n未提及/不明确\n\n## 面试过程\n\n### 一面（Manager 面试）\n\n面试官为一位在 Google Trust and Safety 团队任职超过八年的非技术背景管理者，整体风格偏行为与分析能力考察，无编程题。\n\n#### 行为与分析问题\n1. 你在学校或过往工作中最让你感到自豪的一件事是什么？\n2. 描述一个你在工作中觉得有挑战性的任务，你是如何应对的？\n\n#### 图表分析题\n面试官展示了一个去掉坐标轴的曲线图，X轴表示任意单位的时间，Y轴无标签。\n\n1. 请你自己定义Y轴并解释该图表的含义（开放性问题，合理即可）。\n2. 指出图中哪些峰值与其他不同，并说明原因。\n3. 若Y轴代表“全球Google账号注册数量”，请解释该趋势。特别地，针对你指出的异常峰值，你会查看哪些数据来进一步分析其成因？\n   - 候选人回答示例：由于中国无法使用Google，当中国处于白天（美国为夜晚）时注册量可能较低；反之美国活跃时段注册量上升，形成高峰。异常峰可能需结合节假日、市场活动或安全事件分析。\n\n#### 安全相关问题\n1. 如何向一个五岁的孩子解释什么是钓鱼网站（phishing website）？\n2. 你会通过哪些指标或数据来识别钓鱼网站？\n\n## 题目总结\n\n- 行为类：\n  - 最自豪的经历\n  - 工作中遇到的困难任务\n\n- 开放式图表分析：\n  - 解读无标签趋势图\n  - 定义Y轴并解释趋势\n  - 识别异常峰值并推测原因\n  - 在给定Y轴含义下，结合地理/时区因素解释波动\n  - 提出可验证的数据分析思路\n\n- 安全知识类：\n  - 向非技术人员解释钓鱼网站\n  - 检测钓鱼网站的关键指标\n\n## 个人总结\n\n本次面试非常规，完全不涉及编码或SQL等典型数据岗技能，更侧重行为表现、逻辑推理、沟通能力与对互联网安全问题的理解。由于面试官非技术背景，问题偏向产品思维与实际场景应用。建议后续候选人准备：\n- 清晰的行为事例（STAR结构）\n- 图表解读与假设构建能力\n- 对Trust & Safety领域基本概念的理解（如垃圾内容、欺诈、钓鱼等）\n- 能用通俗语言解释技术概念的能力\n- 全球化视角下的用户行为分析（如时区、地域政策影响）",
+  "company": "Google",
+  "role": "Data Analyst (Trust and Safety)",
+  "difficulty": 3,
+  "tags": [
+    "数据分析",
+    "行为面试",
+    "图表解读",
+    "开放性问题",
+    "安全方向",
+    "非技术面试",
+    "国际化业务"
+  ],
+  "comments": [],
+  "usefulVotes": 0,
+  "uselessVotes": 0,
+  "shareCount": 0,
+  "isAnonymous": true
+}

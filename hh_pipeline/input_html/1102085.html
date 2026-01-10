@@ -1,0 +1,62 @@
+﻿
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="utf-8">
+            <title>Extracted Content</title>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    line-height: 1.6;
+                    margin: 20px;
+                }
+                .thread_subject {
+                    font-size: 1.5em;
+                    font-weight: bold;
+                    margin-bottom: 20px;
+                }
+                .post_time {
+                    font-size: 0.9em;
+                    color: gray;
+                    margin-bottom: 10px;
+                }
+                .article_body {
+                    margin-top: 20px;
+                }
+                .attachments {
+                    margin-top: 20px;
+                    background: #f9f9f9;
+                    padding: 10px;
+                    border: 1px solid #ddd;
+                }
+                .attachments a {
+                    display: block;
+                    margin: 5px 0;
+                    text-decoration: none;
+                    color: blue;
+                }
+            </style>
+        </head>
+        <body>
+            <div class="thread_subject"><span id="thread_subject">用SQL实现ABTest的结果分析-全部Code</span></div>
+            <div class="post_time">Published on: 2024-12-10 12:11</div>
+            <div class="article_body"><td class="t_f" id="postmessage_20022107" itemprop="articleBody">
+<font class="jammer">. check 1point3acres for more.</font><br>
+分为四种情况：one sample/two sample, non proportional/proportional<font class="jammer">. </font><br>
+需要深入地理解ttest，同时也要能够在实际的Code中计算出<font size="4"><strong>1. One-Sample T-Test (Non-Proportion)</strong></font><div class="blockcode"><div id="code_sv5"><ol><li>-- Step 1: Define hypothesized mean</li><li>WITH hypothesized_mean AS (</li><li>&nbsp; &nbsp; SELECT 100.0 AS mu0 -- Replace 100.0 with your hypothesized mean</li><li>),</li><li>-- Step 2: Calculate sample statistics</li><li>sample_stats AS (</li><li>&nbsp; &nbsp; SELECT</li><li>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;COUNT(value) AS n,</li><li>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;AVG(value) AS sample_mean,</li><li>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;STDDEV(value) AS sample_stddev -- Use STDDEV_SAMP in some SQL dialects 注意计算sample的standard deviation 有 n与n-1的区别</li><li>&nbsp; &nbsp; FROM observations</li><li>),</li><li></li><li>-- Step 3: Calculate the t-statistic</li><li>t_statistic AS (</li><li>&nbsp; &nbsp; SELECT</li><li>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;(sample_mean - mu0) / (sample_stddev / SQRT(n)) AS t_value, --最重要的公式</li><li>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;n - 1 AS degrees_of_freedom</li><li>&nbsp; &nbsp; FROM sample_stats, hypothesized_mean</li><li>),</li><li></li><li>-- Step 4: Return results</li><li>results AS (</li><li>&nbsp; &nbsp; SELECT</li><li>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;t_value,</li><li>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;degrees_of_freedom,</li><li>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;CASE</li><li>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;WHEN ABS(t_value) &gt;1.96 THEN 'Reject Null Hypothesis' -- Critical value 一般情况下使用z score 为了方便起见</li><li>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;ELSE 'Fail to Reject Null Hypothesis'</li><li>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;END AS conclusion</li><li>&nbsp; &nbsp; FROM t_statistic</li><li>)</li><li></li><li>-- Output</li><li>SELECT * FROM results;</li><li></li></ol></div><em onclick="copycode($('code_sv5'));">复制代码</em></div><font size="4"></font><font class="jammer"></font><br>
+<font size="4"><strong>2. Two-Sample T-Test (Non-Proportion)</strong></font><font class="jammer"></font><br>
+<font class="jammer"></font><div id="1p3a-ad-thread-paragraph" style="margin-top: 20px; margin-bottom: 20px;"></div><br>
+Test if the means of two independent samples are different.SQL Code:<div class="blockcode"><div id="code_q14"><ol><li>Step 1: Calculate sample statistics for each group</li><li>WITH group_stats AS (</li><li>&nbsp; &nbsp; SELECT</li><li>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;group,</li><li>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;COUNT(value) AS n,</li><li>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;AVG(value) AS mean,</li><li>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;VARIANCE(value) AS variance -- Use STDDEV(value)^2 for variance in some SQL dialects</li><li>&nbsp; &nbsp; FROM observations</li><li>&nbsp; &nbsp; GROUP BY group</li><li>),</li><li></li><li>-- Step 2: Calculate pooled variance</li><li>pooled_variance AS (</li><li>&nbsp; &nbsp; SELECT</li><li>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;SUM((n - 1) * variance) / (SUM(n) - 2) AS pooled_var </li><li>&nbsp; &nbsp; FROM group_stats</li><li>),</li><li></li><li>-- Step 3: Calculate the t-statistic</li><li>t_statistic AS (</li><li>&nbsp; &nbsp; SELECT</li><li>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;(g1.mean - g2.mean) /</li><li>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;SQRT(pooled_var * (1.0 / g1.n + 1.0 / g2.n)) AS t_value,</li><li>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;(g1.n + g2.n - 2) AS degrees_of_freedom</li><li>&nbsp; &nbsp; FROM group_stats g1</li><li>&nbsp; &nbsp; CROSS JOIN group_stats g2</li><li>&nbsp; &nbsp; CROSS JOIN pooled_variance</li><li>&nbsp; &nbsp; WHERE g1.group = 'A' AND g2.group = 'B' -- Replace 'A' and 'B' with actual group identifiers</li><li>),</li><li></li><li>-- Step 4: Return results</li><li>results AS (</li><li>&nbsp; &nbsp; SELECT</li><li>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;t_value,</li><li>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;degrees_of_freedom,</li><li>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;CASE</li><li>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;WHEN ABS(t_value) &gt; 1.96</li><li>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;ELSE 'Fail to Reject Null Hypothesis'</li><li>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;END AS conclusion</li><li>&nbsp; &nbsp; FROM t_statistic</li><li>)</li><li></li><li>-- Output</li><li>SELECT * FROM results;</li></ol></div><em onclick="copycode($('code_q14'));">复制代码</em></div><font class="jammer"></font><br>
+<font size="4"><strong>3. One-Sample Proportion Test</strong></font><font class="jammer"></font><br>
+<font class="jammer"></font><br>
+Test if the sample proportion differs from a hypothesized proportionSQL Code:<div class="blockcode"><div id="code_eDz"><ol><li>-- Step 1: Define hypothesized proportion</li><li>WITH hypothesized_proportion AS (</li><li>&nbsp; &nbsp; SELECT 0.5 AS p0 -- Replace 0.5 with your hypothesized proportion</li><li>),</li><li></li><li>-- Step 2: Calculate sample statistics</li><li>sample_stats AS (</li><li>&nbsp; &nbsp; SELECT</li><li>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;COUNT(*) AS n,</li><li>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;SUM(outcome) * 1.0 / COUNT(*) AS sample_proportion -- Proportion (p)</li><li>&nbsp; &nbsp; FROM observations</li><li>),</li><li></li><li>-- Step 3: Calculate the t-statistic</li><li>t_statistic AS (</li><li>&nbsp; &nbsp; SELECT</li><li>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;(sample_proportion - p0) /</li><li>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;SQRT(p0 * (1 - p0) / n) AS t_value</li><li>&nbsp; &nbsp; FROM sample_stats, hypothesized_proportion</li><li>),</li><li></li><li>-- Step 4: Return results</li><li>results AS (</li><li>&nbsp; &nbsp; SELECT</li><li>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;t_value,</li><li>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;CASE</li><li>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;WHEN ABS(t_value) &gt; 1.96 THEN 'Reject Null Hypothesis' </li><li>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;ELSE 'Fail to Reject Null Hypothesis'</li><li>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;END AS conclusion</li><li>&nbsp; &nbsp; FROM t_statistic</li><li>)</li><li>-- Output</li><li>SELECT * FROM results;</li></ol></div><em onclick="copycode($('code_eDz'));">复制代码</em></div><font size="4"><strong>4. Two-Sample T-Test (Proportion)</strong></font><font class="jammer">. 1point3acres.com </font><br>
+<font class="jammer"></font><br>
+Test if the means of two independent samples are different.SQL Code:<strong>Adjusted SQL Code for Two-Sample Proportion Test</strong><div class="blockcode"><div id="code_d4k"><ol><li>-- Step 1: Calculate sample statistics for each group</li><li>WITH group_stats AS (</li><li>&nbsp; &nbsp; SELECT</li><li>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;group,</li><li>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;COUNT(*) AS n,</li><li>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;SUM(outcome) * 1.0 / COUNT(*) AS proportion -- Proportion (p)</li><li>&nbsp; &nbsp; FROM observations</li><li>&nbsp; &nbsp; GROUP BY group</li><li>),</li><li></li><li>-- Step 2: Calculate the standard error squared (SE^2)</li><li>standard_error_squared AS (</li><li>&nbsp; &nbsp; SELECT</li><li>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;g1.group AS group1,</li><li>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;g2.group AS group2,</li><li>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;g1.proportion AS p1,</li><li>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;g2.proportion AS p2,</li><li>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;g1.n AS n1,</li><li>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;g2.n AS n2,</li><li>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;-- Calculate SE^2 for each group</li><li>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;(g1.proportion * (1 - g1.proportion) / g1.n) + </li><li>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;(g2.proportion * (1 - g2.proportion) / g2.n) AS se_squared</li><li>&nbsp; &nbsp; FROM group_stats g1</li><li>&nbsp; &nbsp; CROSS JOIN group_stats g2</li><li>&nbsp; &nbsp; WHERE g1.group = 'A' AND g2.group = 'B' -- Replace 'A' and 'B' with group identifiers</li><li>),</li><li></li><li>-- Step 3: Calculate the t-statistic</li><li>z_statistic AS (</li><li>&nbsp; &nbsp; SELECT</li><li>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;(p1 - p2) / SQRT(se_squared) AS t_value</li><li>&nbsp; &nbsp; FROM standard_error_squared</li><li>),</li><li></li><li>-- Step 4: Return results</li><li>results AS (</li><li>&nbsp; &nbsp; SELECT</li><li>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;t_value,</li><li>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;CASE</li><li>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;WHEN ABS(t_value) &gt; 1.96 THEN 'Reject Null Hypothesis' </li><li>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;ELSE 'Fail to Reject Null Hypothesis'</li><li>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;END AS conclusion</li><li>&nbsp; &nbsp; FROM t_statistic</li><li>)</li><li></li><li>-- Output</li><li>SELECT * FROM results;</li><li></li></ol></div><em onclick="copycode($('code_d4k'));">复制代码</em></div><font size="4"></font><font class="jammer"></font><br>
+<font class="jammer"></font><br>
+<font class="jammer"></font><br>
+<font class="jammer">. Waral dи,</font><br>
+求点大米～感谢</td></div>
+            <div class="attachments"></div>
+        </body>
+        </html>
+        

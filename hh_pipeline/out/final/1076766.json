@@ -1,0 +1,23 @@
+{
+  "title": "Google 数据科学家面试经验分享",
+  "originalContent": "<div class=\"article_body\"><td class=\"t_f\" id=\"postmessage_19685651\" itemprop=\"articleBody\">\n具体题目不透露了～但分享一下面试的方向<br/>\n        <br/>\n流程十分structural<div id=\"1p3a-ad-thread-paragraph\" style=\"margin-top: 20px; margin-bottom: 20px;\"></div><br/>\nHR screening + first round 2 technical + second round 2 technical 1 behavior<br/>\n        <br/>\nTechnical cover的方向很广，有sql，stats, estimation, modeling, ab testing<br/>\n感觉对communication skills和technical skills要求都比较高</td></div>",
+  "processedContent": "## 基本信息\n- **公司**：Google\n- **岗位**：数据科学家\n- **结果**：未提及/不明确\n- **难度**：4\n\n## 时间线\n未提及/不明确\n\n## 面试过程\n- **HR 筛选**：通过，进入技术轮\n- **第一轮**：两轮技术面试\n- **第二轮**：两轮技术面试 + 一轮行为面\n\n每轮面试均注重结构化流程，技术面覆盖范围广泛，强调沟通能力与技术能力的结合。\n\n## 题目总结\n- SQL 问题\n- 统计学知识（Stats）\n- 估算题（Estimation）\n- 建模问题（Modeling）\n- A/B 测试（A/B Testing）\n\n## 个人总结\nGoogle 的数据科学家面试流程非常结构化，对候选人的综合能力要求较高。不仅需要扎实的技术基础，还需具备清晰的表达能力和逻辑思维。建议准备时全面覆盖常见考点，并重点提升在限时环境下清晰阐述思路的能力。",
+  "company": "Google",
+  "role": "数据科学家",
+  "difficulty": 4,
+  "tags": [
+    "数据科学家",
+    "技术面试",
+    "行为面试",
+    "SQL",
+    "统计学",
+    "A/B测试",
+    "建模",
+    "估算题"
+  ],
+  "comments": [],
+  "usefulVotes": 0,
+  "uselessVotes": 0,
+  "shareCount": 0,
+  "isAnonymous": true
+}

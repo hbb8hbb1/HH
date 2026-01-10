@@ -1,0 +1,68 @@
+﻿
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="utf-8">
+            <title>Extracted Content</title>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    line-height: 1.6;
+                    margin: 20px;
+                }
+                .thread_subject {
+                    font-size: 1.5em;
+                    font-weight: bold;
+                    margin-bottom: 20px;
+                }
+                .post_time {
+                    font-size: 0.9em;
+                    color: gray;
+                    margin-bottom: 10px;
+                }
+                .article_body {
+                    margin-top: 20px;
+                }
+                .attachments {
+                    margin-top: 20px;
+                    background: #f9f9f9;
+                    padding: 10px;
+                    border: 1px solid #ddd;
+                }
+                .attachments a {
+                    display: block;
+                    margin: 5px 0;
+                    text-decoration: none;
+                    color: blue;
+                }
+            </style>
+        </head>
+        <body>
+            <div class="thread_subject"><span id="thread_subject">Google product analyst PA virtual onsite 面经</span></div>
+            <div class="post_time">Published on: 2022-7-4 04:07</div>
+            <div class="article_body"><td class="t_f" id="postmessage_17340727" itemprop="articleBody">
+趁着还有记忆，赶紧来写个面经回报地里。这个PA职位我几年前面过，当时都过了hc，只是level 3太低了没去。这次面的是L5，不知道是不是级别高了bar高了，feedback不是很好。也想向大家取取经，怎么能答好product sense相关的问题，有时候觉得生拉硬套模版反而答不到点上。我也附上我的答案，希望大家帮忙点评指正。<font class="jammer"></font><br>
+首先，我感觉这次的面试官都比较年长，不知道是不是面senior的职位，面试官就会找比较senior的？有小伙伴知道吗？<font class="jammer">. 1point3acres</font><br>
+<font class="jammer"></font><br>
+round 1: youtube team。大概意思是如果pm觉得youtube premium does not perform well，你怎么去分析。我答的是可以看下user feedback和相关的metrics 比如 time spent, revenue, subscription rate, churned rate 的trend变化如何。他强调了一下revenue怎么比，后来我理解他的意思是比较non-premium vs premium 因为premium是看不到ads的只有subscription fee。然后他问如果某个metric下降了（忘了问的是哪个了）是为什么。然后我就说了看下historical trend从什么时候开始下降的，是graduated 还是 sudden，如果是sudden可以breakdown 看下是哪个segment下降了，是否是某些feature launch引起的。然后他说是graduated下降怎么办，这块我觉得我说的也比较扯 好像说的是查看以往的ab test结果看看是否有long term negative effect，我忘了mention competitor effect。<font class="jammer"></font><br>
+<font class="jammer"></font><br>
+<font class="jammer"></font><br>
+round 2: 他强调了都是假的并且open-ended question，主要看how do you think about questions（我想问product sense真的是open-ended的吗，感觉他们还是有想要的答案的？）先问了google map，说google map not profitable, 如果要每年收$20，subscribe的人可以使用reroute的功能，你如何evaluate？我答的是看看有多少DAU会用到这个feature会受影响，做个survey预测一下多少人会 churn。然后看看这个决策能得到的revenue，revenue可以hiring更多的engineer来提高product，从而提高user experience和retention，来看是否值得。另一个题是其他面经里的氪金大佬题，哪些feature有影响，如何identify。<font class="jammer"></font><br>
+<font class="jammer"></font><br>
+round 3: 中规中矩behavior questions，没啥可说的。<br>
+<span style="display:none"></span><font class="jammer">. From 1point 3acres bbs</font><br>
+round 4: 有个SQL是用window function percentile的。找不到当时的笔记记不太清了，印象深刻的是设计一个ab testing的实验，control是可以skip的ads video，test是第一个ads不可以skip，问考虑哪些metrics，如何设计实验。讨论比较多的一点是我选的unit of analysis是user，他听完追问为什么不用video based，我说video的话control和test group会有inference，而且我选的metrics也都是user based的这样unit of analysis和unit of diversion一致variance小可以用常规方法，但不确定他是否满意我的答案。<font class="jammer"></font><br>
+<font class="jammer"></font><br>
+round 5: 这轮体验最差，一个中国大姐，不是很仔细听你说的，一直challenge你的回答。第一题说有1000个网页和50个reviewer每个人rate 100个网页关于网页是否easy to navigate，所以每个网页会有5个rating（0到10分）。问如果给每个网页assign一个usability score？我觉得这个问题不难啊，我答了mean，median，mean除去最高最低分等，但她一直追问还有别的吗？不知道她想要什么。然后她问会有什么bias，我说reviewer分配时会有bias，比如有一些偏好或者特征的人只分配到了特定的网页，比如某类网页A都让年长的人review，她就一直打断并challenge说这不是bias，然后我解释了10分钟，最后发现她理解的是我想让年长的人都看网页A。。。不知道这道题该怎么答好。<font class="jammer"></font><br>
+<font class="jammer"></font><br>
+总的来说，整体感觉题目在自己的预料之中，但回想起来有些确实也答得不是很到位。 我本身是比较full stack DS，也做一部分engineering的工作比较偏tech，所以不是完全focus product analysis，感觉product sense这方面不是强项，不知道大家有啥好的建议和方法或者书籍来提高一下这方面的skill。<font class="jammer"></font><br>
+<font class="jammer">. ----</font><br>
+<font class="jammer"></font><br>
+<font class="jammer"></font><br>
+<font class="jammer"></font><br>
+<font class="jammer">.--</font><br>
+</td></div>
+            <div class="attachments"></div>
+        </body>
+        </html>
+        

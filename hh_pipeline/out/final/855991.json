@@ -1,0 +1,23 @@
+{
+  "title": "Google Quantitative Marketing Scientist 面试经验分享",
+  "originalContent": "<div class=\"article_body\"><td class=\"t_f\" id=\"postmessage_16737594\" itemprop=\"articleBody\">\nGoogle Quantitative Marketing Scientist 旖<br/>\n我的背景是5+ MLE <br/>\nLinkedin recruiter j上的<br/>\nHM是一美白人大 yT士背景,UX research D manager 不久 M是ads marketing<br/>\n<span style=\"display:none\"></span>HM 店面第一 主要是behavior questions<br/>\n第一}就f如果要建立一dashboardoGoogle PM 想知道V告的表F,那要放哪些metrics; 根我的回答 他再^m深入 (@}因槲沂MLE背景 就以我的理解去回答, 可能跟他想要的有出入？）<br/>\n<br/>\n再硭又f有]有跟 PM合作 但Ψ讲欢ML怎N交流<br/>\n@}我]有回答得很好 可能是fail的原因<br/>\n<br/>\n最後他f有]有跟engineer合作被Ψpush back的,@}因槲业墓ぷ饕碰到deployment,所以跟engineer 相]有太大},但我回答是以多贤,互相了解需求！<br/>\n<br/>\n最後了一些@工作的主要是跟哪些人交流,ＨＭ回答是PM出他需要的Y料！<br/>\n看磉是要乖乖刷} 走SDE路去狗家！<br/>\n</td></div>",
+  "processedContent": "## 基本信息（公司/岗位/结果/难度）\n- **公司**：Google\n- **岗位**：Quantitative Marketing Scientist\n- **结果**：未通过（推测）\n- **难度**：4\n\n## 时间线\n未提及/不明确\n\n## 面试过程\n### 面试轮次：HM店面（第一轮）\n- 主要为行为面试问题（Behavioral Questions）。\n- 面试官背景：白人男性，曾从事YouTube研究与UX研究，现任广告营销方向的Manager。\n\n#### 主要问题与交流内容：\n1. **仪表盘设计题**：如果要为Google PM建立一个衡量广告表现的Dashboard，你会包含哪些核心指标？\n   - 候选人基于自身MLE（机器学习工程师）背景作答，但可能与面试官期待的定量营销视角存在偏差。\n   \n2. **跨团队协作沟通**：\n   - 是否有与PM合作的经历？如何向非技术PM解释ML模型？\n   - 候选人表示回答不够理想，可能是面试失败的原因之一。\n   \n3. **与工程师协作冲突**：\n   - 是否在项目中因与工程师合作不畅而被push back？\n   - 候选人表示工作中涉及部署，但未遇到明显冲突，回答侧重于“多倾听、互相理解需求”。\n\n4. **日常工作沟通对象**：\n   - 平时主要与哪些角色沟通？\n   - 面试官反馈：实际工作中主要是PM提出数据需求，科学家提供支持。\n\n## 题目总结\n- 设计一个用于评估广告表现的Dashboard，应包含哪些关键Metrics？\n- 如何向非技术背景的PM解释复杂的机器学习模型？\n- 描述一次与工程师合作受阻的经历，你是如何应对的？\n- 你日常工作中主要与哪些角色协作？沟通方式是什么？\n\n## 个人总结（经验与建议）\n- 候选人具备5年以上MLE经验，但可能因岗位定位偏差（偏向SDE或技术岗思维）未能契合Quantitative Marketing Scientist的业务导向需求。\n- 建议后续求职者：\n  1. 明确岗位性质——该职位更偏向业务分析、广告效果度量与跨团队沟通，而非纯工程实现。\n  2. 提前准备行为题，尤其是与PM、Engineer协作的真实案例，突出沟通与影响力。\n  3. 熟悉广告系统常用指标（如CTR、CPC、ROAS、Conversion Rate等），并能从PM视角设计可视化方案。\n  4. 若背景偏工程，需主动调整表达方式，避免过于技术化，强调“解决业务问题”的能力。\n- 总结反思：或许应转向SDE路径申请Google会更匹配。",
+  "company": "Google",
+  "role": "Quantitative Marketing Scientist",
+  "difficulty": 4,
+  "tags": [
+    "行为面试",
+    "广告系统",
+    "跨团队协作",
+    "仪表盘设计",
+    "机器学习应用",
+    "量化营销",
+    "面试失败复盘",
+    "Google面试"
+  ],
+  "comments": [],
+  "usefulVotes": 0,
+  "uselessVotes": 0,
+  "shareCount": 0,
+  "isAnonymous": true
+}

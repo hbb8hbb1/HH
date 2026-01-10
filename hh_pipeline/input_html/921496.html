@@ -1,0 +1,212 @@
+
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="utf-8">
+            <title>Extracted Content</title>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    line-height: 1.6;
+                    margin: 20px;
+                }
+                .thread_subject {
+                    font-size: 1.5em;
+                    font-weight: bold;
+                    margin-bottom: 20px;
+                }
+                .post_time {
+                    font-size: 0.9em;
+                    color: gray;
+                    margin-bottom: 10px;
+                }
+                .salary_post {
+                    margin-top: 20px;
+                    background: #f1f1f1;
+                    padding: 15px;
+                    border: 1px solid #ccc;
+                }
+                .article_body {
+                    margin-top: 20px;
+                }
+                .attachments {
+                    min-height: 5px;
+                    padding: 2px;
+                    font-size: 0.9em;
+                }
+                .attachments a {
+                    display: block;
+                    margin: 3px 0;
+                    text-decoration: none;
+                    color: blue;
+                }
+            </style>
+        </head>
+        <body>
+            <div class="thread_subject">Google Product Analyst 掛經</div>
+            <div class="post_time">Published on: Unknown Date</div>
+            <div class="salary_post"></div>
+            <div class="article_body">
+這個職缺是台灣 Pixel Team 專門開來協助做產品優化分析的，我掛在 Hiring Committee 這關 (但我看拿到這個職缺的大哥分享拿到 offer 的時間我才剛面完最後一輪 VO，想想有點不太甘心吶)<font class=jammer></font><br>
+<font class=jammer></font><br>
+因為題目部分有簽了 NDA，所以以下有大概歸納了面試題型類別以及我建議準備的方向/回答的 framework 給大家，希望對大家有幫助的話可以給點米，離 188 還好遠 <font class=jammer></font><br>
+<font class=jammer></font><br>
+1. SQL<font class=jammer>. Χ</font><br>
+<font class=jammer></font><br>
+<font class=jammer></font><br>
+準備方向：<font class=jammer></font><br>
+這部分大多數只要可以掌握 CTE 以及 Window Function 應該都可以過得滿輕鬆，我自己是把 LeetCode 裡所有 SQL 相關的題目都刷完了，如果沒付費光刷免費的題目我覺得都滿夠，不過電面的時候遇到最難的一題是只告訴你是某某產品的分析師要請你設計 log schema，然後再告訴你要用 SQL 從你設計的 table 裡撈出他要的 metric，我一開始沒設計好，差點搞死自己<font class=jammer></font><br>
+<font class=jammer>. check 1point3acres for more.</font><br>
+面試建議：<br>
+<span style=display:none></span><div class=locked>以下内容需要积分高于 110 您已经可以浏览</div><font class=jammer></font><br>
+<div style="border:1px solid #C2D5E3;padding:8px 8px 8px 24px">這邊主要是臨場不要太緊張，需要和面試官多釐清問題，尤其要確認 table append record 的條件以及指標的定義，例如：For the day-7 retention, would Google only focus on new users or all users?<font class=jammer></font><br>
+然後寫 SQL 的過程中要記得持續和面試官溝通，像我可能會邊解釋概念的過程當中先把 interim table 的名字先打出來 (裡頭 SELECT FROM 那些都還可以先不用寫)，當你緊張話說得不夠清楚的時候，面試官也可以靠你寫的這些步驟來給你提供建議</div><font class=jammer>. Waral dи,</font><br>
+<font class=jammer>.google&nbsp;&nbsp;и</font><br>
+<font class=jammer> .. </font><br>
+<font class=jammer></font><br>
+2. BQ<font class=jammer></font><br>
+<font class=jammer></font><br>
+準備方向：<font class=jammer> .. </font><br>
+我自己是用 <a href="https://link.1point3acres.com/?url=https%3A%2F%2Fwww.amazon.com%2F" target=_blank class=relatedlink>Amazon</a> 14 Leadership Principles 來進行準備，建議是可以先建立一張這樣子的表格 (Leadership, Your Job1, Your Job 2, etc.) 把自己過去工作的重點來填進去這張表，然後如果有經歷同時符合好幾項 Principle 的就重複填沒關係，這樣你也更容易明白哪些案例是你一有機會就該向面試官推銷的，然後要注意的是 Google 的文化滿注重 Friendly &amp; Think Positive，所以假設你的案例是別的部門犯了個甚麼錯誤，你可能要用 I found there is something could be improved for XX team.<font class=jammer>. 1point 3acres </font><br>
+<font class=jammer></font><br>
+面試建議：<font class=jammer></font><br>
+可以先幫你的經驗做個小 summary 然後再透過 S (Situation) T (Task) A (Action) R (Result) schema 來回答問題，不建議直接用 STAR schema 是因為有時候英語水平比較不好，可能敘事不夠精簡，透過前面的 summary 可以讓面試官更清楚知道他大概要抓哪些重點，會更有助於你們彼此溝通<font class=jammer></font><br>
+<font class=jammer></font><br>
+3. Case<font class=jammer></font><br>
+<font class=jammer></font><br>
+ 準備方向：<font class=jammer>. </font><br>
+基本上可以把 Google 家比較熱門的產品的主要功能會用哪些指標都想過一遍 (e.g. If you were account for the subscription function of Youtube and your PM wanted to change the current UI, how would you measure success?)<font class=jammer></font><br>
+然後我自己是有使用 Interview Query 這個網站來做練習，不用充值就能看到很多題目，底下的 Discussion 也都會有滿多 well-structured 的解答，自己覺得滿方便的<font class=jammer></font><br>
+不過可能因為 Pixel 這個職務還會碰到供應鍊，我還被問了一個如何優化倉儲補貨路徑的 case，完全沒想過會有這類問題，當下還滿緊張的<font class=jammer></font><br>
+<font class=jammer>. Waral dи,</font><br>
+面試建議：<font class=jammer>. </font><br>
+<div class=locked>以下内容需要积分高于 110 您已经可以浏览</div><font class=jammer>.google&nbsp;&nbsp;и</font><br>
+<div style="border:1px solid #C2D5E3;padding:8px 8px 8px 24px">可以透過下面的流程來進行<font class=jammer></font><br>
+<font class=jammer></font><br>
+&nbsp;&nbsp;a. Clarify Question<font class=jammer>.google&nbsp;&nbsp;и</font><br>
+<font class=jammer></font><br>
+以上面 Youtube 的例子來說，我可能會先確認訂閱功能當初設計想達成的情境是甚麼？(是希望能夠提供推薦系統使用的 label，還是希望訂閱後使用者能後週期性地回來消費這個頻道的內容)、對 Google 來說 success 的定義是甚麼？(專注在廣告收益？) 等等<font class=jammer></font><br>
+<font class=jammer></font><br>
+&nbsp;&nbsp;b. Verify Scope<font class=jammer></font><br>
+<font class=jammer></font><br>
+上面確認完後可以 summarize 一下結論，例如：根據我們剛剛的討論，我接下來就以這個 UI 更動是否會提升整體 Youtube 廣告營收<font class=jammer></font><br>
+<font class=jammer></font><br>
+&nbsp;&nbsp;c. Plan A/B Test<font class=jammer></font><br>
+<font class=jammer></font><br>
+這邊可能就會需要過一下實驗設計的完整框架，從人群抽組 (根據你的功能在使用者旅程的那一段來決定要抽哪些人)、檢定方法 (Usually Welch's T Test)、實驗走期 (需要考慮產品的 seasonality 以及是否有外部因素影響實驗)、參數設定 (alpha, beta, MDE etc.)、Sanity Check (Simpson's Paradox, Novelty Effect, etc.) 等<font class=jammer></font><br>
+<font class=jammer></font><br>
+&nbsp;&nbsp;d. Explain Result &amp; Recommend Action<font class=jammer>. .и</font><br>
+<font class=jammer></font><br>
+<font class=jammer></font><br>
+如果實驗沒有達到統計顯著而且 Confidence Interval Upper Bound 低於 MDE，無法拒絕 H0，建議不進行功能更動，然後如果功能戰略性意義高可以安排更近一步的實驗分析<font class=jammer></font><br>
+如果實驗有達到統計顯著而且 Confidence Interval Lower Bound 高於 MDE，拒絕 H0，可以進行功能改動 (前提是有通過 Sanity Check)，如果還是擔心會有 Novelty Effect 可以考慮留 Hold Out<br>
+<span style=display:none></span>其餘狀況都建議提高樣本量重新進行實驗</div><font class=jammer></font><br>
+<font class=jammer></font><br>
+<br>
+<span style=display:none></span>4. Statistics &amp; Probability<font class=jammer></font><br>
+<font class=jammer></font><br>
+準備方向：我自己是看完了 <a href="https://link.1point3acres.com/?url=https%3A%2F%2Fclassroom.udacity.com%2Fcourses%2Fud257" rel="nofollow noopener" target=_blank>Udacity A/B Test By Google</a>這門課以及重溫了大學的統計課，不過如果時間不夠以下的高頻考點就務必要熟悉 Welch' T Test (基本上很多 Case 後面都會 follow up 問你怎麼做 A/B Test，幾乎是必考)、2 proportion Z Test、regression model、p-value、confidence interval、Bayesian Probability (前面提到的 Interview Query 這個網站也有不少題目可以練習)<font class=jammer></font><br>
+<font class=jammer></font><br>
+<font class=jammer>.1point3acres</font><br>
+面試建議：<br>
+<span style=display:none></span>一些比較不複雜的統計考點像是上面提到的 p-value 跟 confidence interval，可以先想好如果要和一個完全沒有相關背景的 PM 溝通這些概念，你會如何解釋<font class=jammer></font><br>
+<font class=jammer></font><br>
+最後祝大家面試順利，都看到這裡了，拜託大家給點米吧!</table>
+<div class="lg:w-550px bg-#fafafa p-6 mt-8 mx-auto">
+ <div class="mb-4 px-2 text-sm flex justify-center bg-primary p-3 rounded-md">
+ 
+ <a target=_blank href="https://www.1point3acres.com/interview?utm_source=company_widget" class="text-active text-center leading-relaxed text-sm no-underline">
+ 🔥🔥🔥 欢迎体验 <b>面经会员专享版</b> 🔥🔥🔥<br>
+ ✅ 高效阅读 · ✅ 即时练习 · ✅ AI辅助 · ✅ 效率更高！
+ </a>
+ 
+ </div>
+ <div class=flex>
+ <div class="w-24 text-center">
+ <a href=https://jobs.1point3acres.com/companies/google target=_blank>
+ <img src="data:image/png;base64,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" class=w-full>
+ <div class="mt-2 text-base font-bold">Google</div>
+ </a>
+ <a href=https://jobs.1point3acres.com/companies/google/review target=_blank>
+ <div class="flex items-center justify-center mt-1 space-x-1"><img src='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64"><rect fill-opacity="0"/></svg>' width=12 height=12 style="background-blend-mode:normal!important;background-clip:content-box!important;background-position:50% 50%!important;background-color:rgba(0,0,0,0)!important;background-image:var(--sf-img-49)!important;background-size:100% 100%!important;background-origin:content-box!important;background-repeat:no-repeat!important"><img src='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64"><rect fill-opacity="0"/></svg>' width=12 height=12 style="background-blend-mode:normal!important;background-clip:content-box!important;background-position:50% 50%!important;background-color:rgba(0,0,0,0)!important;background-image:var(--sf-img-49)!important;background-size:100% 100%!important;background-origin:content-box!important;background-repeat:no-repeat!important"><img src='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64"><rect fill-opacity="0"/></svg>' width=12 height=12 style="background-blend-mode:normal!important;background-clip:content-box!important;background-position:50% 50%!important;background-color:rgba(0,0,0,0)!important;background-image:var(--sf-img-49)!important;background-size:100% 100%!important;background-origin:content-box!important;background-repeat:no-repeat!important"><img src='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64"><rect fill-opacity="0"/></svg>' width=12 height=12 style="background-blend-mode:normal!important;background-clip:content-box!important;background-position:50% 50%!important;background-color:rgba(0,0,0,0)!important;background-image:var(--sf-img-49)!important;background-size:100% 100%!important;background-origin:content-box!important;background-repeat:no-repeat!important"><img src="data:image/png;base64,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" width=12 height=12><span class=text-10px>(97)</span></div>
+ </a>
+ </div>
+ 
+ <div class="text-sm font-bold">9736</div>
+ </a>
+ </div>
+ <div class="text-center px-1">
+ <a href=https://jobs.1point3acres.com/companies/google/salary target=_blank class=no-underline>
+ <div class=text-sm>工资</div>
+ <div class="text-sm font-bold">2121</div>
+ </a>
+ </div>
+ <div class="text-center px-1">
+ <a href=https://jobs.1point3acres.com/companies/google/referral target=_blank class=no-underline>
+ <div class=text-sm>内推</div>
+ <div class="text-sm font-bold">683</div>
+ </a>
+ </div>
+ <div class="text-center px-1">
+ <a href=https://jobs.1point3acres.com/companies/google/review target=_blank class=no-underline>
+ <div class=text-sm>评价</div>
+ <div class="text-sm font-bold">96</div>
+ </a>
+ </div>
+ <div class="text-center px-1">
+ <a href=https://jobs.1point3acres.com/companies/google/general target=_blank class=no-underline>
+ <div class=text-sm>讨论</div>
+ <div class="text-sm font-bold">8679</div>
+ </a>
+ </div>
+ 
+ </div>
+ <div class="flex justify-between mt-2 py-2 rounded-md">
+ <div class="text-center flex-1">
+ <div class=text-sm>基本工资</div>
+ <div class="text-sm font-bold">$154,236</div>
+ </div>
+ <div class="text-center flex-1">
+ <div class=text-sm>股票期权</div>
+ <div class="text-sm font-bold">$129,666</div>
+ <div class="mt-1 text-xs text-#aaa">(平均值)</div>
+ </div>
+ <div class="text-center flex-1">
+ <div class=text-sm>签字奖励</div>
+ <div class="text-sm font-bold">$30,222</div>
+ </div>
+ </div>
+ <div class="mt-2 px-2 text-sm flex justify-between">
+ <a target=_blank href=https://jobs.1point3acres.com/companies/google/general class=text-active>查看更多Google相关主题</a>
+ <span>|</span>
+ <a target=_blank href=https://salarytics.com/company/google class=text-active>查看更多Google工资与职级</a>
+ </div>
+ </div>
+ </div>
+</div>
+</div>
+
+
+</div>
+<div class=flex>
+<div class="w-1/2 min-w-[350px]">
+<h3 class="psth xs1"><span class="icon_ring vm"></span>评分</h3>
+<dl id=ratelog_17528013 class=rate>
+<dd style=margin:0>
+<div id=post_rate_17528013></div>
+<table class=ratl>
+<tbody><tr>
+<th class=xw1 width=120><a href="https://www.1point3acres.com/bbs/forum.php?mod=misc&amp;action=viewratings&amp;tid=921496&amp;pid=17528013" title=查看全部评分> 参与人数 <span class=xi1>14</span></a><th class=xw1 width=80>大米 <i><span class=xi1>+39</span></i></th>
+<th>
+<a href=javascript:void(0) class="y xi2 op">收起</a>
+<i class=txt_h>理由</i>
+</th>
+</tr>
+<tbody class=ratl_l><tr id=rate_17528013_377519>
+<td>
+<a href=https://www.1point3acres.com/bbs/space-uid-377519.html target=_blank><img data-src=https://avatar.1p3a.com/000/37/75/19_avatar_small.jpg class=lazyloaded src=data:image/gif;base64,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></a> <a href=https://www.1point3acres.com/bbs/space-uid-377519.html target=_blank>sylvia95173</a>
+<td class=xi1> + 1</div>
+            <div class="attachments" style="display:none;"></div>
+        </body>
+        </html>
+        

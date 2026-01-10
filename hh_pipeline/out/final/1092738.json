@@ -1,0 +1,22 @@
+{
+  "title": "Google Trust团队Engineering Analyst面试经验分享",
+  "originalContent": "<div class=\"article_body\"><td class=\"t_f\" id=\"postmessage_19902069\" itemprop=\"articleBody\">\ngoogle trust组的engineering analyst，说是做分析和建ml模型，但onsite四轮涉及到ml的部分很少。<br/>\n<br/>\n2轮SQL，我觉得SQL可以在地里找一下有个meta组的人总结的meta onsite sql，我觉得用那个练。这次碰到的sql和meta组很像，都是问题很ambiguous，然后需要自己定义metric，然后写query，时间还是挺紧的。有一道题目需要和interviewer讨论很多，因为涉及到trust组的专业知识，所以提前准备一下组里的专业知识有帮助。<div id=\"1p3a-ad-thread-paragraph\" style=\"margin-top: 20px; margin-bottom: 20px;\"></div><br/>\n<br/>\n一轮case，case在地里之前出现过，就是给一个时间序列，然后让找规律，interviewer再基于你的回答follow up。之后让讲了一个项目，这是唯一问到ml的部分。<br/>\n<br/>\n最后一轮纯BQ，基本都和conflict managment 相关，组内，新员工，跟stakeholder等。<br/>\n<br/>\n前三轮都是这个职位组内的人，BQ是其他组的。</td></div>",
+  "processedContent": "## 基本信息（公司/岗位/结果/难度）\n\n- **公司**：Google\n- **岗位**：Engineering Analyst（Trust团队）\n- **结果**：未通过（挂经）\n- **难度**：4\n\n## 时间线\n\n未提及/不明确\n\n## 面试过程\n\n### 第一轮：SQL 面试\n- 考察内容为SQL问题，题目语义模糊，需自行定义指标后编写查询。\n- 时间紧张，需要快速理解问题并沟通确认需求。\n- 题目风格与Meta某团队的现场SQL题高度相似，建议参考相关面经准备。\n\n### 第二轮：SQL 面试\n- 同样为复杂SQL场景题，涉及Trust团队业务背景知识。\n- 需要与面试官深入讨论数据逻辑和定义方式，对领域理解有一定要求。\n\n### 第三轮：Case分析 + 项目深挖\n- Case为时间序列分析题，要求识别规律，并接受面试官后续追问。\n- 接着被要求介绍一个个人项目，是唯一涉及机器学习的部分。\n\n### 第四轮：行为面试（BQ）\n- 全程聚焦行为问题，主题围绕冲突管理展开。\n- 包括组内冲突、新员工融入、与利益相关者（stakeholder）协作等情境。\n- 面试官来自其他团队。\n\n> 注：前两轮SQL及第三轮Case由目标岗位所在组面试官进行，最后一轮为跨组BQ评估。\n\n## 题目总结\n\n- SQL题 x2\n  - 场景模糊，需主动定义metric\n  - 涉及实际业务逻辑判断\n  - 时间压力大\n- Case分析 x1\n  - 给定时间序列数据，找出潜在模式\n  - 支持多轮追问\n- 项目深挖 x1\n  - 围绕建模或分析项目展开\n  - 唯一考察机器学习的部分\n- 行为问题 x 多个\n  - 冲突管理（组内、新人、stakeholder）\n\n## 个人总结（经验与建议）\n\n- SQL准备可参考Meta类似岗位的面经（如Meta某组Engineering Analyst的SQL题集），训练在模糊条件下快速建模和沟通的能力。\n- 提前了解Trust团队的业务背景有助于更好地应对SQL和case中的专业语境。\n- 尽管职位描述提到ML建模，但实际面试中ML占比极低，重点仍在于数据分析与逻辑表达。\n- BQ环节高度结构化，建议系统准备冲突管理类问题，结合STAR框架回答。",
+  "company": "Google",
+  "role": "Engineering Analyst",
+  "difficulty": 4,
+  "tags": [
+    "Engineering Analyst",
+    "SQL",
+    "Case Interview",
+    "Behavioral Questions",
+    "Machine Learning",
+    "Data Analysis",
+    "Onsite Interview"
+  ],
+  "comments": [],
+  "usefulVotes": 0,
+  "uselessVotes": 0,
+  "shareCount": 0,
+  "isAnonymous": true
+}

@@ -1,0 +1,22 @@
+{
+  "title": "Google 产品分析与数据科学岗位面试经验分享",
+  "originalContent": "<div class=\"article_body\"><td class=\"t_f\" id=\"postmessage_16503798\" itemprop=\"articleBody\">\n贡献一个dp.<br/>\n店面，上来问了三个BQ，半小时，why google, why this role, deal with non-technical stakeholders。<br/>\n<span style=\"display:none\"></span><br/>\n然后一道case：如何测试哪种网站设计好？<br/>\n<br/>\n面试官是个白人DS，坑货。没有SQL，而且竟然不知道是店面还是vo，一不小心说漏嘴以为我还有今天还有几轮面试。然后一副爱答不理的样子，从头到尾没给任何反馈，面试的时候也不怎么听我说，感觉就是托福口语考试。看到她没什么反应，我只能一次次跟她确认是不是make sense。<br/>\n<br/>\n最后我提问的时候，这货已经开始说套话了，当即心一凉，知道没戏了。<br/>\n<br/>\n<br/>\n</td></div>",
+  "processedContent": "## 基本信息（公司/岗位/结果/难度）\n- **公司**：Google\n- **岗位**：产品分析师 / 数据科学家（Product Analyst / Data Scientist）\n- **结果**：未通过（根据候选人主观判断）\n- **难度**：3\n\n## 时间线\n- 未提及/不明确\n\n## 面试过程\n### 店面轮次（Phone Screen）\n- 面试时长：约30分钟\n- 面试官背景：一位白人数据科学家，沟通体验较差，缺乏互动反馈\n- 主要流程：\n  1. 行为问题（BQ）环节：连续提问三个行为类问题\n     - 为什么想加入 Google？\n     - 为什么申请这个岗位？\n     - 如何与非技术利益相关者合作？\n  2. 案例分析题：如何评估两种不同网站设计的优劣？\n     - 要求设计测试方案，未涉及 SQL 或编程内容\n  3. 候选人提问环节：面试官表现出敷衍态度，使用标准化回答，缺乏实质信息输出\n\n> 注：面试官对流程性质（店面 or VO）似乎也不清楚，出现信息误判；整体互动质量低，无有效反馈。\n\n## 题目总结\n- 行为类问题：\n  - 为什么想加入 Google？\n  - 为什么申请该岗位？\n  - 如何与非技术同事协作？\n- 案例分析题：\n  - 如何测试哪种网站设计更好？（A/B 测试思路考察）\n\n## 个人总结（经验与建议）\n- 面试体验不佳，面试官专业度和参与感不足，全程缺乏正向互动。\n- 尽管问题本身难度适中，但因无法获得反馈，需主动确认表达逻辑是否清晰（如频繁使用“Does this make sense?”等确认语句）。\n- 建议后续候选人重点准备：\n  1. Google 核心行为问题（Why Google / Why Role / Stakeholder Collaboration）\n  2. 产品指标设计与 A/B 测试方法论（尤其适用于网站优化类 case）\n  3. 主动引导沟通节奏，在缺乏反馈的场景下保持结构化输出。\n- 提醒：部分面试官可能存在流程认知不清或态度冷淡的情况，勿过度依赖即时反馈来判断表现。",
+  "company": "Google",
+  "role": "Product Analyst / Data Scientist",
+  "difficulty": 3,
+  "tags": [
+    "行为面试",
+    "案例分析",
+    "A/B测试",
+    "店面面试",
+    "沟通技巧",
+    "Google面试",
+    "数据科学"
+  ],
+  "comments": [],
+  "usefulVotes": 0,
+  "uselessVotes": 0,
+  "shareCount": 0,
+  "isAnonymous": true
+}

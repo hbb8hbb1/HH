@@ -1,0 +1,22 @@
+{
+  "title": "Google 数据科学家面试失败复盘：G&L环节评分过低导致拒信",
+  "originalContent": "<div class=\"article_body\"><td class=\"t_f\" id=\"postmessage_16526564\" itemprop=\"articleBody\">\n队友最近面试了Google的ds onsite, 本来感觉面得不错，结果收到了拒信。coding 和data intuition基本都是全秒，给的feedback也是很strong。recruiter 说G&amp;L 这一项的是poor score， 所以连hc都没有进就直接拒了。我也在狗家，我一直都觉得behavior这一轮的面试只是走一下形式，只要没有基本的communication问题或者明显的red flag都是直接让过，所以非常好奇是在什么情况下面试官会给一个poor score？队友感觉那一轮面得挺好，和面试官也交流的不错，所以非常困惑。肯请家的面试官们给一下建议，到底是哪里出了问题？<div id=\"1p3a-ad-thread-paragraph\" style=\"margin-top: 20px; margin-bottom: 20px;\"></div><br/>\n<span style=\"display:none\"></span></td></div>",
+  "processedContent": "## 基本信息（公司/岗位/结果/难度）\n- **公司**：Google\n- **岗位**：数据科学家（Data Scientist）\n- **结果**：未通过\n- **难度**：4\n\n## 时间线\n未提及/不明确\n\n## 面试过程\n### 面试轮次概述\n候选人参加了 Google 数据科学家岗位的现场面试（onsite），共包含多个评估维度。根据反馈，整体表现良好，但在“Growth & Leadership”（G&L）这一项中获得“poor”评分，最终未进入后续流程即被拒。\n\n### 各轮表现\n- **Coding 能力**：表现优秀，题目全部快速解决（“全秒”）。\n- **Data Intuition**：反馈为“strong”，评估积极。\n- **G&L（Growth & Leadership）行为面**：得分为“poor”。尽管候选人自述与面试官交流顺畅、感觉良好，但该轮评分极低，直接导致整体不通过。\n\n### 招聘方反馈\nRecruiter 明确指出，由于 G&L 项评分过低，候选人未能进入 HC（Headcount）审批流程，直接被拒绝。\n\n## 题目总结\n未提及具体题目\n\n## 个人总结（经验与建议）\n- 行为面试（尤其是 G&L 类问题）在 Google 并非形式化流程，实际具有决定性作用，不可轻视。\n- 即使技术面表现出色，若 leadership、growth mindset、collaboration 等软技能未达到标准，仍可能被一票否决。\n- 候选人自我感受良好不代表评分高，面试官有结构化打分标准，需精准匹配其评估维度。\n- 建议后续准备中系统梳理个人项目中的领导力体现、跨团队协作、主动推动改进等案例，针对性准备 G&L 问题。",
+  "company": "Google",
+  "role": "数据科学家",
+  "difficulty": 4,
+  "tags": [
+    "数据科学家",
+    "行为面试",
+    "G&L",
+    "Google面试",
+    "面试复盘",
+    "现场面试",
+    "拒信分析"
+  ],
+  "comments": [],
+  "usefulVotes": 0,
+  "uselessVotes": 0,
+  "shareCount": 0,
+  "isAnonymous": true
+}

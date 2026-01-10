@@ -1,0 +1,23 @@
+{
+  "title": "Google DSR岗位五轮VO面经：统计与业务分析并重，最后一轮挂经",
+  "originalContent": "<div class=\"article_body\"><td class=\"t_f\" id=\"postmessage_20132028\" itemprop=\"articleBody\">前段时间面了google dsr，整体感觉面试官都很nice，考的内容非常杂，统计知识要求高，没有怎么碰到地里原题。流程也很长，有五轮VO（先面两轮，在面三轮）。最后一轮挂了，还是有地方需要提升。求米看面经～<br/>\n\nData intuition + business sense. 1point 3acres<br/>\n\n面了一个searching vendor的case，给了两个vendor A 和 B以及不同供应商的优缺点，比如时间，数量，价格等，问怎么建模看A好还是B好。回答logistic，问了很多follow up。<br/>\n\n第二个case问发现三个月内searching time per user per session突然变少了，有人提议用两个distribution来看，一个time before first success，一个time before give up searching，问有什么问题。回答：sample bias，然后follow up。后面问怎么建模，回答time series analysis<br/>\n\n第三个case问Youtube加ads对sales影响，说simple linear regression行不行，回答omitted variable bias, 应ab test, 和很多follow up.<br/>\n\nStatistics. From 1point 3acres bbs<br/>\n\n题目有点忘了，问了手算p-value；算概率；lasso/ ridge regression; t-test应用。<br/>\n\nBehavioral. From 1point 3acres bbs<br/>\n\n常见behavior问题，聊的很顺畅。<br/>\n\nCoding<br/>\n\n没有考任何simulation，pandas，numpy等常见统计coding。考了一题纯编程题，写了暴力解法，然后O(n)算法出了点问题。<br/></td></div>",
+  "processedContent": "## 基本信息（公司/岗位/结果/难度）\n- **公司**：Google\n- **岗位**：DSR（Data Science & Research）\n- **结果**：挂经（最后一轮未通过）\n- **难度**：5（较高）\n\n## 时间线\n- 流程较长，共五轮视频面试（VO），分为两个阶段：先进行两轮，后续再完成三轮。\n- 具体时间未提及/不明确。\n\n## 面试过程\n\n### 第一轮至第五轮 VO 综合情况\n整体为五轮视频面试，内容覆盖数据直觉、商业洞察、统计理论、编程能力及行为问题。面试官态度友好，问题综合性强，偏重实际场景建模与深层追问，较少出现地里常见原题。\n\n#### 数据直觉 + 商业洞察（Data Intuition + Business Sense）\n1. **供应商选择建模案例**：\n   - 场景：比较两个搜索供应商 A 和 B，提供各自在响应时间、覆盖数量、价格等方面的优劣。\n   - 任务：如何建模判断哪个供应商更优？\n   - 回答：提出使用逻辑回归（logistic regression）建模决策结果。\n   - 追问：多个 follow-up 问题，涉及特征工程、模型解释性等。\n\n2. **搜索时长下降归因分析**：\n   - 现象：近三个月用户每会话平均搜索时间显著下降。\n   - 提议方法：使用两个分布建模——首次成功前的时间、放弃搜索前的时间。\n   - 回答：指出存在样本偏差（sample bias），例如未观测到的用户流失或截断问题。\n   - 后续：被问及如何进一步建模，回答采用时间序列分析（time series analysis）探测趋势与外部因素。\n\n3. **YouTube广告对销售影响评估**：\n   - 问题：能否用简单线性回归评估加广告对销售的影响？\n   - 回答：指出遗漏变量偏差（omitted variable bias），建议使用 A/B 测试进行因果推断。\n   - 追问：深入探讨实验设计、混淆变量控制、指标选择等。\n\n#### 统计学（Statistics）\n- 手动计算 p-value（具体情境未明）。\n- 概率计算题（题目细节未提及）。\n- Lasso 与 Ridge 回归的区别与应用场景。\n- t-test 的适用条件与实际应用。\n\n#### 行为面试（Behavioral）\n- 考察常见行为问题（如过往项目经历、团队协作、挑战处理等）。\n- 沟通顺畅，无明显卡顿。\n\n#### 编程（Coding）\n- 未考察模拟、pandas、numpy 等数据科学常用库。\n- 考查一道纯算法编程题：\n  - 使用暴力解法实现基础功能。\n  - 尝试优化至 O(n) 时间复杂度时出现逻辑问题，未能完全解决。\n\n## 题目总结\n- 如何建模选择搜索供应商 A 或 B？→ 可用 logistic 回归 + 特征加权。\n- 搜索时长下降，用 two-distribution 方法有何问题？→ 样本偏差、选择偏差、截断问题。\n- YouTube 加广告是否提升销售？→ 简单线性回归不可靠，建议 A/B 测试。\n- 手算 p-value 示例。\n- 概率计算题（类型未详）。\n- Lasso vs Ridge 回归区别。\n- t-test 应用场景与假设。\n- 算法题：未明确题干，需优化至 O(n)，但实现有误。\n\n## 个人总结（经验与建议）\n- Google DSR 岗位对统计功底要求极高，需熟练掌握假设检验、回归模型、偏差识别等核心概念。\n- 业务建模题注重结构化思维与实际落地可行性，需结合数据可得性与产品背景作答。\n- A/B 测试与因果推断是高频考点，务必准备充分。\n- 编程环节虽非重点，但仍可能考查基础算法能力，不能忽视。\n- 多轮面试压力大，建议系统复盘每一轮反馈，尤其注意模型假设与边界条件的讨论。\n- 最终挂于最后一轮，推测因算法题表现不佳或综合评分未达阈值，仍需加强短板。",
+  "company": "Google",
+  "role": "DSR",
+  "difficulty": 5,
+  "tags": [
+    "数据科学",
+    "统计建模",
+    "A/B测试",
+    "商业分析",
+    "算法编程",
+    "行为面试",
+    "面试挂经",
+    "视频面试"
+  ],
+  "comments": [],
+  "usefulVotes": 0,
+  "uselessVotes": 0,
+  "shareCount": 0,
+  "isAnonymous": true
+}

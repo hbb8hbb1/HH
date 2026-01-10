@@ -1,0 +1,21 @@
+{
+  "title": "Google 数据科学工程岗位面试常见问题咨询",
+  "originalContent": "<div class=\"article_body\"><td class=\"t_f\" id=\"postmessage_16456858\" itemprop=\"articleBody\">\n请问面过google ds的同学们，sql题可以用Python吗？对Python更熟，要是能用Python就不去折腾学sql了<br/>\n</td></div>",
+  "processedContent": "## 基本信息（公司/岗位/结果/难度）\n- **公司**：Google\n- **岗位**：数据科学工程师（Data Science Engineering）\n- **结果**：未提及/不明确\n- **难度**：未提及/不明确\n\n## 时间线\n未提及/不明确\n\n## 面试过程\n未提及/不明确\n\n## 题目总结\n- 面试中涉及 SQL 的题目是否允许使用 Python 替代？\n\n## 个人总结（经验与建议）\n楼主更熟悉 Python，希望了解在 Google 数据科学工程面试中是否可以用 Python 代替 SQL 解题。建议准备过程中仍应掌握 SQL，因数据相关岗位通常对 SQL 有明确考察要求，即使部分逻辑可用 Python 表达，基础 SQL 能力往往是必备项。",
+  "company": "Google",
+  "role": "数据科学工程师",
+  "difficulty": 3,
+  "tags": [
+    "数据科学",
+    "SQL",
+    "Python",
+    "面试咨询",
+    "Google",
+    "技术面试"
+  ],
+  "comments": [],
+  "usefulVotes": 0,
+  "uselessVotes": 0,
+  "shareCount": 0,
+  "isAnonymous": true
+}

@@ -1,0 +1,22 @@
+{
+  "title": "Google 安全与滥用数据分析师电面经验分享",
+  "originalContent": "<div class=\"article_body\"><td class=\"t_f\" id=\"postmessage_17173743\" itemprop=\"articleBody\">\nbq: 1. self introduction<br/>\n       2. tell me a project<br/>\n<br/>\nsql: 2 questions cover left join, cross join, coalesce, where, having, group by (大约easy程度吧）<br/>\ncase：你会看什么数据去检测bad ads<br/>\n<br/>\nrecruiter reach out来的职位，感觉很小众。来贡献一下面经，求米！！谢谢！！<br/>\n</td></div>",
+  "processedContent": "## 基本信息（公司/岗位/结果/难度）\n\n- **公司**：Google\n- **岗位**：Security and Abuse Data Analyst（安全与滥用数据分析师）\n- **面试结果**：未提及/不明确\n- **难度**：3\n\n## 时间线\n\n- 未提及/不明确\n\n## 面试过程\n\n### 电面\n\n1. **自我介绍**：简要介绍个人背景和相关经历。\n2. **项目阐述**：讲述一个自己主导或参与的数据分析相关项目，重点突出问题解决过程与数据应用。\n3. **SQL 考察**：共两道题，难度约为 LeetCode Easy 级别，涉及以下知识点：\n   - LEFT JOIN\n   - CROSS JOIN\n   - COALESCE\n   - WHERE 与 HAVING 子句\n   - GROUP BY 分组操作\n4. **案例分析题**：\n   - 问题：你会查看哪些数据来检测恶意广告（bad ads）？\n   - 考察点：对异常行为的敏感度、指标设计能力、逻辑推理与实际业务结合的能力。\n\n该职位由招聘人员主动联系（recruiter reach out），岗位方向较为小众，聚焦于安全与广告滥用领域的数据分析。\n\n## 题目总结\n\n- 自我介绍\n- 讲述一个数据分析项目\n- SQL 编写题（2道）：\n  - 涉及 LEFT JOIN、CROSS JOIN\n  - 使用 COALESCE 处理空值\n  - 结合 WHERE、HAVING 和 GROUP BY 进行过滤与聚合\n- 案例题：如何通过数据识别恶意广告？\n\n## 个人总结（经验与建议）\n\n- 本次面试整体难度适中，SQL 题偏基础，但需熟练掌握多表连接与聚合函数的组合使用。\n- 案例题考察实际业务洞察力，建议提前准备常见 abuse 场景（如虚假点击、欺诈性广告投放等）的数据监控思路。\n- 由于岗位属于安全与滥用领域，了解广告系统基本运作机制和典型 abuse 模式会加分。\n- 建议练习从指标构建、异常检测到归因分析的完整逻辑链表达。",
+  "company": "Google",
+  "role": "Security and Abuse Data Analyst",
+  "difficulty": 3,
+  "tags": [
+    "数据分析师",
+    "安全与滥用",
+    "SQL",
+    "案例分析",
+    "电面",
+    "海外求职",
+    "广告系统"
+  ],
+  "comments": [],
+  "usefulVotes": 0,
+  "uselessVotes": 0,
+  "shareCount": 0,
+  "isAnonymous": true
+}

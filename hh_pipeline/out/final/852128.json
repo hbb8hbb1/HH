@@ -1,0 +1,22 @@
+{
+  "title": "谷歌 Trust & Safety Risk Analyst 岗位面试经验",
+  "originalContent": "<div class=\"article_body\"><td class=\"t_f\" id=\"postmessage_16693151\" itemprop=\"articleBody\">\n<br/>\n<br/>\n年前recruiter联系这个trust &amp; saftety 的 Risk Analyst岗， 跟hr聊了聊觉得主要是做compliance data pipeline的，各种建dataset和automation<br/>\n<br/>\n然后就是跟hm聊，考SQL和case如下，<br/>\n<br/>\n<div class=\"locked\">以下内容需要积分高于 180 您已经可以浏览</div><br/>\n<div style=\"border: 1px solid #C2D5E3;padding:8px 8px 8px 24px;\">1.在一个table有blank value的情况下，如何用上一个非空白value来替换blank<br/>\n<table cellspacing=\"0\" class=\"t_table\" style=\"width:50%\"><tr><td> 1</td>\n<div class=\"attachments\"></div>\n</tr></table></div></td></div>",
+  "processedContent": "## 基本信息\n- **公司**：Google\n- **岗位**：Risk Analyst（Trust & Safety）\n- **结果**：未提及/不明确\n- **难度**：4\n\n## 时间线\n- 年前收到 recruiter 联系\n- 先与 HR 沟通岗位内容\n- 随后进行与 Hiring Manager 的技术面\n- 当前进度：未提及后续流程或结果\n\n## 面试过程\n\n### HR 初步沟通\n- 主要介绍岗位职责，聚焦于合规性数据流水线（compliance data pipeline）\n- 工作内容包括构建数据集（dataset）和自动化流程（automation）\n\n### Hiring Manager 面试\n- 考察重点：SQL 能力 + 业务场景分析（case）\n- 面试问题如下：\n  1. 在一个表中存在空值（blank value）的情况下，如何使用上一个非空值来填充这些空值？\n     - 此问题考察窗口函数（如 LAG / LAST_VALUE）结合 COALESCE 或条件逻辑的应用能力，常见于数据补全与时间序列处理场景。\n\n## 题目总结\n- SQL 实操题：\n  - 如何用上一个非空值填充表中的空值（Forward Fill / LOCF）\n- Case 分析：\n  - 未提及具体 case 细节，但方向可能与数据 pipeline 构建、合规性监控相关\n\n## 个人总结\n- 岗位偏重数据工程与合规交叉领域，需具备较强的 SQL 数据处理能力\n- 对实际业务逻辑的理解（如 automation 流程设计）有一定要求\n- 建议准备窗口函数、数据清洗技巧以及典型风控数据 pipeline 设计思路",
+  "company": "Google",
+  "role": "Risk Analyst",
+  "difficulty": 4,
+  "tags": [
+    "Risk Analyst",
+    "Trust & Safety",
+    "SQL",
+    "Data Pipeline",
+    "Case Interview",
+    "Compliance",
+    "Google"
+  ],
+  "comments": [],
+  "usefulVotes": 0,
+  "uselessVotes": 0,
+  "shareCount": 0,
+  "isAnonymous": true
+}

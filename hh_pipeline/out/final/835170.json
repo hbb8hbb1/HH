@@ -1,0 +1,23 @@
+{
+  "title": "Databricks 数据科学家面试面经",
+  "originalContent": "<div class=\"article_body\"><td class=\"t_f\" id=\"postmessage_16484333\" itemprop=\"articleBody\">\n猎头联系的就面了，面试官国人很nice 很有耐心的一点点clarify，大部分题目感觉都是地里有的<br/>\n<br/>\n<span style=\"display:none\"></span><ul class=\"litype_1\" type=\"1\"><li>讲了一下现在的工作的project</li><li>只有一个data point怎么样判断是不是从某个distribution来的</li><li>y = ax1+bx2, y= a(x1+x2) + b(x1-x2) 问这两个regression是不是一样，然后ridge lasso</li><li>怎么样研究上不上大学对于收入影响</li><li>给搜索颜色的用户 survey 红黄蓝，问有什么问题</li><li>code，就是一些numpy的manipulation<br/>\n</li></ul><br/>\n<span style=\"display:none\"></span><br/>\n但是总体不是很难就是一些统计/计量的基础。。面的时候 一上来卡壳了第一题分不清楚one tail 还是 two tail test了，但是面试官还是挺耐心的，我之后还是搞明白了。。我也不是phd所以也没有啥很难的题，面试官也没有因为上来的hiccup挂我，希望之后也能好运哈<br/>\n</td></div>",
+  "processedContent": "## 基本信息（公司/岗位/结果/难度）\n\n- **公司**：Databricks\n- **岗位**：数据科学家\n- **结果**：未提及/不明确\n- **难度**：3\n\n## 时间线\n\n未提及/不明确\n\n## 面试过程\n\n### 面试整体情况\n通过猎头联系获得面试机会。面试官为华人，态度友好，耐心引导，能够帮助候选人逐步澄清问题。整体考察内容偏向统计学与计量经济学基础，无过于复杂的理论推导或高阶算法题。\n\n### 主要环节\n\n#### 技术问答\n1. 讲述当前工作中负责的项目。\n2. 只有一个数据点时，如何判断它是否来自某个特定分布？\n3. 比较两个回归模型：\n   - $ y = ax_1 + bx_2 $\n   - $ y = a(x_1 + x_2) + b(x_1 - x_2) $\n   问这两个模型是否等价，并进一步讨论在 Ridge 和 Lasso 回归下的差异。\n4. 如何设计研究来评估“上大学”对“收入”的影响？（涉及因果推断、处理选择偏差等）\n5. 设计一个针对搜索颜色用户的调查（红、黄、蓝），并指出可能存在的问题（如样本偏差、提问方式误导等）。\n\n#### 编程题\n- 使用 NumPy 进行一些基本的数据操作和矩阵变换，具体内容未详细说明，但属于基础级别。\n\n## 题目总结\n\n- 当前工作项目介绍\n- 单个数据点判断分布来源\n- 回归模型形式比较（线性变换前后是否等价）\n- Ridge 与 Lasso 在不同特征组合下的行为差异\n- 因果推断：大学教育对收入的影响研究设计\n- 用户调查设计及潜在偏误分析\n- NumPy 数据处理编程题\n\n## 个人总结\n\n面试整体难度适中，侧重于统计思维和实际问题建模能力，而非深度编码或高级机器学习理论。虽然一开始在假设检验方向（单尾 vs 双尾）上出现卡壳，但由于面试官耐心引导，后续得以纠正。建议准备时重点复习基础统计概念、因果推断方法、常见正则化技术的应用差异，以及使用 Python（尤其是 NumPy）进行数据操作的能力。",
+  "company": "Databricks",
+  "role": "数据科学家",
+  "difficulty": 3,
+  "tags": [
+    "数据科学家",
+    "统计学",
+    "因果推断",
+    "NumPy",
+    "回归分析",
+    "面试经验",
+    "英文面试",
+    "海外公司"
+  ],
+  "comments": [],
+  "usefulVotes": 0,
+  "uselessVotes": 0,
+  "shareCount": 0,
+  "isAnonymous": true
+}

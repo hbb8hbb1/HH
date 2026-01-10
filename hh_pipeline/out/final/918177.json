@@ -1,0 +1,22 @@
+{
+  "title": "狗家数据科学岗位面试经验分享",
+  "originalContent": "<div class=\"article_body\"><td class=\"t_f\" id=\"postmessage_17482959\" itemprop=\"articleBody\">\n狗家面试<br/>\n<br/>\n面试官是我们中国女生<br/>\n<br/>\n开始问我做过的project， 基本考察我能不能把project讲清楚，追问了很多的细节<br/>\n<br/>\n然后让我解释p-value<br/>\n<br/>\nCan you write type I error in the form of cdf? <br/>\n<br/>\nGive me an example when mean is better than median and an example when median is better than mean.</td></div>",
+  "processedContent": "## 基本信息（公司/岗位/结果/难度）\n\n- **公司**：Google\n- **岗位**：数据科学家（Data Scientist）\n- **结果**：未提及/不明确\n- **难度**：4\n\n## 时间线\n\n未提及/不明确\n\n## 面试过程\n\n### 一面\n\n- 面试官为一位中国女性。\n- 首先让候选人介绍自己做过的项目，重点考察表达清晰度和对项目的理解深度，追问了多个技术细节。\n- 接着进入统计学理论问题环节，主要包括以下内容：\n  - 解释 p-value 的含义。\n  - 要求用累积分布函数（CDF）的形式写出第一类错误（Type I error）。\n  - 举例说明在什么情况下均值比中位数更合适，以及在什么情况下中位数优于均值。\n\n## 题目总结\n\n- 请详细介绍你做过的一个项目，并回答关于方法、指标、模型选择等方面的深入问题。\n- 解释 p-value 的定义及其在假设检验中的作用。\n- 如何用 CDF 表达 Type I error？\n- 给出一个使用均值优于中位数的实际场景。\n- 给出一个使用中位数优于均值的实际场景。\n\n## 个人总结（经验与建议）\n\n- 项目陈述需逻辑清晰、重点突出，准备好应对细节追问。\n- 统计基础必须扎实，尤其是假设检验、分布函数等核心概念的数学表达能力。\n- 理解均值与中位数的适用场景，能结合实际数据分布（如是否存在异常值）进行解释。\n- 建议提前准备用数学语言描述常见统计概念的能力，例如将统计量或误差类型转化为 CDF 或 PDF 形式。",
+  "company": "Google",
+  "role": "数据科学家",
+  "difficulty": 4,
+  "tags": [
+    "数据科学",
+    "统计学",
+    "项目深挖",
+    "假设检验",
+    "p-value",
+    "Type I Error",
+    "均值与中位数"
+  ],
+  "comments": [],
+  "usefulVotes": 0,
+  "uselessVotes": 0,
+  "shareCount": 0,
+  "isAnonymous": true
+}

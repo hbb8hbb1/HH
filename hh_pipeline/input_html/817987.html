@@ -1,0 +1,124 @@
+﻿
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="utf-8">
+            <title>Extracted Content</title>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    line-height: 1.6;
+                    margin: 20px;
+                }
+                .thread_subject {
+                    font-size: 1.5em;
+                    font-weight: bold;
+                    margin-bottom: 20px;
+                }
+                .post_time {
+                    font-size: 0.9em;
+                    color: gray;
+                    margin-bottom: 10px;
+                }
+                .article_body {
+                    margin-top: 20px;
+                }
+                .attachments {
+                    margin-top: 20px;
+                    background: #f9f9f9;
+                    padding: 10px;
+                    border: 1px solid #ddd;
+                }
+                .attachments a {
+                    display: block;
+                    margin: 5px 0;
+                    text-decoration: none;
+                    color: blue;
+                }
+            </style>
+        </head>
+        <body>
+            <div class="thread_subject"><span id="thread_subject">热腾腾的谷歌product analyst 面试</span></div>
+            <div class="post_time">Published on: 2021-11-10 08:36</div>
+            <div class="article_body"><td class="t_f" id="postmessage_16263741" itemprop="articleBody">
+sql + product case + Ab testing stats <font class="jammer"></font><br />
+Sql 题目如下<font class="jammer"></font><br />
+YouTube<font class="jammer"></font><br />
+<font class="jammer"></font><br />
+Timestamp,<font class="jammer"></font><br />
+Video_id,<font class="jammer"></font><br />
+Video_name,<font class="jammer"></font><br />
+Customer_id,<font class="jammer"></font><br />
+watch_minutes<font class="jammer"></font><br />
+<font class="jammer"></font><br />
+Write a query that returns the top 100 videos by unique users for 2021.<font class="jammer"></font><br />
+<br />
+<span style="display:none"></span>With t1 as (<font class="jammer"></font><br />
+select video_id, count(distinct customer_id) as users<font class="jammer"></font><br />
+from youtube <font class="jammer"></font><br />
+where true<font class="jammer"></font><br />
+And timestamp between ‘2021-01-01’ and ‘2021-12-31’ <font class="jammer"></font><br />
+Group by 1<font class="jammer"></font><br />
+Order by 2 desc )<font class="jammer"></font><br />
+<font class="jammer"></font><br />
+Select video_id, users<font class="jammer"></font><br />
+From t1<font class="jammer"></font><br />
+Limit 100;<br />
+<span style="display:none">-baidu 1point3acres</span><font class="jammer"></font><br />
+Write a query that returns the top 100 videos that grew the most m/m.<br />
+<span style="display:none"></span>Current month = september 2021<font class="jammer"></font><br />
+<font class="jammer"></font><br />
+With sep as (<font class="jammer"></font><br />
+Select video_id, count(distinct customer_id) as users<font class="jammer"></font><br />
+From youtube y1<font class="jammer"></font><br />
+Where true<font class="jammer"></font><br />
+And date(date_trunc('month',timestamp))=’2021-09-1’<font class="jammer"></font><br />
+Group by 1),<font class="jammer"></font><br />
+Oct as (<font class="jammer"></font><br />
+Select video_id, count(distinct customer_id) as users<font class="jammer"></font><br />
+From youtube y1<font class="jammer"></font><br />
+Where true<br />
+<span style="display:none"></span>And date(date_trunc('month',timestamp))=’2021-10-1’<font class="jammer"></font><br />
+Group by 1),<font class="jammer"></font><br />
+<font class="jammer"></font><br />
+T1 as (<font class="jammer"></font><br />
+Select s.video_id, coalsce(o.user,0) - s.users as sep_user as mom_delta, mom_delta/sep_user as delta_percent <font class="jammer"></font><br />
+From sep s<font class="jammer"></font><br />
+Left join oct o on s.video_id=o.video_id )<font class="jammer"></font><br />
+<font class="jammer"></font><br />
+&#8203;select s.video_id, delta_percent<font class="jammer">. check 1point3acres for more.</font><br />
+From t1<font class="jammer"></font><br />
+Order by delta_percent desc <font class="jammer">. From 1point 3acres bbs</font><br />
+Limit 100;<font class="jammer"></font><br />
+<br />
+<span style="display:none"></span><font class="jammer"></font><br />
+stats <font class="jammer"></font><br />
+1. what's AB test<font class="jammer"></font><br />
+2. what's confidence interval<font class="jammer"></font><br />
+3. how to pick sample size <font class="jammer"></font><br />
+- Minimum effect size <font class="jammer">. check 1point3acres for more.</font><br />
+- power = (1- beta)&nbsp;&nbsp;80% <font class="jammer"></font><br />
+- significance level<font class="jammer"></font><br />
+- control group mean as base line <font class="jammer"></font><br />
+4. how to pick control vs. test<font class="jammer"></font><br />
+5. what's the testing duration <font class="jammer"></font><br />
+Answer: traffic/ sample size. also be mindful of nolvety affect <font class="jammer"></font><br />
+<font class="jammer"></font><br />
+<font class="jammer"></font><br />
+Product case <font class="jammer"></font><br />
+1. how to decide if we should charge $10/mon to use gmail. what are the pros and cons<font class="jammer"></font><br />
+Answer: run ABC group and each group has $X/month. North star metric: Revenue/ user <font class="jammer"></font><br />
+Revenue = revenue gain from charging + ad impression revenue + revenue from other Google product because of using gmail<font class="jammer"></font><br />
+Also need to isolate new users vs. exiesting users when condcuting analysis <font class="jammer"></font><br />
+<font class="jammer"></font><br />
+面试不容易求大米 ！！！<font class="jammer"></font><br />
+<font class="jammer"></font><br />
+<font class="jammer"></font><br />
+<font class="jammer"></font><br />
+<font class="jammer"></font><br />
+<font class="jammer"></font><br />
+</td></div>
+            <div class="attachments"></div>
+        </body>
+        </html>
+        

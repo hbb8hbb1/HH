@@ -1,0 +1,23 @@
+{
+  "title": "Google 数据科学家博士电面经验分享",
+  "originalContent": "<div class=\"article_body\"><td class=\"t_f\" id=\"postmessage_16312347\" itemprop=\"articleBody\">\n背景：理工科PhD 可以说是毫无统计经验，平时的research也主要是理论，coding技术比较差lol，英语比较好. 总结：面试不是很难<br/>\n<span style=\"display:none\">. 1point3acres</span><br/>\n1. 不让我做introduction，直接说让我说一个data science project, 要 substantial，我说我主要做理论，但是带过一些master 学生做项目，讲了一个regression 做prediction 的问题，问得很细，怎么做feature engineering， 然后怎么evaluate，用什么model什么考量，没有准备这个问题，就现说，中间问了很多follow up<br/>\n2. stats: y~ X1+X2, linear regression, linear transform X1,X2 问结果变不变，有很多帖子说这个题，不变，给他写了一些背后的数学，问加regularization 变不变，我说变，然后讲了一下regularization背后的数学和为什么变<br/>\n3. stats: 1000 observations, 900 features, 问 testing data error 怎么样，答 overfitting, 如何解决 overfitting, 答： feature selection先来一遍，不行就CV，CV再不行 regularization，follow up 如何选择 CV的k, 我扯了一通 CV的原理，然后balance training and testing需要，然后可以试，看看这些error variance，找个小的<br/>\n4. simpson's paradox: 给了一个context 是 Google 的 一个product，说有一个 metrics 在每个country average 都上升 across time，但是 globally average 下降了，问我为啥，我说是 SP， 然后讲解了原理，他让我给一个 数值example 来用上这个context<br/>\n5. 新题： AB testing， 1000 个人treatment， 1000个人 control, 但是系统坏了， 100个看到 ads 的人 被记录成了没看到， 所以现在系统里显示的是 1100 VS900， 问我对结果什么expectation，我说mean underestimate，se 都不知道会咋样了 说了下背后的数学原因， 她说对，然后问 现在知道 具体的数字，就是 10% 是没有记录的，可以怎么correct这个 AB test，答mu0-mu1,其中 mu1其实是 真实mu1+0.1mu0, 转换coefficient或者转换distribution来算，她说对，然后跟我说不是exactly 0.1， 我说对 11%，然后他很满意。 <br/>\n6. 这时候只剩 15分钟了，我看他一直不让我coding，于是问了两题 python，都是旧题我就不写了很简单。5分钟写完， 然后剩下 10分钟聊天，问了问他日常工作，然后industry和PhD 生活有什么不一样。<br/>\n<br/>\n</td></div>",
+  "processedContent": "## 基本信息（公司/岗位/结果/难度）\n- **公司**：Google\n- **岗位**：数据科学家（Data Scientist）\n- **结果**：未提及/不明确\n- **难度**：4\n\n## 时间线\n- 面试时间：11月中旬（具体日期未提及）\n- 背景时间线：面试前准备有限，缺乏统计与coding实战经验，主要研究方向为理论型理工科PhD\n\n## 面试过程\n### 电面（电话技术面试）\n全程约45分钟，面试官未让候选人做自我介绍，直接进入技术问题。整体节奏紧凑，问题覆盖项目深挖、统计建模、机器学习基础与AB测试设计。\n\n1. **项目深挖**\n   - 要求描述一个实质性的数据科学项目。候选人说明自身以理论研究为主，但曾指导硕士生完成回归预测项目。\n   - 面试官追问细节：特征工程如何设计？模型选择依据？评估指标是什么？\n   - 过程中有多轮follow-up提问，考验临场表达与逻辑清晰度。\n\n2. **统计理论题一**\n   - 问题：在线性回归 $ y \\sim X_1 + X_2 $ 中，若对 $ X_1, X_2 $ 进行线性变换，回归结果是否改变？\n   - 回答：不变，并推导数学原理（如系数相应变换）。\n   - Follow-up：加入正则化（如L2）后结果是否改变？\n   - 回答：会变，解释正则化引入偏差，破坏变换不变性，并阐述其背后机制。\n\n3. **高维数据与过拟合**\n   - 场景：1000个样本，900个特征，测试误差会怎样？\n   - 回答：可能发生过拟合。\n   - 解决方案：先做特征选择，再使用交叉验证（CV），若仍不行则加正则化。\n   - Follow-up：如何选择CV的k值？\n   - 回答：需平衡训练/验证集大小，考虑误差方差，通过实验选择使误差稳定的k值。\n\n4. **辛普森悖论（Simpson's Paradox）**\n   - 情境：某Google产品在各国该指标随时间上升，但全球平均却下降。\n   - 回答：指出为辛普森悖论，并解释其成因（分组权重变化导致总体趋势反转）。\n   - 要求：结合情境构造一个数值示例，成功举例说明。\n\n5. **AB测试新题（数据记录错误场景）**\n   - 设定：原计划1000人treatment vs 1000人control，但系统故障导致100个看到广告的人被误记为未看到，现记录为1100 vs 900。\n   - 问：对估计结果的影响？\n   - 答：处理组均值被低估，标准误不确定。\n   - 进一步：若已知有10%的记录错误，如何校正？\n   - 答：通过调整均值估计（如 $ \\mu_1^{\\text{obs}} = 0.9\\mu_1 + 0.1\\mu_0 $），反推真实均值差异；可通过分布重构或系数转换进行纠偏。\n   - 面试官提示“并非精确10%”，候选人反应为约11%，获得认可。\n\n6. **编程快问（Python）**\n   - 剩余15分钟时，主动询问是否需要coding。\n   - 面试官出两道简单Python题（旧题，未详述），5分钟内完成。\n   - 最后10分钟为自由交流：询问对方日常工作内容、工业界与PhD生活的差异等。\n\n## 题目总结\n- 描述一个实质性的数据科学项目（含feature engineering、model selection、evaluation）\n- 线性回归中协变量线性变换对结果的影响\n- 加入正则化后是否影响变换不变性\n- 高维情形下（n=1000, p=900）的过拟合判断与解决方案\n- 交叉验证中k的选择原则\n- 辛普森悖论的原理理解与数值示例构建\n- AB测试中存在系统性记录误差时的偏差分析与校正方法\n- 两道基础Python编程题（具体内容未提供）\n\n## 个人总结（经验与建议）\n- 面试整体难度适中偏上，重点考察统计直觉、建模思维与问题拆解能力。\n- 即使背景偏理论，也能通过清晰表达和逻辑推导获得认可。\n- 对经典概念（如Simpson's Paradox、正则化、CV）需深入理解而不仅是背诵定义。\n- 实际业务情境下的问题（如AB测试数据错误）越来越受重视，建议准备“非理想情况”下的分析思路。\n- 主动引导流程（如提醒coding环节）可能加分，体现沟通主动性。\n- 英语表达流畅有助于弥补技术短板。",
+  "company": "Google",
+  "role": "Data Scientist",
+  "difficulty": 4,
+  "tags": [
+    "数据科学家",
+    "电面",
+    "统计学",
+    "AB测试",
+    "机器学习",
+    "Python",
+    "行为面试",
+    "PhD申请"
+  ],
+  "comments": [],
+  "usefulVotes": 0,
+  "uselessVotes": 0,
+  "shareCount": 0,
+  "isAnonymous": true
+}

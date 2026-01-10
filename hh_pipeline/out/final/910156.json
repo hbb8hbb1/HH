@@ -1,0 +1,22 @@
+{
+  "title": "Google 数据科学家电话面试经验分享",
+  "originalContent": "<div class=\"article_body\"><td class=\"t_f\" id=\"postmessage_17362852\" itemprop=\"articleBody\">\n今年发现一个和目前工作领域相关的data scientist position，网投简历后收到HR回复预约电话初筛。<br/>\n<br/>\nPhone interview内容应该是按照标准data scientist职位确定的， 题目包含：<br/>\n1. Standard error, standard error of the median, meaning and methods to find<br/>\n2. Bias and variance, meaning<br/>\n3. Find the relationship between education background and income (面经板块典型题目)<br/>\n4. Talk about an interesting project<br/>\n<br/>\n由于非科班出身，回答的不够完善被挂了。在这里作为一个数据点分享一下。<br/>\n</td></div>",
+  "processedContent": "## 基本信息（公司/岗位/结果/难度）\n- **公司**：Google\n- **岗位**：数据科学家（Data Scientist）\n- **结果**：未通过\n- **难度**：4\n\n## 时间线\n- **网投简历**：未提及具体时间\n- **收到HR联系**：简历投递后不久收到HR回复，安排电话初筛\n- **面试形式**：电话面试（Phone Interview）\n- **整体流程状态**：止步于电话面试环节\n\n## 面试过程\n### HR 初步沟通\n- HR主动联系，预约电话初筛时间，确认候选人对职位的兴趣与基本背景匹配度。\n\n### 电话面试（Technical Phone Screen）\n- 面试时长约30-45分钟，问题覆盖统计基础、机器学习概念及项目经历。\n- 全程英文交流（根据Google常规流程推断）。\n- 主要考察点：\n  - 统计学基础知识的理解与应用\n  - 机器学习核心概念掌握程度\n  - 实际项目表达能力\n- 因非科班出身，部分理论回答不够深入，最终未进入下一轮。\n\n## 题目总结\n1. **标准误（Standard Error）及其含义**\n   - 包括中位数的标准误（Standard Error of the Median）的定义与计算方法\n2. **偏差与方差（Bias and Variance）的概念解释**\n   - 要求清晰阐述两者含义及其在模型中的权衡关系\n3. **教育背景与收入之间的关系分析**\n   - 典型的数据科学案例题，需说明如何设计分析流程、选择变量、建模思路等\n4. **介绍一个你做过的有趣项目**\n   - 考察项目表达能力、技术深度与业务理解\n\n## 个人总结（经验与建议）\n- **优势体现不足**：虽有相关领域工作经验，但缺乏系统性数据科学理论训练，在统计推断类问题上暴露短板。\n- **建议后续准备者**：\n  - 系统复习统计学基础（如抽样分布、标准误、置信区间等）\n  - 深入理解Bias-Variance Tradeoff，并能结合实例说明\n  - 提前准备1-2个结构清晰的技术项目陈述（STAR原则）\n  - 若为转行者，建议补充科班核心课程知识（如概率统计、机器学习基础）\n- 本次面试作为宝贵的数据点，提醒候选人即使有实践经验，理论功底仍是大厂筛选的重要标准。",
+  "company": "Google",
+  "role": "数据科学家",
+  "difficulty": 4,
+  "tags": [
+    "数据科学家",
+    "电话面试",
+    "统计学",
+    "机器学习基础",
+    "项目表达",
+    "转行面试",
+    "北美求职"
+  ],
+  "comments": [],
+  "usefulVotes": 0,
+  "uselessVotes": 0,
+  "shareCount": 0,
+  "isAnonymous": true
+}

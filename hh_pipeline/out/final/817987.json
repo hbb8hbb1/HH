@@ -1,0 +1,23 @@
+{
+  "title": "谷歌产品分析师面试经验：SQL、AB测试与产品案例解析",
+  "originalContent": "<div class=\"article_body\"><td class=\"t_f\" id=\"postmessage_16263741\" itemprop=\"articleBody\">\nsql + product case + Ab testing stats <br/>\nSql 题目如下<br/>\nYouTube<br/>\n<br/>\nTimestamp,<br/>\nVideo_id,<br/>\nVideo_name,<br/>\nCustomer_id,<br/>\nwatch_minutes<br/>\n<br/>\nWrite a query that returns the top 100 videos by unique users for 2021.<br/>\n<br/>\n<span style=\"display:none\"></span>With t1 as (<br/>\nselect video_id, count(distinct customer_id) as users<br/>\nfrom youtube <br/>\nwhere true<br/>\nAnd timestamp between ‘2021-01-01’ and ‘2021-12-31’ <br/>\nGroup by 1<br/>\nOrder by 2 desc )<br/>\n<br/>\nSelect video_id, users<br/>\nFrom t1<br/>\nLimit 100;<br/>\n<span style=\"display:none\">-baidu 1point3acres</span><br/>\nWrite a query that returns the top 100 videos that grew the most m/m.<br/>\n<span style=\"display:none\"></span>Current month = september 2021<br/>\n<br/>\nWith sep as (<br/>\nSelect video_id, count(distinct customer_id) as users<br/>\nFrom youtube y1<br/>\nWhere true<br/>\nAnd date(date_trunc('month',timestamp))=’2021-09-1’<br/>\nGroup by 1),<br/>\nOct as (<br/>\nSelect video_id, count(distinct customer_id) as users<br/>\nFrom youtube y1<br/>\nWhere true<br/>\n<span style=\"display:none\"></span>And date(date_trunc('month',timestamp))=’2021-10-1’<br/>\nGroup by 1),<br/>\n<br/>\nT1 as (<br/>\nSelect s.video_id, coalsce(o.user,0) - s.users as sep_user as mom_delta, mom_delta/sep_user as delta_percent <br/>\nFrom sep s<br/>\nLeft join oct o on s.video_id=o.video_id )<br/>\n<br/>\n​select s.video_id, delta_percent<br/>\nFrom t1<br/>\nOrder by delta_percent desc <br/>\nLimit 100;<br/>\n<br/>\n<span style=\"display:none\"></span><br/>\nstats <br/>\n1. what's AB test<br/>\n2. what's confidence interval<br/>\n3. how to pick sample size <br/>\n- Minimum effect size <br/>\n- power = (1- beta)  80% <br/>\n- significance level<br/>\n- control group mean as base line <br/>\n4. how to pick control vs. test<br/>\n5. what's the testing duration <br/>\nAnswer: traffic/ sample size. also be mindful of nolvety affect <br/>\n<br/>\n<br/>\nProduct case <br/>\n1. how to decide if we should charge $10/mon to use gmail. what are the pros and cons<br/>\nAnswer: run ABC group and each group has $X/month. North star metric: Revenue/ user <br/>\nRevenue = revenue gain from charging + ad impression revenue + revenue from other Google product because of using gmail<br/>\nAlso need to isolate new users vs. exiesting users when condcuting analysis <br/>\n<br/>\n面试不容易求大米 ！！！<br/>\n<br/>\n<br/>\n<br/>\n<br/>\n<br/>\n</td></div>",
+  "processedContent": "## 基本信息\n- **公司**：Google\n- **岗位**：产品分析师（Product Analyst）\n- **结果**：未提及/不明确\n- **难度**：4\n\n## 时间线\n- 面试时间未明确，但题目中涉及的数据时间为2021年，推测面试发生在2021年或之后不久。\n- 各轮次具体时间安排未提及。\n\n## 面试过程\n### 笔试 / OA\n包含 SQL 查询题和统计学基础问题。\n\n### 一面：技术面（SQL + 统计）\n- 考察 SQL 编写能力，围绕 YouTube 用户观看数据进行查询。\n- 涉及窗口函数、CTE、日期处理、去重统计等常见操作。\n- 统计部分聚焦 AB 测试核心概念。\n\n### 二面：产品案例分析\n- 要求评估 Gmail 是否应推出 $10/月的付费功能。\n- 考察产品思维、商业化逻辑、指标设计与用户分层意识。\n\n### HR 面 / 其他轮次\n- 未提及\n\n## 题目总结\n### SQL 题目\n1. 编写 SQL 查询 2021 年按唯一用户数排名前 100 的视频。\n   - 使用 `COUNT(DISTINCT customer_id)` 和时间过滤（2021-01-01 至 2021-12-31）。\n   - 按用户数降序排序并限制输出 100 条。\n\n2. 查询 2021 年 9 月到 10 月间用户增长最快的前 100 个视频（月环比增长率）。\n   - 分别计算两个月的独立用户数。\n   - 左连接两表，计算增长绝对值与相对百分比。\n   - 注意处理空值（如使用 `COALESCE`）。\n\n### 统计学问题\n1. 什么是 AB 测试？\n2. 什么是置信区间？\n3. 如何确定样本量？\n   - 最小可检测效应（Minimum Effect Size）\n   - 统计功效（Power = 1 - β），通常设为 80%\n   - 显著性水平（Significance Level）\n   - 对照组均值作为基线\n4. 如何划分对照组与实验组？\n5. 如何确定测试持续时间？\n   - 取决于流量和所需样本量\n   - 注意“新奇效应”（Novelty Effect）的影响\n\n### 产品案例题\n1. 是否应该对 Gmail 收取 $10/月的费用？请分析利弊。\n   - 建议方案：设置 ABC 多组测试，每组不同定价（如 $0, $5, $10）\n   - 北极星指标：每用户收入（Revenue per User）\n   - 收入构成：\n     - 直接收费收入\n     - 广告展示收入变化\n     - 因使用 Gmail 而带动的其他 Google 产品收入\n   - 分析时需区分新用户与现有用户\n\n## 个人总结\n- **SQL 是基本功**：熟练掌握 CTE、子查询、日期函数、NULL 值处理至关重要。\n- **统计要理解本质**：不能只背公式，要能解释样本量、功效、显著性之间的权衡。\n- **产品案例如何结构化**：建议采用“目标 → 指标 → 实验设计 → 风险识别”框架回答。\n- **商业化思维加分**：在免费产品上引入付费模式，需综合考虑用户接受度、替代品、生态系统联动。\n- **建议准备方向**：\n  - 刷经典 SQL 题（LeetCode、StrataScratch）\n  - 熟悉 Google 产品常见商业模式\n  - 练习用数据驱动方式讨论产品决策",
+  "company": "Google",
+  "role": "产品分析师",
+  "difficulty": 4,
+  "tags": [
+    "产品分析师",
+    "SQL",
+    "AB测试",
+    "统计学",
+    "产品案例分析",
+    "Google面试",
+    "数据驱动决策",
+    "商业化策略"
+  ],
+  "comments": [],
+  "usefulVotes": 0,
+  "uselessVotes": 0,
+  "shareCount": 0,
+  "isAnonymous": true
+}

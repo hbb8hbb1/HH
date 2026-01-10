@@ -1,0 +1,23 @@
+{
+  "title": "Google 数据科学家技术主管岗位面试面经：店面轮次题目与经验分享",
+  "originalContent": "<div class=\"article_body\"><td class=\"t_f\" id=\"postmessage_14955650\" itemprop=\"articleBody\">\nengineering track 比想象中简单一些 大概问了好几个probability 的题<br/>\n<br/>\n1）如何做a/b testing 要求写出来t test的formula 如果t statistics 非常接近1.96应该怎么办<br/>\n2）写一个function 可以求出fibonachi sequence每两个相邻数字的和 <br/>\n3）有一个题楼主没有答出来，大概是说我们有一个image recognition algorithm we need human labeler to identify whether the image classification is true or not. how do you compare we use 1200 labler each with p probablity of classfiying it wrong vs we divide 1200 labler to 400 groups and use majority rule within each group to give each image a label 求回答<br/>\n<br/>\n最后是过了。。但是感觉我onsite一定会挂。。毕竟不是统计背景出身的<br/>\n<br/>\n求大米！如果有积分设置跟我说。。表示不太懂怎么可以去掉积分门槛<br/>\n<span style=\"display:none\"></span></td></div>",
+  "processedContent": "## 基本信息\n- **公司**：Google\n- **岗位**：数据科学家 / 技术主管（Tech Lead）\n- **结果**：通过店面进入下一轮\n- **难度**：4\n\n## 时间线\n未提及/不明确\n\n## 面试过程\n### 店面轮次\n面试主要围绕数据分析与统计建模能力展开，包含概率、A/B测试以及编程题。\n\n1. **统计理论题**：\n   - 如何设计 A/B 测试？请写出 t 检验的公式。\n   - 当 t 统计量非常接近 1.96 时，应如何解读结果？是否显著？\n\n2. **编程题**：\n   - 编写一个函数，计算斐波那契数列中每两个相邻数字的和（例如：F(0)+F(1), F(1)+F(2), ...）。\n\n3. **系统设计 + 概率分析题**（未答出）：\n   - 场景：有一个图像识别算法，需要人工标注员判断分类结果是否正确。\n   - 问题：比较以下两种方案——\n     - 方案一：使用 1200 名标注员，每人独立标注，错误概率为 p。\n     - 方案二：将 1200 名标注员分为 400 组，每组 3 人，采用组内多数投票机制决定最终标签。\n   - 要求：分析哪种方案整体错误率更低，并进行数学建模说明。\n\n最终通过店面，但候选人自认统计基础薄弱，对后续onsite信心不足。\n\n## 题目总结\n- 写出 A/B 测试流程及 t 检验公式\n- 解释 t 统计量接近临界值（如 1.96）时的统计含义\n- 实现斐波那契相邻项求和函数\n- 比较独立标注 vs 多数投票机制下的标注错误概率模型\n\n## 个人总结\n- Google 工程路线的技术主管岗对面试者的统计功底要求较高，尤其是假设检验和实验设计能力。\n- 编程题难度适中，但需注意边界条件和代码清晰性。\n- 系统类概率题考察深入，建议提前准备群体决策、噪声标注、众包质量控制等常见场景的建模方法。\n- 非统计背景候选人建议强化概率论与统计推断的基础知识，特别是二项分布、多数投票错误率计算等。",
+  "company": "Google",
+  "role": "数据科学家",
+  "difficulty": 4,
+  "tags": [
+    "数据科学家",
+    "店面面试",
+    "A/B测试",
+    "t检验",
+    "概率题",
+    "编程题",
+    "系统设计",
+    "统计建模"
+  ],
+  "comments": [],
+  "usefulVotes": 0,
+  "uselessVotes": 0,
+  "shareCount": 0,
+  "isAnonymous": true
+}

@@ -1,0 +1,22 @@
+{
+  "title": "Google Financial Analyst 岗位 HR 面试经验分享",
+  "originalContent": "<div class=\"article_body\"><td class=\"t_f\" id=\"postmessage_15658254\" itemprop=\"articleBody\">\n地里都是数据的，很少financial analyst的面经，贡献回报一下大家。刚刚HR电面， 非常nice，先是简单介绍了招聘流程，问了薪水预期，然后是基本的HR问题，自我介绍那些。<br/>\n然后是技术问题。<br/>\n<div id=\"1p3a-ad-thread-paragraph\" style=\"margin-top: 20px; margin-bottom: 20px;\"></div><br/>\n<div class=\"locked\">以下内容需要积分高于 100 您已经可以浏览</div><br/>\n<div style=\"border: 1px solid #C2D5E3;padding:8px 8px 8px 24px;\">两道SQL问题，什么是left join，什么时候用，where &amp; Having的区别。 Case 问了gmail如果收费有什么优缺点</div><br/>\n<br/>\n<br/>\n求加大米，看面经，感谢大家~祝offer多多<br/>\n</td></div>",
+  "processedContent": "## 基本信息（公司/岗位/结果/难度）\n- **公司**：Google\n- **岗位**：Financial Analyst\n- **面试结果**：未提及/不明确\n- **难度**：3\n\n## 时间线\n- 未提及/不明确\n\n## 面试过程\n### HR 面试\n- 面试官态度非常友好，简要介绍了整体招聘流程。\n- 薪资预期沟通：询问了候选人的薪资期望。\n- 基础 HR 问题：包括自我介绍等常见行为类问题。\n- 技术相关问题穿插在 HR 面试中，包含 SQL 和商业案例分析。\n\n## 题目总结\n- **SQL 问题**：\n  - 解释 `LEFT JOIN` 的含义及使用场景。\n  - 区分 `WHERE` 与 `HAVING` 的用法差异。\n- **商业案例题**：\n  - 如果 Gmail 开始收费，可能带来哪些优缺点？\n\n## 个人总结（经验与建议）\n- Google 的 HR 面试不仅考察软技能，也会涉及一定的技术与业务理解能力。\n- 建议准备基础 SQL 知识，尤其是连接操作和聚合条件筛选的区别。\n- 商业案例问题需从用户、收入、竞争等多个角度进行结构化思考。\n- 行为问题仍为核心，确保自我介绍清晰简洁，体现与岗位的匹配度。",
+  "company": "Google",
+  "role": "Financial Analyst",
+  "difficulty": 3,
+  "tags": [
+    "HR面试",
+    "SQL",
+    "商业案例",
+    "行为问题",
+    "薪资谈判",
+    "外企求职",
+    "财务分析"
+  ],
+  "comments": [],
+  "usefulVotes": 0,
+  "uselessVotes": 0,
+  "shareCount": 0,
+  "isAnonymous": true
+}

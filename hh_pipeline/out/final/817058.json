@@ -1,0 +1,23 @@
+{
+  "title": "Meta 产品分析师面试经验分享（含时间线与题目总结）",
+  "originalContent": "<div class=\"article_body\"><td class=\"t_f\" id=\"postmessage_16252143\" itemprop=\"articleBody\">\n<i class=\"pstatus\"> 本帖最后由 seggy 于 2021-11-7 16:15 编辑 </i><br/>\n<br/>\n第一次发帖，求米看帖准备下一场面试。。。<br/>\n背景：在职佛系跳槽，之前只投了狗家。前几天等HC的时候又投了FB/Meta DS，下周面试。发帖攒人品+求米。<br/>\n<br/>\n<br/>\n先上时间线：<br/>\n简历内推 5月中<br/>\nRecruiter联系 6月底<br/>\n-----度假两周-----<br/>\n店面 7月14日<br/>\n<span style=\"display:none\"></span>过店面 7月底（等了两周）<br/>\n------8月都在度假------<br/>\n准备OnSite 9月（佛系准备每天2个小时）<br/>\nOnSite 10月4日<br/>\nRecruiter说反馈很好 10月中（等了两周不到）<br/>\n过HC同时1个team chat 11月初（这里又等了三周）<br/>\n<br/>\n店面面经<br/>\n前20分钟SQL，后20分钟stats。不知道为什么没有考case<div class=\"locked\">以下内容需要积分高于 108 您已经可以浏览</div><br/>\n<div style=\"border: 1px solid #C2D5E3;padding:8px 8px 8px 24px;\">　　　SQL 1道easy，考察row_number(), group_by和rank()之间的区别，tricky的是如果选择用window function要考虑到最终结果是否有重复（楼主就没考虑到，被提醒了TvT)<br/>\n<span style=\"display:none\"></span>                         1道medium，当时感觉还是有些复杂的，沟通明白到底要什么Output花了些时间。大概是求返回每个用户每个月第二次交易金额的平均值。如果没有第二次交易金额则需要显示为0.<br/>\n                         Stats 2道题，非常基础。<br/>\n                         1）logistic regression explain to non-technical person. 然后又围绕logistic regression问了些基本概念，例如assumption, 如果assumption violated了要怎么办。<br/>\n                         2）feature selection：谈到了stepwise regression和PCA，他们的应用场景/优劣性　　</div><br/>\n<br/>\n<br/>\n<br/>\nOnSite一整天问得很多很杂，<div class=\"locked\">以下内容需要积分高于 108 您已经可以浏览</div><br/>\n<div style=\"border: 1px solid #C2D5E3;padding:8px 8px 8px 24px;\">　感觉非常随性，都是面试官自己在做的项目相关。有SQL, Stats和各种奇奇怪怪的case。SQL难度和店面类似，Stats会深入很多，case多为实验设计/AB Test。</div><br/>\n等楼主面了FB再来详细写面经和tips。<br/>\n<br/>\n*** 附加彩蛋: data scientist还是product analyst ***<br/>\n内推职位是data scientist。Recruiter联系的时候说是同一个ladder, 两种叫法，待遇什么的没有区别，楼主可以任选。因为楼主想做更多business impact的项目，并不在意是否更多需要使用ML和modeling，所以选择了面试PA。事实证明，PA面试也会考很多stats（也可能因各人背景而异），但可能更注重business/product sense。<br/>\n<br/>\n有说得不对的地方请各路大神指正。<br/>\n</td></div>",
+  "processedContent": "# 🐶家PA面经（加时间线）【求米看帖】\n\n## 基本信息（公司/岗位/结果/难度）\n- **公司**：Meta\n- **岗位**：产品分析师（Product Analyst）\n- **结果**：通过面试，进入团队匹配阶段\n- **难度**：4\n\n## 时间线\n- 简历内推：5月中旬\n- 招聘人员（Recruiter）联系：6月底\n- 店面面试：7月14日\n- 通过店面：7月底（等待约两周）\n- 准备OnSite：9月（每天约2小时，佛系准备）\n- OnSite面试：10月4日\n- 面试反馈良好：10月中旬（等待不到两周）\n- 通过HC并开始团队匹配：11月初（等待约三周）\n\n## 面试过程\n\n### 店面面试（40分钟）\n- **前20分钟：SQL**\n  - 第一题（Easy）：考察 `ROW_NUMBER()`、`GROUP BY` 和 `RANK()` 的区别。重点在于使用窗口函数时需注意结果是否可能重复（面试中未考虑此点，被提醒）。\n  - 第二题（Medium）：计算每个用户每月第二次交易金额的平均值；若无第二次交易，则记为0。理解输出需求花费一定沟通时间。\n\n- **后20分钟：统计学（Stats）**\n  - 第一题：向非技术人员解释逻辑回归（logistic regression），并进一步探讨其基本假设及假设不成立时的应对方法。\n  - 第二题：特征选择方法比较，包括逐步回归（stepwise regression）和主成分分析（PCA），讨论其应用场景与优劣。\n\n> 注：原计划中的Case题未考察。\n\n### OnSite 面试（全天）\n- 面试内容广泛且随性，围绕面试官当前项目展开。\n- 包含以下类型问题：\n  - SQL：难度与店面相当\n  - 统计学：比店面更深入，侧重理论理解和实际应用\n  - Case分析：多为实验设计与AB测试相关\n- 整体风格偏业务导向，强调产品与商业敏感度（business/product sense）\n\n### 关于职位名称说明\n- 内推时职位为“数据科学家”（Data Scientist）\n- 招聘人员说明：PA与DS属于同一职级体系（same ladder），仅称呼不同，待遇一致，候选人可自行选择\n- 作者因希望参与更具业务影响力的项目，而非专注建模/机器学习，故选择以PA方向面试\n- 实际发现：PA面试仍会考察较多统计知识（可能因候选人背景而异），但更重视业务理解能力\n\n## 题目总结\n### SQL\n1. 解释 `ROW_NUMBER()`、`RANK()` 和 `DENSE_RANK()` 的区别，并在实际场景中正确选择使用；注意去重逻辑。\n2. 计算每位用户每个月第二次交易的金额平均值，若无第二次交易则计为0。\n\n### 统计学\n1. 向非技术背景的人解释逻辑回归的基本原理。\n   - 补充问题：逻辑回归的假设有哪些？如果违反了这些假设，应该如何处理？\n2. 特征选择方法对比：\n   - Stepwise Regression 与 PCA 的原理、适用场景、优点与局限性\n\n### 实验设计 / Case\n- 多为AB测试相关的设计类问题\n- 要求具备清晰的实验思路、指标定义能力和偏差控制意识\n\n## 个人总结（经验与建议）\n- 尽管选择了产品分析师路径，但仍需扎实掌握统计学基础知识，不能放松理论准备。\n- SQL需熟练掌握窗口函数及其细节差异（如排名函数对重复值的处理）。\n- Case虽未在店面出现，但在OnSite占比较大，建议系统准备AB测试与产品指标设计类题目。\n- 面试官兴趣主导性强，问题与其当前项目高度相关，因此展现对实际业务的理解更为重要。\n- 若在意业务影响力而非纯技术建模，PA是合适方向，但需强化product sense表达能力。",
+  "company": "Meta",
+  "role": "产品分析师",
+  "difficulty": 4,
+  "tags": [
+    "产品分析师",
+    "数据科学",
+    "SQL",
+    "统计学",
+    "AB测试",
+    "行为面试",
+    "海外科技公司",
+    "OnSite面试"
+  ],
+  "comments": [],
+  "usefulVotes": 0,
+  "uselessVotes": 0,
+  "shareCount": 0,
+  "isAnonymous": true
+}

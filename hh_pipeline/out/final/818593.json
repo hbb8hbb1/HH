@@ -1,0 +1,23 @@
+{
+  "title": "Google PA 岗位现场面试经历分享：四轮技术与案例考察",
+  "originalContent": "<div class=\"article_body\"><td class=\"t_f\" id=\"postmessage_16271113\" itemprop=\"articleBody\">\n分享一下历经半年而且还在等结果的Google面试经历，6月份申请的GCP product strategy &amp; operation，onsite一周之后就被拒了。 然后被当时的Recuiter介绍了一个专门负责PA招聘的Recuiter， 说可以继续面PA的职位。之后就被安排的PA onsite, 下面是面经， 一共四轮，googliness这次不需要面了<br/>\n1. sql + 2 cases: 题型类似于 should we make launch decision, how to improve user engagment <br/>\n2. 看图讲故事, 没有涉及到统计的问题，是和一些GCP产品相关的<br/>\n3. BQ + SQL，SQL离涉及到了missing data, cross join, 把瘦长dataset 变成短宽dataset<br/>\n4. model + ab test + case: case是how to set up pricing strategy <br/>\n<br/>\n整个四轮下来感觉case 占比很大，而且都是Google相关的产品。虽然不知道能不能过， 但还是推荐一个PM面试准备的网站，因为面试的时候我有遇到类似的问题，顺便求加米！：<a href=\"https://link.1point3acres.com/?url=https%3A%2F%2Fwww.productmanagementexercises.com%2F\" rel=\"nofollow noopener\" target=\"_blank\">https://www.productmanagementexercises.com/</a>   <br/>\n<br/>\n再分享一下timelines, GCP product strategy &amp; operation那个就不分享了，感觉没啥参考性。<br/>\n10/29 PA onsite <br/>\n<span style=\"display:none\"></span>11/8   Recuiter 联系说 recevied my interview feedback but still waiting to hear from the team<br/>\n之后就没有任何update。。。。<br/>\n<br/>\n另外有没有想一起Mock的小伙伴呀，加个联系方式一起准备面试呀。<br/>\n</td></div>",
+  "processedContent": "## 基本信息（公司/岗位/结果/难度）\n- **公司**：Google\n- **岗位**：Product Analyst (PA)\n- **结果**：未明确（面试后等待反馈中）\n- **难度**：4\n\n## 时间线\n- **10月29日**：完成现场面试（onsite）\n- **11月8日**：Recruiter 联系表示已收到面试反馈，仍在等待团队决策\n- 此后无进一步更新\n\n## 面试过程\n共进行四轮面试，无需再面 Googliness（文化匹配）环节。\n\n### 第一轮：SQL + 两个案例分析\n- 考察 SQL 查询能力\n- 案例题型包括：\n  - 是否应推出某项功能的决策分析（launch decision）\n  - 如何提升用户参与度（user engagement improvement）\n\n### 第二轮：看图讲故事（Data Interpretation / Chart Storytelling）\n- 给出图表，要求解释数据背后的故事\n- 不涉及统计推断问题\n- 内容与 GCP（Google Cloud Platform）相关产品有关\n\n### 第三轮：行为问题（BQ）+ SQL\n- 行为问题围绕工作经历和协作场景展开\n- SQL 题目涉及：\n  - 缺失数据处理（missing data）\n  - Cross Join 使用\n  - 将“长格式”数据集转换为“宽格式”（reshape from long to wide dataset）\n\n### 第四轮：建模 + A/B 测试 + 案例分析\n- 建模题：考察构建指标或预测模型的思路\n- A/B 测试设计：如何评估策略有效性\n- 案例分析：如何制定定价策略（pricing strategy setup）\n\n## 题目总结\n- SQL 查询（多轮出现）\n  - 处理缺失值\n  - 使用 Cross Join\n  - 数据重塑（long → wide）\n- 案例分析\n  - 功能发布决策（launch decision）\n  - 提升用户参与度\n  - 制定产品定价策略\n- 图表解读（Chart Storytelling）\n  - 解读 GCP 相关产品的可视化数据\n- A/B 测试设计\n- 数据建模思路\n- 行为问题（Behavioral Questions）\n\n## 个人总结（经验与建议）\n- 面试整体侧重案例分析，且内容高度聚焦 Google 自身产品，尤其是 GCP 相关场景\n- SQL 是核心技能，需熟练掌握复杂查询与数据变形操作\n- 推荐准备资源：[https://www.productmanagementexercises.com/](https://www.productmanagementexercises.com/)，该网站题目与实际面试题有较高相似度\n- 建议提前练习图表讲述和商业决策类问题\n- 面试流程较长，反馈周期不确定，需保持耐心",
+  "company": "Google",
+  "role": "Product Analyst",
+  "difficulty": 4,
+  "tags": [
+    "Product Analyst",
+    "Onsite Interview",
+    "SQL",
+    "Case Analysis",
+    "A/B Testing",
+    "Data Modeling",
+    "Google Cloud",
+    "Behavioral Questions"
+  ],
+  "comments": [],
+  "usefulVotes": 0,
+  "uselessVotes": 0,
+  "shareCount": 0,
+  "isAnonymous": true
+}

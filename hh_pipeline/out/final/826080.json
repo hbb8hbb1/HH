@@ -1,0 +1,23 @@
+{
+  "title": "Data Scientist 新鲜人校招终面经验分享：统计直觉与数据处理考察重点",
+  "originalContent": "<div class=\"article_body\"><td class=\"t_f\" id=\"postmessage_16365962\" itemprop=\"articleBody\">\n申请的2022年data scientist new grad，timeline如下：<br/>\n9月初找人内推了positio<br/>\n9/27 hr reach out联系电面，中间因为一些事情耽搁了一段时间所以最后约到了10/29店面<br/>\n10/29 电面（google meet interview）<br/>\n11/5 通知过了联系prep call+约final<br/>\n11/29 final interview （由于时间问题，分别安排到了两天）<br/>\n签了NDA，大部分问题都是open-ended的，所以就大概说说问题以及一些问题我的回答。<br/>\n<div class=\"locked\">以下内容需要积分高于 150 您已经可以浏览</div><br/>\n<div style=\"border: 1px solid #C2D5E3;padding:8px 8px 8px 24px;\">Round 1. stat+data intuition<br/>\na. 如何构建ab testing，如何收集数据，里面隐藏了一个simpson‘s paradox，如何解决。（我的回答是可以用mixed effects，然后要么分析anova，要么用regression看系数是否significance，感觉面试官挺满意这个答案)；<br/>\nb. 一个跟时间相关的testing问题，一个feature launch前后的改变如何measure etc。<br/>\n<br/>\nRound 2. data intuition + stat<br/>\n聊background，research，etc，<br/>\na. 跟imbalance data相关的classification问题，如何解决（oversampling，downsampling，data augmentation，etc），如何evaluate（precision-recall curve，mis-classification rate，etc）。<br/>\nb. logistic regression vs ols，系数怎么求，如何加penalty等。<br/>\n<br/>\nRound 3. data intuition + stat<br/>\na. 面经1000个人，100个电影，评分问题。<br/>\nb. sampling bias问题，如何解决。<br/>\n后面还有10分钟左右，面试官说咱们再做一题，就问了下面这个题目。<br/>\nc. 给你一串数，问如何检测这串数字是不是从某个分布randomly generated出来的。（我当时的思路是先检测一下有没有周期性pattern，然后看trend，连续的单调序列的长度作为test statistics之类的）<br/>\n<br/>\nRound 4. coding<br/>\na. data manipulation<br/>\nb. bootstrap confidence interval</div><br/>\n<br/>\n<br/>\nRound 5. BQ<br/>\n常规bq题目。<br/>\n<br/>\n前三轮全是intuition答得中规中矩，居然没有probability问题感觉很神奇。。coding轮题目很简单但是当时突然脑袋短路data manipulation搞错了‍‍‌‌‍‌‍‌‌‌‌‍‍‍‌‌‍‌‍‌，浪费了很多时间导致第二题看错题没时间改了，大概率第四轮是个no hire了。。想问一下有了解的大佬们，ds如果有一轮崩了还有戏吗？coding就考察了一轮，这要是直接no hire会不会直接就🈚️了。。<br/>\n</td></div>",
+  "processedContent": "## 基本信息\n- **公司**：Meta\n- **岗位**：Data Scientist\n- **结果**：未提及/不明确\n- **难度**：4\n\n## 时间线\n- 9月初：提交内推申请\n- 9月27日：HR 联系安排电面\n- 10月29日：技术电面（Google Meet）\n- 11月5日：通过电面，进行 prep call 并预约终轮面试\n- 11月29日：终轮面试（因时间问题分两天进行）\n\n## 面试过程\n\n### 第一轮：统计 + 数据直觉\n- 如何设计 A/B 测试？如何收集数据？\n  - 面试中隐含 Simpson's Paradox 的陷阱，需识别并解释解决方案。\n  - 回答建议：使用 mixed effects 模型，结合 ANOVA 分析或回归系数显著性检验。\n- 时间相关 feature 上线前后的效果评估方法。\n\n### 第二轮：数据直觉 + 统计\n- 背景交流：研究经历、项目等。\n- 不平衡分类问题：\n  - 解决方法：过采样、欠采样、数据增强等。\n  - 评估指标：精确率-召回率曲线、误分类率等。\n- Logistic Regression 与 OLS 的比较：\n  - 系数求解方式（如最大似然估计 vs 最小二乘）。\n  - 正则化项的加入（L1/L2 penalty）及作用。\n\n### 第三轮：数据直觉 + 统计\n- 场景题：1000 名用户对 100 部电影的评分问题（可能涉及推荐系统或聚合分析）。\n- 抽样偏差问题及其解决策略。\n- 附加题目：\n  - 给定一串数字，判断是否从某个分布随机生成。\n  - 思路：检测周期性、趋势、单调序列长度作为检验统计量，可考虑 KS 检验或其他拟合优度方法。\n\n### 第四轮：编程（Coding）\n- 数据操作（data manipulation）题目。\n- 使用 Bootstrap 方法计算置信区间。\n- 反思：编码思路清晰但实现时出错，导致第二题读题错误且无时间修正。\n\n### 第五轮：行为面试（BQ）\n- 标准行为类问题（如团队合作、挑战经历、目标设定等），未具体展开。\n\n## 题目总结\n- A/B 测试设计与 Simpson's Paradox 应对\n- Feature 上线前后变化的衡量方法\n- 不平衡数据分类的处理与评估\n- Logistic Regression 与 OLS 对比及正则化\n- 用户-电影评分场景的数据分析\n- 抽样偏差识别与纠正\n- 判断序列是否来自某分布的假设检验思路\n- 数据清洗与转换操作（coding）\n- Bootstrap 构建置信区间（coding）\n- 行为类问题（BQ）\n\n## 个人总结\n- 前三轮以统计和数据直觉为主，回答中规中矩，未遇到概率题较为意外。\n- 编码轮题目本身不难，但由于紧张导致基础 data manipulation 出错，影响整体节奏。\n- 尽管仅有一轮 coding，但若表现不佳可能成为 no hire 决定的关键因素。\n- 建议后续候选人：\n  - 强化统计基础，尤其是实验设计中的常见陷阱（如 Simpson’s Paradox）。\n  - 提前练习真实场景下的数据操作 coding 题，注重调试效率。\n  - 即使某轮表现不佳，仍应保持后续轮次稳定发挥，争取综合评估机会。",
+  "company": "Meta",
+  "role": "Data Scientist",
+  "difficulty": 4,
+  "tags": [
+    "Data Scientist",
+    "A/B Testing",
+    "Statistics",
+    "Coding",
+    "Behavioral Questions",
+    "Bootstrap",
+    "Imbalanced Data",
+    "Simpson's Paradox"
+  ],
+  "comments": [],
+  "usefulVotes": 0,
+  "uselessVotes": 0,
+  "shareCount": 0,
+  "isAnonymous": true
+}

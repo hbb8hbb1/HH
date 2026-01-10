@@ -1,0 +1,62 @@
+﻿
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="utf-8">
+            <title>Extracted Content</title>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    line-height: 1.6;
+                    margin: 20px;
+                }
+                .thread_subject {
+                    font-size: 1.5em;
+                    font-weight: bold;
+                    margin-bottom: 20px;
+                }
+                .post_time {
+                    font-size: 0.9em;
+                    color: gray;
+                    margin-bottom: 10px;
+                }
+                .article_body {
+                    margin-top: 20px;
+                }
+                .attachments {
+                    margin-top: 20px;
+                    background: #f9f9f9;
+                    padding: 10px;
+                    border: 1px solid #ddd;
+                }
+                .attachments a {
+                    display: block;
+                    margin: 5px 0;
+                    text-decoration: none;
+                    color: blue;
+                }
+            </style>
+        </head>
+        <body>
+            <div class="thread_subject"><span id="thread_subject">狗家DS phone screen</span></div>
+            <div class="post_time">Published on: 2021-11-14 09:37</div>
+            <div class="article_body"><td class="t_f" id="postmessage_16283198" itemprop="articleBody">
+楼主是中厂Ads组，投的是狗家Ads组，按DS大类招聘，周五内推简历，周三联系，下个周五phone screen。<font class="jammer"></font><br />
+1. 1000个data points的sample， mean和median的区别，sample mean和sample median各自的variance怎么求，sample mean答的是公式，sample median求法是不断取sample，对sample median用variance公式，问取多少次sample，每次sample量是多少，答利用law of large numbers，取200次sample，每次取1000，问如果population就是1000，如何取，答用bootstrapping叠加200倍。2. 1000个学生打网球一周，算成绩，把前100名和后100名拉去训练一周后，再次算成绩，问能不能把成绩提高归因于训练，答不能，因为参加训练的条件depend on水平而不是随机从1000人中选择的，比如训练是针对中等水平的，前100太好而后100太差，都没有提高，但不能说是训练的原因。假设把前200名拉去训练一周，已知训练无效，成绩会有什么变化，答前100名的水平和100-200名的水平会接近，因为均值回归的原理。<font class="jammer"></font><br />
+3. coding题，生成binomial distribution的一个matrix，取每一列的和做分母，让每一列的和为1. 我用的python，答：<font class="jammer"></font><br />
+&nbsp;&nbsp;import numpy as np<font class="jammer"></font><br />
+&nbsp;&nbsp;k = 10<font class="jammer"></font><br />
+&nbsp;&nbsp;p = 0.5<br />
+<span style="display:none"></span>&nbsp;&nbsp;n = 10<font class="jammer"></font><br />
+&nbsp;&nbsp;a = np.random.binomial(k, p, (n, n))<br />
+<span style="display:none"></span>&nbsp;&nbsp;sum = np.sum(a, axis = 1)<font class="jammer"></font><br />
+&nbsp;&nbsp;print(a/sum)<font class="jammer"></font><br />
+4. Linear regression 1000行，900个feature，训练出来以后MSE和在新的数据上MSE比，预计会有什么变化，为什么，答MSE在新数据上会偏大，因为模型很可能出现overfitting，要怎么办，答用lasso选择feature，900个太多了，加入L1惩罚项，用cross-validation来训练模型。<font class="jammer"></font><br />
+5. 一个卖鞋子的店，现在要选择所有销售出去的鞋子的average price sold per month，来看鞋子定价的变化，问是不是合适的metrics，会遇到什么问题，答不合适，如果说某个月是holiday month，大家买昂贵的鞋子做礼物，那么average price sold 会暂时上升，但鞋子定价也许并没有变化，holidy trend应该看鞋子各个价位的cohort，sale是否上升，如果想看鞋子定价的变化，要看各个价位cohort鞋子supply的量是否有变化，或者各种类型的cohort里面，定价均值是否变化。<font class="jammer"></font><br />
+<font class="jammer"></font><br />
+<font class="jammer"></font><br />
+</td></div>
+            <div class="attachments"><a href="https://oss.1point3acres.cn/forum/202112/12/151043jviqvqyazvnnavvb.jpg" target="_blank">https://oss.1point3acres.cn/forum/202112/12/151043jviqvqyazvnnavvb.jpg</a></div>
+        </body>
+        </html>
+        

@@ -1,0 +1,23 @@
+{
+  "title": "谷歌数据科学家面试题讨论：模型系数与预测的比较分析",
+  "originalContent": "<div class=\"article_body\"><td class=\"t_f\" id=\"postmessage_16864866\" itemprop=\"articleBody\">\n今天面试google DS的时候遇到一个很有意思的面试题目想来和大家讨论下<br/>\n<br/>\n<br/>\nX1 and X2 are correlated.<br/>\nX3 = X1 + X2<br/>\nX4 = X1 - X3<br/>\nModel 1: Y ~  X1 + X2<br/>\nModel 2: Y ~  X3 + X4<br/>\n<br/>\n1. Do these models have different coefficients?<br/>\n2. Different predictions on your training data? <br/>\n<br/>\n3. Different predictions on new test data where X1 and X2 are varied independently? <br/>\n<span style=\"display:none\"></span><br/>\n4. Do these answers change if the model is regularized?<br/>\n<br/>\n第一个和第二个我比较肯定 coef会变但prediction不会变 但不确定后两个 希望有懂得小伙伴一起讨论~<br/>\n<br/>\n</td></div>",
+  "processedContent": "## 基本信息（公司/岗位/结果/难度）\n- **公司**：Google\n- **岗位**：数据科学家（Data Scientist）\n- **结果**：未提及/不明确\n- **难度**：4\n\n## 时间线\n未提及/不明确\n\n## 面试过程\n### 电面（电话面试）\n面试中提出了一道关于线性模型设定与变量构造的理论问题，重点考察对多重共线性、模型参数解释和正则化影响的理解。题目以讨论形式展开，要求分析两个不同变量组合下的模型行为差异。\n\n## 题目总结\n1. 给定变量关系：\n   - X1 和 X2 相关\n   - X3 = X1 + X2\n   - X4 = X1 - X3\n   - 模型1：Y ~ X1 + X2\n   - 模型2：Y ~ X3 + X4\n\n2. 问题如下：\n   - 这两个模型的回归系数是否不同？\n   - 在训练数据上的预测是否不同？\n   - 在新的测试数据上（X1 和 X2 被独立变化），预测是否不同？\n   - 如果模型使用正则化（如 L1/L2），上述答案是否会改变？\n\n## 个人总结（经验与建议）\n- 对于前两问，楼主认为模型系数会不同，但训练集上的预测一致，这是正确的——因为模型2中的X4可化简为 -X2，因此模型2等价于 Y ~ (X1+X2) + (-X2)，即本质上仍是X1和X2的线性组合，尽管结构不同，但在训练数据上拟合空间相同。\n- 第三问关键在于外推能力：当X1和X2在测试集中被独立变动时，由于X3和X4是它们的函数，且原始相关性被打破，模型2可能产生不合理或不稳定预测，而模型1更直接可控。\n- 第四问涉及正则化：若引入L2（岭回归）等正则项，由于多重共线性和特征缩放差异，两个模型的系数学习路径不同，可能导致实际预测也出现差异，尤其在高维或小样本情况下。\n- 建议准备DS岗位的同学深入理解线性模型的可解释性、特征工程的影响以及正则化对模型稳定性的作用。",
+  "company": "Google",
+  "role": "数据科学家",
+  "difficulty": 4,
+  "tags": [
+    "数据科学家",
+    "线性模型",
+    "特征工程",
+    "正则化",
+    "多重共线性",
+    "模型解释",
+    "电面",
+    "Google"
+  ],
+  "comments": [],
+  "usefulVotes": 0,
+  "uselessVotes": 0,
+  "shareCount": 0,
+  "isAnonymous": true
+}

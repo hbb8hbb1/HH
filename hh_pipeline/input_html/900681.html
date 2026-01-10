@@ -1,0 +1,73 @@
+﻿
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="utf-8">
+            <title>Extracted Content</title>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    line-height: 1.6;
+                    margin: 20px;
+                }
+                .thread_subject {
+                    font-size: 1.5em;
+                    font-weight: bold;
+                    margin-bottom: 20px;
+                }
+                .post_time {
+                    font-size: 0.9em;
+                    color: gray;
+                    margin-bottom: 10px;
+                }
+                .article_body {
+                    margin-top: 20px;
+                }
+                .attachments {
+                    margin-top: 20px;
+                    background: #f9f9f9;
+                    padding: 10px;
+                    border: 1px solid #ddd;
+                }
+                .attachments a {
+                    display: block;
+                    margin: 5px 0;
+                    text-decoration: none;
+                    color: blue;
+                }
+            </style>
+        </head>
+        <body>
+            <div class="thread_subject"><span id="thread_subject">谷歌DS-engineering 店面</span></div>
+            <div class="post_time">Published on: 2022-6-2 22:43</div>
+            <div class="article_body"><td class="t_f" id="postmessage_17229921" itemprop="articleBody">
+继续发面筋回报地里的帮助。<font class="jammer"></font><br>
+4月初被Google 的外包recruiter reach out， 电话聊了之后等面试邀请吧。等了快一个月也没等到，于是找朋友内推了DS, Engeneering 岗位。投完第二天早上就被recruiter reach out. 楼主投了Senior MLE和DS，只有DS reach out了，看来在家眼里L5 SDE的bar还是高一点。<font class="jammer"></font><br>
+<font class="jammer"></font><br>
+Schedule interview了大概一周到两周，最后定了本周。用Google Hangout.<font class="jammer"></font><br>
+一个看着已经有不少灰发的中东大哥在面试里面等待着我。大哥先介绍自己的工作经历，介绍了满满10分钟，说自己在谷歌呆了4,5年，从search到Ads，两大核心业务都做过。介绍完正式进入面试。<font class="jammer"></font><br>
+1. 第一步介绍一个自己的统计或者机器学习项目。由浅入深。先假设听众没有技术背景，简单介绍。2. Deep Dive某个产品，展开讲讲用了哪些模型，用了哪些feature. 我侃侃而谈了10-15分钟左右，大哥表示还不错，进入下一个环节。<font class="jammer"></font><br>
+2. 统计环节<font class="jammer"></font><br>
+2.1 地里高频： 1000 数据点, 900 variables, training data 结果非常好，问test结果会不会好？答：不会，因为会过拟合。追问：为什么？再追问：How to improve the result? Can use either linear or any model? Answer: Regularization for Linear model; tree-based model like restrict depth of tree.<font class="jammer"></font><br>
+<font class="jammer"></font><br>
+<div class="locked">以下内容需要积分高于 88 您已经可以浏览</div><font class="jammer"></font><br>
+<div style="border: 1px solid #C2D5E3;padding:8px 8px 8px 24px;">2.2 好像不是地理题目。谷歌想检测搜索引擎 query的数量和返回结果latency的关系，终极目标是想知道是不是Google launch的new feature造成了latency的增加。如果我们把一个时间段所有query求均值和latency求均值，来计算query的impact有没有问题。如果想检测new feature是不是影响latency 应该用什么办法？<font class="jammer"></font><br>
+回答：有可能有confouding factor 不能只用query来衡量latency, 可以考虑用propensity score来消除confounding factor影响。大叔还提示了另一点，如果query求均值，有可能会包含同时加新feature之前加feature之后两个时间段信息，query数量均值无法帮助区分。答得感觉大叔觉得还挺满意的。</div><font class="jammer"></font><br>
+<font class="jammer"></font><br>
+<br>
+<span style="display:none"></span><font class="jammer"></font><br>
+3. Coding question<br>
+<span style="display:none"></span>一组数列，没有sorted, 找出所有的负数，找出所有的正数，找出零的个数。我就简单写了一个for loop。大叔说OK没问题，然后问能不能简化。我说好像时间复杂度不能再优化了吧，他说是的，但是可不可以并行计算，比如用nmpy. 然后我就用numpy array np.where 又写了一遍。然后大叔又说能不能写一个函数能随机生成负数，0，正数这三个值。我说正态分布不就可以吗。大叔说正态分布生成的0都不是真正的零，而是很接近的零的很小的数，我要真的生成零。隐含意思就是要用离散分布函数生成，而不是连续分布函数。给他换了一个伯努利加上一个constant。没完全写完，大叔说可以了。<font class="jammer"></font><br>
+然后大叔答疑问题，大概说了说Google DS基本只做measurement，他呆了这些年就只有一小部分code进入了production，大部分是做分析。没有任何能直接影响product确实有点让人遗憾，这也是我有时更想申machine learing engineer role的原因吧。<font class="jammer"></font><br>
+<font class="jammer"></font><br>
+个人觉得面试体验还不错，希望也能有顺利的结果。同时也希望投的家machine learning engineer role能给个面试。 如果这个详细的面试有帮助，请给个大米吧。<br>
+<span style="display:none"></span><font class="jammer"></font><br>
+<font class="jammer"></font><br>
+<font class="jammer"></font><br>
+<font class="jammer"></font><br>
+<font class="jammer">. Waral dи,</font><br>
+</td></div>
+            <div class="attachments"></div>
+        </body>
+        </html>
+        

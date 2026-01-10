@@ -1,0 +1,166 @@
+﻿
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="utf-8">
+            <title>Extracted Content</title>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    line-height: 1.6;
+                    margin: 20px;
+                }
+                .thread_subject {
+                    font-size: 1.5em;
+                    font-weight: bold;
+                    margin-bottom: 20px;
+                }
+                .post_time {
+                    font-size: 0.9em;
+                    color: gray;
+                    margin-bottom: 10px;
+                }
+                .article_body {
+                    margin-top: 20px;
+                }
+                .attachments {
+                    margin-top: 20px;
+                    background: #f9f9f9;
+                    padding: 10px;
+                    border: 1px solid #ddd;
+                }
+                .attachments a {
+                    display: block;
+                    margin: 5px 0;
+                    text-decoration: none;
+                    color: blue;
+                }
+            </style>
+        </head>
+        <body>
+            <div class="thread_subject"><span id="thread_subject">sql练习题第二弹</span></div>
+            <div class="post_time">Published on: 2023-1-29 20:00</div>
+            <div class="article_body"><td class="t_f" id="postmessage_18119869" itemprop="articleBody">
+<i class='pstatus'> 本帖最后由 黑发如漆的排球 于 2023-1-29 20:03 编辑 </i><font class="jammer"></font><br />
+<font class="jammer"></font><br />
+SQL练习题第二弹！<font class="jammer"></font><br />
+Q1. Write an SQL query to fetch “FIRST_NAME” from Worker table using the alias name as &lt;WORKER_NAME&gt;.<font class="jammer"></font><br />
+Ans.<font class="jammer"></font><br />
+The required query is:<font class="jammer">. </font><br />
+Select FIRST_NAME AS WORKER_NAME from Worker;<font class="jammer"></font><br />
+Q2. Write an SQL query to fetch “FIRST_NAME” from Worker table in upper case.<font class="jammer">. 1point 3 acres</font><br />
+Ans.<font class="jammer"></font><br />
+The required query is:<font class="jammer">. 1point 3acres </font><br />
+Select upper(FIRST_NAME) from Worker;<font class="jammer"></font><br />
+Q3. Write an SQL query to fetch unique values of DEPARTMENT from Worker table.<font class="jammer"></font><br />
+Ans.<font class="jammer">. </font><br />
+The required query is:<font class="jammer"></font><br />
+Select distinct DEPARTMENT from Worker;<font class="jammer"></font><br />
+Q4. Write an SQL query to print the first three characters of FIRST_NAME from Worker table.<font class="jammer">.--</font><br />
+Ans.<font class="jammer"></font><br />
+The required query is:<font class="jammer"></font><br />
+Select substring(FIRST_NAME,1,3) from Worker;<font class="jammer"></font><br />
+Q5. Write an SQL query to find the position of the alphabet (‘a’) in the first name column ‘Amitabh’ from Worker table.<font class="jammer"></font><br />
+Ans.<font class="jammer"></font><br />
+The required query is:<font class="jammer"></font><br />
+Select INSTR(FIRST_NAME, BINARY'a') from Worker where<font class="jammer"></font><br />
+FIRST_NAME = 'Amitabh';<font class="jammer"></font><br />
+Notes.<font class="jammer"></font><br />
+&#8226; The INSTR method is in case-sensitive by default.<font class="jammer"></font><br />
+&#8226; Using Binary operator will make INSTR work as the case-sensitive function.<font class="jammer">.--</font><br />
+Q6. Write an SQL query to print the FIRST_NAME from Worker table after removing white spaces from the right side.<font class="jammer"></font><br />
+Ans.<font class="jammer"></font><br />
+The required query is:<font class="jammer"></font><br />
+Select RTRIM(FIRST_NAME) from Worker;<font class="jammer">. Χ</font><br />
+Q7. Write an SQL query to print the DEPARTMENT from Worker table after removing white spaces from the left side.<font class="jammer"></font><br />
+Ans.<font class="jammer"></font><br />
+The required query is:<font class="jammer"></font><br />
+Select LTRIM(DEPARTMENT) from Worker;<font class="jammer">. 1point3acres</font><br />
+Q8. Write an SQL query that fetches the unique values of DEPARTMENT from Worker table and prints its length.<font class="jammer"></font><br />
+Ans.<font class="jammer"></font><br />
+The required query is:<font class="jammer"></font><br />
+Select distinct length(DEPARTMENT) from Worker;<font class="jammer"></font><br />
+Q9. Write an SQL query to print the FIRST_NAME from Worker table after replacing ‘a’ with ‘A’.<font class="jammer">. 1point 3acres </font><br />
+Ans.<font class="jammer"></font><br />
+The required query is:<font class="jammer"></font><br />
+Select REPLACE(FIRST_NAME,'a','A') from Worker;<font class="jammer"></font><br />
+Q10. Write an SQL query to print the FIRST_NAME and LAST_NAME from Worker table into a single column COMPLETE_NAME. A space char should separate them.<font class="jammer"></font><br />
+Ans.<font class="jammer">. 1point 3 acres</font><br />
+The required query is:<font class="jammer"></font><br />
+Select CONCAT(FIRST_NAME, ' ', LAST_NAME) AS<font class="jammer"></font><br />
+'COMPLETE_NAME' from Worker;<font class="jammer"></font><br />
+Q11. Write an SQL query to print all Worker details from the Worker table order by FIRST_NAME Ascending.<font class="jammer"></font><br />
+Ans.<font class="jammer">. ----</font><br />
+The required query is:<font class="jammer"></font><br />
+Select * from Worker order by FIRST_NAME asc;<font class="jammer"></font><br />
+Q12. Write an SQL query to print all Worker details from the Worker table order by FIRST_NAME Ascending and DEPARTMENT Descending.<font class="jammer"></font><br />
+Ans.<font class="jammer">.--</font><br />
+The required query is:<font class="jammer"></font><br />
+Select * from Worker order by FIRST_NAME asc,DEPARTMENT desc;<font class="jammer"></font><br />
+Q13. Write an SQL query to print details for Workers with the first name as “Vipul” and “Satish” from Worker table.<br />
+<span style="display:none"></span>Ans.<font class="jammer"></font><br />
+The required query is:<font class="jammer">. check 1point3acres for more.</font><br />
+Select * from Worker where FIRST_NAME in<font class="jammer"></font><br />
+('Vipul','Satish');<font class="jammer"></font><br />
+Q14. Write an SQL query to print details of workers excluding first names, “Vipul” and “Satish” from Worker table.<font class="jammer"></font><br />
+Ans.<br />
+<span style="display:none">. 1point3acres</span>The required query is:<font class="jammer"></font><br />
+Select * from Worker where FIRST_NAME not in<font class="jammer"></font><br />
+('Vipul','Satish');<font class="jammer"></font><br />
+Q15. Write an SQL query to print details of Workers with DEPARTMENT name as “Admin”.<font class="jammer"></font><br />
+Ans.<br />
+<span style="display:none"></span>The required query is:<br />
+<span style="display:none"></span>Select * from Worker where DEPARTMENT like 'Admin%';<font class="jammer"></font><br />
+Q16. Write an SQL query to print details of the Workers whose FIRST_NAME contains ‘a’.<font class="jammer">. 1point3acres.com </font><br />
+Ans.<font class="jammer"></font><br />
+The required query is:<font class="jammer"></font><br />
+Select * from Worker where FIRST_NAME like '%a%';<font class="jammer"></font><br />
+Q17. Write an SQL query to print details of the Workers whose FIRST_NAME ends with ‘a’.<font class="jammer">.google&nbsp;&nbsp;и</font><br />
+Ans.<font class="jammer"></font><br />
+The required query is:<font class="jammer"></font><br />
+Select * from Worker where FIRST_NAME like '%a';<font class="jammer"></font><br />
+Q18. Write an SQL query to print details of the Workers whose FIRST_NAME ends with ‘h’ and contains six alphabets.<font class="jammer"></font><br />
+Ans.<br />
+<span style="display:none"></span>The required query is:<font class="jammer"></font><br />
+Select * from Worker where FIRST_NAME like '_____h';<font class="jammer">. 1point 3acres </font><br />
+Q19. Write an SQL query to print details of the Workers whose SALARY lies between 100000 and 500000.<font class="jammer">. Waral dи,</font><br />
+Ans.<font class="jammer"></font><br />
+The required query is:<font class="jammer"></font><br />
+Select * from Worker where SALARY between 100000 and<br />
+<span style="display:none"></span>500000;<font class="jammer"></font><br />
+Q20. Write an SQL query to print details of the Workers who have joined in Feb’2014.<font class="jammer">.--</font><br />
+Ans.<font class="jammer"></font><br />
+The required query is:<font class="jammer"></font><br />
+Select * from Worker where year(JOINING_DATE) = 2014 and month(JOINING_DATE) = 2;<font class="jammer">.1point3acres</font><br />
+Q21. Write an SQL query to fetch the count of employees working in the department ‘Admin’.<font class="jammer"></font><br />
+Ans.<font class="jammer"></font><br />
+The required query is:<font class="jammer"></font><br />
+SELECT COUNT(*) FROM worker WHERE DEPARTMENT = 'Admin';<font class="jammer"></font><br />
+Q22. Write an SQL query to fetch worker names with salaries &gt;= 50000 and &lt;= 100000.<font class="jammer"></font><br />
+Ans.<font class="jammer"></font><br />
+The required query is:<font class="jammer"></font><br />
+SELECT CONCAT(FIRST_NAME, ' ', LAST_NAME) As<font class="jammer"></font><br />
+Worker_Name, Salary<font class="jammer"></font><br />
+FROM worker<font class="jammer"></font><br />
+WHERE WORKER_ID IN<font class="jammer"></font><br />
+(SELECT WORKER_ID FROM worker<font class="jammer"></font><br />
+WHERE Salary BETWEEN 50000 AND 100000);<font class="jammer"></font><br />
+Q23. Write an SQL query to fetch the no. of workers for each department in the descending order.<br />
+<span style="display:none"></span>Ans.<font class="jammer"></font><br />
+The required query is:<font class="jammer"></font><br />
+SELECT DEPARTMENT, count(WORKER_ID) No_Of_Workers<font class="jammer"></font><br />
+FROM worker<font class="jammer"></font><br />
+GROUP BY DEPARTMENT<font class="jammer">. check 1point3acres for more.</font><br />
+ORDER BY No_Of_Workers DESC;<font class="jammer">.1point3acres</font><br />
+Q24. Write an SQL query to print details of the Workers who are also Managers.<font class="jammer"></font><br />
+Ans.<font class="jammer"></font><br />
+The required query is:<br />
+<span style="display:none">. From 1point 3acres bbs</span>SELECT DISTINCT W.FIRST_NAME, T.WORKER_TITLE<font class="jammer"></font><br />
+FROM Worker W<font class="jammer"></font><br />
+INNER JOIN Title T<br />
+<span style="display:none"></span>ON W.WORKER_ID = T.WORKER_REF_ID<font class="jammer"></font><br />
+AND T.WORKER_TITLE in ('Manager');</td></div>
+            <div class="attachments"></div>
+        </body>
+        </html>
+        

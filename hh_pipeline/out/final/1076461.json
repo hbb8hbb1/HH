@@ -1,0 +1,22 @@
+{
+  "title": "狗云数据分析岗社招面试经验：GCA与业务导向考察为主",
+  "originalContent": "<div class=\"article_body\"><td class=\"t_f\" id=\"postmessage_19681131\" itemprop=\"articleBody\">\n最近面完了狗云, 先说流程: 网申完, HR联系面试 -&gt; 第一轮HR small chat (intro &amp; interview prep) -&gt; <div class=\"locked\">以下内容需要积分高于 200 您已经可以浏览</div><br/>\n<div style=\"border: 1px solid #C2D5E3;padding:8px 8px 8px 24px;\">第二轮HM业务面 -&gt; 第三轮技术面 -&gt; 加1轮 -&gt; HC <br/>\n<br/>\n分析岗社招<br/>\n<br/>\nHM业务面主要围绕狗云的业务出GCA问题, 偏战略, 会有follow-up问题, BQ反而问得不多, 其次就是对狗云业务的理解, 对专业的考察都会穿插在GCA里. <br/>\n(听说现在HM先面了, 可以关注一下实际安排面试的邀请)<br/>\n<br/>\n技术面主要是SQL, 窗口函数、CTE, 找revenue top, 说大致思路没让写script; 随后就是问model building的经历, 以及两道GCA: 模型结果不一致如何说服上司 &amp; 结合业务怎样去预测特定目标的收入<br/>\n<br/>\n整体感觉下来, 狗云的面试重点是GCA问题, 技术面偏简单, 社招更喜欢考察真实业务向的难题, 看是否适合团队. 题目会很灵活、不固定, 面前找了一圈也没发现有重合的. 建议是最好结合culture fit来答, 了解狗云的现状, 看下财报可能会更有思路.<br/>\n<br/>\n面完感觉GCA问题答得不是很好, 两周后问HR反馈其他人面试表现更好决定not move forward. <br/>\n<br/>\n断断续续投了50+, 狗云是第一次面试机会, 重在体验了哈哈哈, 至少说明目前简历没啥大问题, 收拾心情继续写论文投简历啦! <br/>\n<br/>\n和HR约了个会聊下反馈和建议 后面再更新</div><div id=\"1p3a-ad-thread-paragraph\" style=\"margin-top: 20px; margin-bottom: 20px;\"></div><br/>\n<br/>\n<br/>\n攒好运! 求加米!!!</td></div>",
+  "processedContent": "## 基本信息（公司/岗位/结果/难度）\n- **公司**：狗云\n- **岗位**：数据分析岗（社招）\n- **结果**：未通过（HR反馈其他候选人表现更优）\n- **难度**：4\n\n## 时间线\n- 网申 → HR联系 → HR小面 → HM业务面 → 技术面 → 加面 → HC决策\n- 整体流程持续数周，具体时间节点未提及\n\n## 面试过程\n### HR 小面（Intro & Interview Prep）\n- 主要介绍面试流程和团队背景\n- 提供面试准备建议，帮助了解后续环节\n\n### HM 业务面\n- 聚焦狗云业务相关的GCA（General Cognitive Ability）问题，偏战略方向\n- 包含追问，深入探讨业务逻辑\n- BQ（Behavioral Questions）提问较少\n- 对狗云业务的理解、专业能力的考察融入在GCA中\n- 据说目前可能调整为HM先面，需关注实际面试安排\n\n### 技术面\n- SQL 考察为主：涉及窗口函数、CTE\n  - 题目示例：找出收入 Top 的记录，仅要求说明思路，未写完整脚本\n- 模型构建经历深挖\n- 两道 GCA 问题：\n  1. 当模型结果与上司观点不一致时，如何说服对方？\n  2. 如何结合业务预测特定目标的收入？\n\n### 加面\n- 未明确具体内容，推测为补充评估或跨团队评审\n\n### HC 决策\n- 两周后收到 HR 反馈，表示其他候选人表现更佳，决定 not move forward\n\n## 题目总结\n- GCA 类：\n  - 如何说服上司接受与你不同的模型结论？\n  - 如何基于业务预测某目标的收入？\n  - 围绕狗云业务的战略性开放问题（多个，具灵活性）\n- 技术类：\n  - 使用窗口函数和 CTE 查询收入 Top 记录（仅述思路）\n  - 模型构建项目经历深挖\n- 业务理解类：\n  - 对狗云当前业务的理解\n  - 专业能力在实际业务中的应用\n\n## 个人总结\n- 狗云面试整体偏重 GCA 和业务场景应对，技术考察相对基础\n- 社招更关注真实业务难题的解决思路，强调与团队匹配度\n- 题目灵活、无固定模式，难以押题\n- 建议：\n  - 准备时结合狗云企业文化作答\n  - 深入了解公司现状，阅读财报有助于提升回答深度\n  - 强化战略思维与跨团队沟通类问题的演练\n- 本次为首次面试机会，虽未通过，但验证了简历可行性，后续将继续优化求职策略。",
+  "company": "狗云",
+  "role": "数据分析岗",
+  "difficulty": 4,
+  "tags": [
+    "数据分析",
+    "社招",
+    "GCA",
+    "SQL",
+    "业务理解",
+    "行为面试",
+    "战略思维"
+  ],
+  "comments": [],
+  "usefulVotes": 0,
+  "uselessVotes": 0,
+  "shareCount": 0,
+  "isAnonymous": true
+}

@@ -1,0 +1,22 @@
+{
+  "title": "谷歌数据分析岗位先团队匹配再面试流程面经",
+  "originalContent": "<div class=\"article_body\"><td class=\"t_f\" id=\"postmessage_16001778\" itemprop=\"articleBody\">\n投了狗家DS PA收到recruiter发来的问卷，和之前地里小伙伴说的问卷有所不同。没有让描述project,只是大致问了平时用什么工具，擅长喜欢的<a class=\"relatedlink\" href=\"http://learn.1point3acres.com/courses/ds501-analytics/\" target=\"_blank\">analytics</a>方向和一些logistic 问题。然后过了N周后被告知没有team match. 现在狗家的面试改了吗？先match再面试？<div id=\"1p3a-ad-thread-paragraph\" style=\"margin-top: 20px; margin-bottom: 20px;\"></div><br/>\n<br/>\n</td></div>",
+  "processedContent": "## 基本信息（公司/岗位/结果/难度）\n- **公司**：Google\n- **岗位**：数据分析师（Data Scientist - Product Analytics）\n- **结果**：未通过（无团队匹配）\n- **难度**：3\n\n## 时间线\n- 投递简历后收到招聘人员（recruiter）发送的问卷。\n- 填写问卷后等待数周（N周，具体时间不明确）。\n- 收到反馈：未能成功匹配到团队。\n- 面试流程未进入实质技术轮次。\n\n## 面试过程\n### 招聘前问卷（Team Match 阶段）\n- 未进行笔试或OA。\n- 招聘人员发送一份在线问卷用于团队匹配（team match）。\n- 问卷内容主要包括：\n  - 日常使用的分析工具（如SQL、Python、R等）。\n  - 擅长及感兴趣的分析方向（例如用户行为分析、A/B测试、增长分析等）。\n  - 一些基础的后勤与沟通类问题（logistic questions），如工作地点偏好、可入职时间等。\n  - 未要求描述具体项目经历。\n- 完成问卷后，系统或招聘方尝试为候选人匹配合适的团队。\n- 匹配失败，直接终止流程，未进入后续面试环节。\n\n### 后续进展\n- 未进入技术面试、行为面或HR面。\n- 流程在团队匹配阶段即告结束。\n\n## 题目总结\n本次流程未涉及传统意义上的面试题目，但问卷中包含以下类型的问题：\n- 使用的分析工具（如SQL, Python, Tableau等）。\n- 感兴趣的分析领域（如产品分析、用户留存、实验设计等）。\n- 职业偏好与工作安排相关问题（如远程/ onsite、入职时间等）。\n\n## 个人总结（经验与建议）\n- 当前Google的数据分析（PA）岗位可能存在“先团队匹配，再面试”的新流程，尤其适用于某些地区或岗位类型。\n- 建议申请者在填写 recruiter 发送的问卷时认真对待，清晰表达自己的技能栈与方向偏好，提高被团队选中的概率。\n- 即使简历通过初筛，若无合适团队接收，流程也会终止，因此团队匹配是关键一步。\n- 可提前准备简洁有力的自我介绍和方向说明，便于 recruiter 推荐给潜在团队。",
+  "company": "Google",
+  "role": "数据分析师",
+  "difficulty": 3,
+  "tags": [
+    "数据分析师",
+    "团队匹配",
+    "问卷筛选",
+    "Google面试流程",
+    "未进入面试",
+    "北美求职",
+    "Product Analytics"
+  ],
+  "comments": [],
+  "usefulVotes": 0,
+  "uselessVotes": 0,
+  "shareCount": 0,
+  "isAnonymous": true
+}

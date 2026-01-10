@@ -1,0 +1,23 @@
+{
+  "title": "Google 数据科学家岗位面试复盘：产品思维考察与跨行业准备建议",
+  "originalContent": "<div class=\"article_body\"><td class=\"t_f\" id=\"postmessage_17366722\" itemprop=\"articleBody\">\n上周面了狗家PA方向的Data Scientist Onsite<br/>\n<br/>\n我看地里的帖子一般都是说回答product相关的题要有structured answer<br/>\n比如某个performance metric下降了 是什么原因 先要clarify question 然后list high level reasons 然后提出假设 验证假设 最后总结一下<br/>\n但是我面的时候感觉面试官完全没有耐心听你的structured answer 尤其是国人 就是描述一个场景 然后问你可以用什么metric 或者是什么原因造成的 希望你to the point 不要废话 甚至你clarify question都不是很愿意解释<div id=\"1p3a-ad-thread-paragraph\" style=\"margin-top: 20px; margin-bottom: 20px;\"></div><br/>\n<br/>\n我之前的工作不是tech industry 平时对产品的知识积累也有限 回答product相关的问题的时候确实能想到的有限 也没办法描述一些细节 或者是要联系哪个统计相关的知识点来回答<br/>\n<br/>\n<br/>\n这周意料之中收到了拒信 但是HR跟我说12个月之后才能再申请 也没有feedback 是我面的太差了吗 freezing period不是6个月的吗<br/>\n<br/>\n准备product sense的时候 crack down PM interview, udacity A/B testing，stellar peers, interview pro这些材料我也都看了 真诚的请教各位大神 如果一年之后打算再试下的话 跨行业童鞋应该怎么积累product的相关经验和知识 干货回答加大米 感谢！<br/>\n</td></div>",
+  "processedContent": "## 基本信息（公司/岗位/结果/难度）\n- **公司**：Google\n- **岗位**：数据科学家（PA方向）\n- **结果**：未通过，收到拒信\n- **难度**：4\n\n## 时间线\n- 面试时间：约在提交申请后的几周内完成Onsite\n- 结果通知：面试后一周内收到拒信\n- 再申请限制：HR告知12个月后方可重新申请\n\n## 面试过程\n### Onsite 面试轮次\n- 所有轮次均为现场技术面，聚焦于产品分析与数据科学结合的问题。\n- 面试官风格差异明显，部分面试官（尤其是华人背景）偏好直接、简洁的回答，对结构化回答流程（如澄清问题、列出高层原因、提出假设、验证等）接受度较低。\n- 提问方式多为场景驱动：描述一个产品现象，要求快速指出可用的衡量指标（metric）或可能的原因。\n- 对回答的期望是“to the point”，避免过多铺垫或理论阐述。\n- 楼主因非科技行业背景，在产品知识积累和细节描述上存在短板，影响发挥。\n\n### 反馈情况\n- HR未提供具体反馈内容。\n- 明确告知冻结期为12个月，长于常见的6个月政策，推测可能与表现差距较大有关。\n\n## 题目总结\n- 某个产品性能指标下降，可能的原因有哪些？\n- 如何选择合适的metric来衡量某一产品功能的效果？\n- 给定一个产品场景，设计一个A/B测试方案。\n- 如何判断某个用户行为变化是由产品改动引起的？\n- 如何用统计方法支持产品决策？\n\n## 个人总结（经验与建议）\n- 准备材料充分，包括《Crack the PM Interview》、Udacity A/B测试课程、Stellar Peers、Interview Pro等，但实际面试中应用受限。\n- 面试风格与地里常见经验不符，强调实战反应而非结构化表达，需根据面试官风格灵活调整策略。\n- 跨行业候选人应加强科技产品日常观察与思考，建立产品直觉。\n- 建议通过以下方式积累product sense：\n  - 深度使用主流互联网产品，思考其背后的数据逻辑；\n  - 模拟分析公开产品更新（如App功能上线）的影响路径；\n  - 练习用简洁语言解释复杂产品问题；\n  - 寻找有tech背景的伙伴进行mock interview，适应快节奏问答。\n- 一年后再战需系统性补齐产品认知短板，提升临场应变能力。",
+  "company": "Google",
+  "role": "数据科学家",
+  "difficulty": 4,
+  "tags": [
+    "数据科学家",
+    "产品分析",
+    "Onsite面试",
+    "跨行业求职",
+    "A/B测试",
+    "产品指标",
+    "面试失败复盘",
+    "Google"
+  ],
+  "comments": [],
+  "usefulVotes": 0,
+  "uselessVotes": 0,
+  "shareCount": 0,
+  "isAnonymous": true
+}

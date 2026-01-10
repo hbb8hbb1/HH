@@ -1,0 +1,22 @@
+{
+  "title": "谷歌数据科学与工程岗位面试经验分享",
+  "originalContent": "<div class=\"article_body\"><td class=\"t_f\" id=\"postmessage_17229921\" itemprop=\"articleBody\">\n继续发面筋回报地里的帮助。<br/>\n4月初被Google 的外包recruiter reach out， 电话聊了之后等面试邀请吧。等了快一个月也没等到，于是找朋友内推了DS, Engeneering 岗位。投完第二天早上就被recruiter reach out. 楼主投了Senior MLE和DS，只有DS reach out了，看来在家眼里L5 SDE的bar还是高一点。<br/>\n<br/>\nSchedule interview了大概一周到两周，最后定了本周。用Google Hangout.<br/>\n一个看着已经有不少灰发的中东大哥在面试里面等待着我。大哥先介绍自己的工作经历，介绍了满满10分钟，说自己在谷歌呆了4,5年，从search到Ads，两大核心业务都做过。介绍完正式进入面试。<br/>\n1. 第一步介绍一个自己的统计或者机器学习项目。由浅入深。先假设听众没有技术背景，简单介绍。2. Deep Dive某个产品，展开讲讲用了哪些模型，用了哪些feature. 我侃侃而谈了10-15分钟左右，大哥表示还不错，进入下一个环节。<br/>\n2. 统计环节<br/>\n2.1 地里高频： 1000 数据点, 900 variables, training data 结果非常好，问test结果会不会好？答：不会，因为会过拟合。追问：为什么？再追问：How to improve the result? Can use either linear or any model? Answer: Regularization for Linear model; tree-based model like restrict depth of tree.<br/>\n<br/>\n<div class=\"locked\">以下内容需要积分高于 88 您已经可以浏览</div><br/>\n<div style=\"border: 1px solid #C2D5E3;padding:8px 8px 8px 24px;\">2.2 好像不是地理题目。谷歌想检测搜索引擎 query的数量和返回结果latency的关系，终极目标是想知道是不是Google launch的new feature造成了latency的增加。如果我们把一个时间段所有query求均值和latency求均值，来计算query的impact有没有问题。如果想检测new feature是不是影响latency 应该用什么办法？<br/>\n回答：有可能有confouding factor 不能只用query来衡量latency, 可以考虑用propensity score来消除confounding factor影响。大叔还提示了另一点，如果query求均值，有可能会包含同时加新feature之前加feature之后两个时间段信息，query数量均值无法帮助区分。答得感觉大叔觉得还挺满意的。</div><br/>\n<br/>\n<br/>\n<span style=\"display:none\"></span><br/>\n3. Coding question<br/>\n<span style=\"display:none\"></span>一组数列，没有sorted, 找出所有的负数，找出所有的正数，找出零的个数。我就简单写了一个for loop。大叔说OK没问题，然后问能不能简化。我说好像时间复杂度不能再优化了吧，他说是的，但是可不可以并行计算，比如用nmpy. 然后我就用numpy array np.where 又写了一遍。然后大叔又说能不能写一个函数能随机生成负数，0，正数这三个值。我说正态分布不就可以吗。大叔说正态分布生成的0都不是真正的零，而是很接近的零的很小的数，我要真的生成零。隐含意思就是要用离散分布函数生成，而不是连续分布函数。给他换了一个伯努利加上一个constant。没完全写完，大叔说可以了。<br/>\n然后大叔答疑问题，大概说了说Google DS基本只做measurement，他呆了这些年就只有一小部分code进入了production，大部分是做分析。没有任何能直接影响product确实有点让人遗憾，这也是我有时更想申machine learing engineer role的原因吧。<br/>\n<br/>\n个人觉得面试体验还不错，希望也能有顺利的结果。同时也希望投的家machine learning engineer role能给个面试。 如果这个详细的面试有帮助，请给个大米吧。<br/>\n<span style=\"display:none\"></span><br/>\n<br/>\n<br/>\n<br/>\n<br/>\n</td></div>",
+  "processedContent": "## 基本信息\n- **公司**：Google\n- **岗位**：数据科学与工程（DS Engineering）\n- **结果**：未提及/不明确\n- **难度**：4\n\n## 时间线\n- 4月初收到外包招聘人员联系，等待近一个月未获进一步消息。\n- 通过朋友内推后，次日即收到正式招聘人员联系。\n- 面试安排耗时约1-2周，最终通过 Google Hangout 进行面试。\n\n## 面试过程\n### 一面（技术面试）\n面试官为一位在谷歌工作4-5年的资深工程师，曾参与搜索和广告两大核心业务。\n\n1. **项目介绍环节**\n   - 要求介绍一个统计或机器学习项目，先以非技术背景听众为目标简要说明。\n   - 接着进行深入探讨，包括所用模型、特征工程等细节。候选人讲解约10-15分钟，面试官表示认可。\n\n2. **统计问题环节**\n   - **问题1**：给定1000个数据点、900个变量，训练集表现很好，测试集是否也会好？\n     - 回答：不会，容易过拟合。\n     - 追问原因及改进方法：使用正则化（如L1/L2）处理线性模型；树模型可通过限制深度等方式优化。\n   - **问题2**：谷歌希望分析查询量（query volume）与返回延迟（latency）的关系，判断新功能上线是否导致延迟上升。\n     - 若直接对某时间段的query和latency取均值来分析是否存在影响，是否有问题？\n     - 回答：存在混杂因素（confounding factor），且均值可能混合了功能上线前后数据，无法准确归因。\n     - 建议方法：使用倾向得分（propensity score）等方法控制混杂变量，提升因果推断准确性。\n\n3. **编程环节**\n   - 题目：给定一个未排序数组，找出所有负数、正数，并统计零的个数。\n     - 初始解法：使用 for 循环遍历实现。\n     - 优化提问：能否简化？\n     - 改进方案：使用 NumPy 的 `np.where` 实现向量化操作。\n     - 进一步扩展：要求写一个函数能随机生成负数、0、正数三种值。\n       - 提出使用正态分布，但被指出生成的“0”仅为接近零的小数。\n       - 最终采用伯努利分布结合常量的方式生成真正的0，满足离散需求。\n       - 未完全写完代码，面试官表示可终止。\n\n4. **反问环节**\n   - 面试官补充：谷歌的数据科学家主要做测量与分析工作，其本人多年工作中仅有少量代码进入生产环境，大部分工作为离线分析。\n   - 指出该角色对产品直接影响较小，这也是部分候选人更倾向申请机器学习工程师岗位的原因。\n\n## 题目总结\n- 项目介绍与深挖（含非技术解释能力考察）\n- 高维数据过拟合问题及其解决方案\n- 因果推断场景题：如何评估新功能对系统延迟的影响？\n- 编程题：数组中分离负数、正数并统计零的个数\n- 优化方向：向量化计算（NumPy）\n- 扩展题：设计能生成真正零值的随机数生成器（需使用离散分布）\n\n## 个人总结\n- 面试整体体验良好，问题覆盖项目理解、统计思维、编程能力与实际应用场景。\n- 统计题目贴近真实业务场景，强调因果推断与实验设计思维。\n- 编程题虽简单，但注重可扩展性与工程优化思路（如并行计算、向量化）。\n- 对岗位定位有清晰认知很重要：DS Engineering 更偏向分析而非工程落地，若追求直接影响产品，可考虑 MLE 等岗位。\n- 建议提前准备项目讲解，能够由浅入深表达，并熟悉常见高维建模、过拟合、正则化、树模型等概念。",
+  "company": "Google",
+  "role": "DS Engineering",
+  "difficulty": 4,
+  "tags": [
+    "数据科学",
+    "因果推断",
+    "编程题",
+    "统计建模",
+    "项目深挖",
+    "NumPy",
+    "Google面试"
+  ],
+  "comments": [],
+  "usefulVotes": 0,
+  "uselessVotes": 0,
+  "shareCount": 0,
+  "isAnonymous": true
+}

@@ -1,0 +1,22 @@
+{
+  "title": "狗家 Data Science PA 店面面试通过经验分享",
+  "originalContent": "<div class=\"article_body\"><td class=\"t_f\" id=\"postmessage_15657208\" itemprop=\"articleBody\">\n发个3狗家PA, DS的店面过经攒人品，求加米~~~<br/>\n<br/>\n三月底过的店面，面试官是个很nice的烙印，上来寒暄一下直接进入主题。<br/>\nSQL考了一题非常简单的join table还有window function，具体记不清了，反正非常简单没有坑~<br/>\nproduct题是关于Google Pay的, 时间太久了只记得个大概：<br/>\n[hide=188]问google pay现在想要launch一个新的version来增加它的adoption，你会选择什么样的metrics来evaluate？follow-up问如果发现adoption rate降低了，要怎么分析？楼主先跟面试官clarify了几个问题比如跟什么比降低了等等，然后把techincal issue可能的分析了一遍，然后又分析了如果真的降低了该怎么做，大哥表示很满意，然后问了最后一个问题。如果PM发现adoption rate降低有可能是因为1. awareness issue 2. change aversion 3. GPS issue on Samsung cores并且他们自己已经ran the experiment得出了一个data result, they want us to explain the data你会怎么跟PM沟通。这里楼主谈了一下PM conduct experiment的时候可能会遇到的问题比如selection bias，其他的没来得及聊，大哥又紧接着问我怎么判断有没有selection bias。回答完bias的问题实际上时间差不多结束了，所以其实最后一个问题并没与完整的答完。<br/>\n大哥让我问了他两个问题面试就结束了，大概一周不到就收到recruiter的消息说过了~<br/>\n<br/>\n最后，求大家加米，想看帖积分不够&gt;&lt; 希望大家面试顺利，也希望我HC能过！！！<br/>\n</td></div>",
+  "processedContent": "## 基本信息\n- **公司**：Google\n- **岗位**：Data Science, Product Analyst (PA)\n- **结果**：通过\n- **难度**：3\n\n## 时间线\n- 面试时间：三月底\n- 结果通知时间：面试后一周内\n\n## 面试过程\n### 店面轮次（Phone Screen）\n面试官为一位态度友好的资深员工，开场简单寒暄后直接进入技术环节。\n\n#### SQL 题目\n考察了一道较为基础的 SQL 题目，涉及：\n- 表连接（JOIN）\n- 窗口函数（Window Function）\n题目整体难度较低，无复杂陷阱。\n\n#### 产品分析题（Product Question）\n围绕 Google Pay 新版本上线以提升使用率（adoption）展开：\n1. **核心问题**：选择哪些指标来评估新版本的推广效果？\n2. **Follow-up**：若发现 adoption rate 下降，如何进行归因分析？\n   - 楼主首先与面试官澄清了比较基准（如同比/环比、特定地区或用户群体等）\n   - 分析可能的技术问题（technical issues）及其他潜在因素\n3. **情景深化**：假设产品经理已运行实验并得到数据，怀疑 adoption 下降原因可能是以下三点之一：\n   - 用户认知不足（awareness issue）\n   - 用户对变更的抵触（change aversion）\n   - Samsung 设备上的 GPS 问题（GPS issue on Samsung cores）\n   - 要求说明如何与 PM 沟通并解释该数据\n4. 进一步追问：如何判断实验中是否存在 selection bias？\n   - 回答了偏差识别方法，但因时间关系未完全展开最后一个子问题\n\n面试最后留出时间让候选人向面试官提问两个问题，随后结束。\n\n## 题目总结\n- SQL：\n  - 使用 JOIN 和窗口函数完成简单查询\n- 产品与数据分析：\n  - 设计衡量 Google Pay 新版本 adoption 的核心指标\n  - 若 adoption 下降，如何系统性分析原因\n  - 如何与 PM 协作解读实验数据\n  - 判断实验中是否存在的 selection bias 及其识别方式\n\n## 个人总结\n- 面试注重逻辑清晰和沟通能力，尤其在产品场景下如何将数据思维落地\n- 提前准备常见的 metrics design 框架（如 AARRR、漏斗模型）很有帮助\n- 对于实验设计类问题，需熟练掌握常见偏差类型（如 selection bias, survivorship bias）及其检验方法\n- 建议练习与 PM 角色协作的情景模拟回答，体现跨团队协作意识\n- 整体体验良好，流程高效，反馈迅速",
+  "company": "Google",
+  "role": "Data Science, Product Analyst",
+  "difficulty": 3,
+  "tags": [
+    "Data Science",
+    "Product Analyst",
+    "SQL",
+    "Product Sense",
+    "Experiment Design",
+    "Behavioral",
+    "Phone Screen"
+  ],
+  "comments": [],
+  "usefulVotes": 0,
+  "uselessVotes": 0,
+  "shareCount": 0,
+  "isAnonymous": true
+}

@@ -1,0 +1,87 @@
+﻿
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="utf-8">
+            <title>Extracted Content</title>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    line-height: 1.6;
+                    margin: 20px;
+                }
+                .thread_subject {
+                    font-size: 1.5em;
+                    font-weight: bold;
+                    margin-bottom: 20px;
+                }
+                .post_time {
+                    font-size: 0.9em;
+                    color: gray;
+                    margin-bottom: 10px;
+                }
+                .article_body {
+                    margin-top: 20px;
+                }
+                .attachments {
+                    margin-top: 20px;
+                    background: #f9f9f9;
+                    padding: 10px;
+                    border: 1px solid #ddd;
+                }
+                .attachments a {
+                    display: block;
+                    margin: 5px 0;
+                    text-decoration: none;
+                    color: blue;
+                }
+            </style>
+        </head>
+        <body>
+            <div class="thread_subject"><span id="thread_subject">狗家PA (DS) 电面以及时间线</span></div>
+            <div class="post_time">Published on: 2021-11-3 08:47</div>
+            <div class="article_body"><td class="t_f" id="postmessage_16231346" itemprop="articleBody">
+两周前的时候领英收到了&#128054;家外包recruiter的inmail，说在招L4-L7的data analytics的岗位。想了想决定试试。<font class="jammer"></font><br />
+10.11 - inmail<br />
+<span style="display:none"></span>10.13 - 我回复，约好第二天打电话<font class="jammer"></font><br />
+10.14 - 和外包recruiter 打电话，他稍微介绍了一下，然后口述了那个调查问卷，其中包括很多问题，地里有帖子说过，例如说你最大处理过的数据有多大这种……他非得让我说出有多少行多少列。还有提到介绍一个project，我说了我目前在做的一个，数据集比较小，他说你挑个大的说。看得出来他是在努力帮忙推我的。<font class="jammer"></font><br />
+10.18 - 外包recruiter通知我说move to the 1-hour phone screen，然后就把我转交给了&#128054;的recruiter。当天收到邮件，发现是PA（DS）岗，之前我以为是很偏tech的ds，还挺虚的。当然现在也不能说不虚。。邮件中提到要我提供1.认识的，能说好话的googler 2. 5个日期。并且列出了面试会涵盖的内容，要准备哪些东西，非常长的一封邮件。<font class="jammer"></font><br />
+10.19 - 我回复邮件<font class="jammer"></font><br />
+10.20 - &#128054;的recruiter发来一个链接，让我在系统里申请一下<font class="jammer"></font><br />
+10.21 - &#128054;的coordinator发来了面当天的具体情况<font class="jammer"></font><br />
+<font class="jammer"></font><br />
+10.28 - 面试<font class="jammer"></font><br />
+<font class="jammer"></font><br />
+<div class="locked">以下内容需要积分高于 200 您已经可以浏览</div><font class="jammer"></font><br />
+<div style="border: 1px solid #C2D5E3;padding:8px 8px 8px 24px;">面试小哥做了简单的自我介绍，我也介绍过后就开始进入正题。<font class="jammer"></font><br />
+1. SQL<font class="jammer"></font><br />
+schema: timestamp | patient_id | visit_ide<font class="jammer"></font><br />
+1.1 List all fields for all patients' last visit - window function<font class="jammer"></font><br />
+1.2 rolling count the number of active patients in the past 7 days. 意思就是数当前日期往前七天内active patient有多少个。例如日期1/7数的就是1/1-1/7的病人数，1/8数的是1/2-1/8的病人数。<font class="jammer"></font><br />
+我问了两个问题<font class="jammer"></font><br />
+a) are you counting the number of unique patients in the past 7 days or just the number of patients? -- the number of unique patients<font class="jammer"></font><br />
+b) Is there any gaps between visit days? like, no visits on 1/2 but we have patients on both 1/1 and 1/3. -- yes, there are gaps.<font class="jammer"></font><br />
+<font class="jammer"></font><br />
+最后用的是self join。又接着说，你要最后的结果是需要每一天都有吗？他说是的。我说能在别的地方实现吗还是必须sql？他说如果不是非得在sql你准备怎么做。我说pandas的date_range然后再join<font class="jammer"></font><br />
+又说，如果你在database里有这个连续的日期呢？<font class="jammer"></font><br />
+<font class="jammer"></font><br />
+2. Product<font class="jammer"></font><br />
+On the landing page, there's a call to action button - &quot;Sign up&quot;. the UX team plan to increase the font size by 100%. How do you evaluate it?<font class="jammer"></font><br />
+Follow-up:<font class="jammer"></font><br />
+什么是A/A test，在什么情况下A/A test会fail<font class="jammer"></font><br />
+影响sample size的因素？<br />
+<span style="display:none"></span>什么是minimum detectable difference? (就是那个d）用plain language 解释<font class="jammer"></font><br />
+<font class="jammer"></font><br />
+3. 数据处理<font class="jammer"></font><br />
+如果你在做一个linear regression，如何处理missing data</div><font class="jammer"></font><br />
+<font class="jammer"></font><br />
+<font class="jammer"></font><br />
+面完我就一直想，这儿该这么说，那儿该那么说的。也是没有准备的特别好，加上十分想去。又想，人这么好的公司拒绝我应该的……反正就想很多。面完那天是周四，周五没消息，周一没消息。周二（11/2）下午接到了电话说positive，然后要准备onsite了！开心！<font class="jammer"></font><br />
+<br />
+<span style="display:none"></span>希望大家面试都能不紧张，要风得风要雨得雨！然后也求个大米！<font class="jammer"></font><br />
+<font class="jammer"></font><br />
+</td></div>
+            <div class="attachments"></div>
+        </body>
+        </html>
+        

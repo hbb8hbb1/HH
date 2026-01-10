@@ -1,0 +1,91 @@
+﻿
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="utf-8">
+            <title>Extracted Content</title>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    line-height: 1.6;
+                    margin: 20px;
+                }
+                .thread_subject {
+                    font-size: 1.5em;
+                    font-weight: bold;
+                    margin-bottom: 20px;
+                }
+                .post_time {
+                    font-size: 0.9em;
+                    color: gray;
+                    margin-bottom: 10px;
+                }
+                .article_body {
+                    margin-top: 20px;
+                }
+                .attachments {
+                    margin-top: 20px;
+                    background: #f9f9f9;
+                    padding: 10px;
+                    border: 1px solid #ddd;
+                }
+                .attachments a {
+                    display: block;
+                    margin: 5px 0;
+                    text-decoration: none;
+                    color: blue;
+                }
+            </style>
+        </head>
+        <body>
+            <div class="thread_subject"><span id="thread_subject">狗 DS VO 超详细面经</span></div>
+            <div class="post_time">Published on: 2024-11-1 14:17</div>
+            <div class="article_body"><td class="t_f" id="postmessage_19932366" itemprop="articleBody">
+<br>
+<span style="display:none"></span>超详细  DS 面经，求大米！正在努力找工作上岸！<font class="jammer"></font><br>
+<font class="jammer"></font><br>
+<font class="jammer">. check 1point3acres for more.</font><br>
+总得来说面试题比较难，但是面试官都比较友善，也比较会引导（除了其中一轮）。感觉  家的面试很难准备，不像元宇宙有很多面经。感觉还是靠平时的积累。<font class="jammer"></font><br>
+<font class="jammer"></font><br>
+<font size="5">Technical: Statistics</font><font class="jammer"></font><br>
+<font class="jammer"></font><br>
+<strong>Question 1: Assume we have a sample with 100 data points. The sample mean is 100, and margin of error is 10. The confidence interval is [70, 90]. The PM complains that the confidence interval is too wide. What can you do?</strong><font class="jammer"></font><br>
+回答：可以考虑增大 sample size.<font class="jammer"></font><br>
+<strong>Follow up: Let’s say we increase the sample size to 10000. How will the CI change? Can you think of other ways to make the CI narrower without increasing the sample size?</strong><br>
+<span style="display:none"></span>回答：增加 significance level 可以让 CI 变窄.<font class="jammer"></font><br>
+<strong>Question 2:&nbsp;&nbsp;Assume we have a linear model Y = X * b, where X = (X_1, X_2, …, X_m) and b = (b_0, b_1, …, b_m). Also we have n data points (y_i, x_i). How would you estimate b?</strong><font class="jammer">-baidu 1point3acres</font><br>
+回答：We can use OLS assuming we have m &lt; n. Estimated b will be (X^T X)^{-1} X^T Y<font class="jammer"></font><br>
+Follow up: Let’s assume we actually have more features than data points. That is m &gt; n. What would you do?<font class="jammer"></font><div id="1p3a-ad-thread-paragraph" style="margin-top: 20px; margin-bottom: 20px;"></div><br>
+回答：A few options to consider. (1) Do we really need all m features? Consider feature selection before building the model using business context. (2) Consider regularization method such as lasso regression. (3) Upsample from existing observation to make n &gt; n.（我后来想了想其实这个不是很合理）(4) Try other methods like random forecasts.<font class="jammer"></font><br>
+<strong>Question 3: If we want to know if some feature is relevant or not, what can we do?</strong><font class="jammer"></font><br>
+回答：We can look at t-test result on a single beta coefficient.<font class="jammer"></font><br>
+Follow-up: How do you construct the t-test? What’s the null and alternative hypothesis?<font class="jammer">. 1point 3acres </font><br>
+回答：Null hypothesis is H_0: beta_i = 0, and alternative is H_a: beta_i \ne 0.<font class="jammer"></font><br>
+Follow-up: Why is it a t-distribution?<font class="jammer"></font><br>
+回答：这题我愣了半天，不知道想考什么。我一开始说 CI looks like +/- 1.96 * (beta_hat / s.e. (beta_hat)), 然后后面那个东西服从 t- 分布。然后面试官问我“为什么？”我就说，因为 beta_hat 是正态分布，然后分母那个东西是 chi-square. 这个也可以推，比如 Var[beta_ols] = […] <a href="https://link.1point3acres.com/?url=https%3A%2F%2Fwww.amazon.com%2Fs%3Fk%3DSigma" target="_blank" class="relatedlink">sigma</a>^2 […]^T，然后你可以证明对角线上的应该是 t 分布？后来他说 OK but what’s the intuition here? 我想了半天说，如果 standard error 已知的话就是 normal，但是我们不知道，所以需要估计，所以就不是 normal 了.<font class="jammer"></font><br>
+<font class="jammer"></font><br>
+<font size="5">Technical: Data analysis and intuition I</font><font class="jammer"></font><br>
+<font class="jammer"></font><br>
+这一轮主要的问题是和 YouTube Music 那个手机应用有关系的。打开那个应用之后，上面会有几个建议用户听的 theme，比如 Relax, Workout 或者 Commute. 问题是：假设今天有律师过来说，很担心用户听 Commute list 的时候开车会更快。作为 DS 你会怎么做？<font class="jammer"></font><br>
+我的回答是可以先考虑做一个 simple t-test 看一下听通勤歌单的人和不听通勤歌单的人之间是不是真的开车速度差很多。然后有时间的话，可以建模。感觉是个非常开放式的问题，没有什么正确答案。但是面试官会问得很细，比如“你用什么 population 建模”，“你的 data granularity 是什么”，“有的人刚开始通勤的时候听的是其他的歌单，开到一半才开始听通勤歌单，你会怎么处理”，“有人通勤的时候其实并不开车，而是坐地铁，你会把他们也包括进 analysis 里吗”，etc.<font class="jammer"> .. </font><br>
+<font class="jammer"></font><br>
+<font size="5">Technical: Data analysis and intuition II</font><font class="jammer"></font><br>
+<font class="jammer"></font><br>
+考察的内容和第二轮是一样的，所以没有做太多准备。真的面试了才发现好像题目风格还是不太一样。<font class="jammer"></font><br>
+第一问：Let’s say you have two features (X1, X2) and one target variable Y, and you want to build an OLS regression model to predict Y. You build a model one Y ~ X1 + X2. Now you also build a model two with transformed feature (X1 - X2) and (X1 + X2). Will you get the same model? What about predictions?<font class="jammer"></font><br>
+回答：Model 肯定不一样，因为 coefficients 不一样。然后我卡壳了。卡了一会儿之后我说，”I know you’ll get the sample model (same predicted value) if you apply a linear transform on features such as aX + b, since the column space of design matrix does not change. But I’m not 100% sure if X1-X2 and X1+X2 is linear transformation.” 我说完这句感觉面试官都无语了 &nbsp;然后她给我写了个矩阵，和我说这个确实是 linear transformation，行吧，我自己纸张了。<font class="jammer"></font><br>
+第二问：如果我们现在用 regularized regression，比如 ridge 或者 lasso，那 coefficients of model one and model two 还一样吗？predicted value 呢？我回答得比较乱，我也不知道正确答案是什么。感觉应该是 coefficients 和 predicted value 都不一样。<font class="jammer"></font><br>
+第三问：公司有一个 daily search log，每一行是一个 query（就是用户搜索什么了）。现在我们取一个 10% 的 random sample. 怎么用这个 sample 估计在 daily log 里一共有多少 unique query?<font class="jammer"></font><br>
+我一开始以为 unique query 是类似于 select distinct，后来 clarify 了，原来定义是“a query showing up exactly once” 所以如果全部的 query 是 (q1, q1, q2, q3)，那number of unique query 是 2 而不是 3.<font class="jammer"></font><br>
+我的回答是，不如先计算 number of unique query in the random sample 然后等比例放大。然后面试官问我这个方法有什么问题，我就说会高估 number of unique query in the population，因为可能某个 query 正好在 sample 里只出现了一次，但是在 population 中却出现了多次。然后问我有没有什么更好的办法？我说我想到两个方法：（1）还是等比例估计，但是 apply some correction afterwards（有点瞎说了）(2) 可以做一个 stats model 比如假设所有的 log 服从一个 multinomial distribution. 最后面试官提示的正解好像是 model number of occurrence of each query，可以用 Poisson 之类的。<font class="jammer"></font><br>
+<font class="jammer"></font><br>
+<font size="5">Technical: Programming</font><font class="jammer"></font><br>
+<font class="jammer"></font><br>
+体验不太好的一轮，因为面试官直接迟到了十分钟，也不表示一下 sorry 或者解释两句。而且面试全程一直在打断我说话，还在椅子上面前后摇来摇去。<font class="jammer">-baidu 1point3acres</font><br>
+问题本身不难。第一个问题是，给你一个 binary classification model 的 output csv，有两个 column: actual label, predicted prob. 其中 true positive case 大概占全部的 5%. 先是问“你会用什么 metric 来衡量这个模型的好坏？”，然后自然引入到写一个 Python function 来计算 precision/recall curve. 脑子有点卡壳，一下子没想起来 precision 的定义。Python 函数倒是很好写。<font class="jammer"></font><br>
+第二个问题是，假设现在给你一个 regression model 的 output，这个模型是预测每个国家的 revenue 有多少。CSV 一共有三列：country, actual revenue, predicted revenue. 先是讨论应该用什么 metric. 我说可以考虑 MSE 或者 weighted MSE，然后面试官就各种 challenge：你为什么看 mean 而不是 sum，哪个比较好，etc. 最后说那就 implement RMSE 好了。然后写到一半说 “Wait, why are you taking the difference?” 然后说我们想要的是 percentage: sqrt(avg(sum_i (predicted_i / actual_i - 1)^2)).<font class="jammer"></font><br>
+写完了之后问我怎么得出 percentage RMSE（我都没见过这个 metric）的 CI，答“bootstrap”，然后写到一半又说 “Wait a second, why is your bootstrap sample the same sample size as the original sample?” 然后我就说 “Oh, this is quite common and I think it’s the standard procedure of nonparametric bootstrap?” 然后他说“那你是不是有概率得到一个和原来的 sample 一样的 bootstrap sample 呢？”我还以为是考概率题，正准备算，然后面试官说 “Oh actually it’s not very likely. Never mind.”</td></div>
+            <div class="attachments"></div>
+        </body>
+        </html>
+        

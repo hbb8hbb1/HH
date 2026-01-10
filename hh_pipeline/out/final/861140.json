@@ -1,0 +1,23 @@
+{
+  "title": "Google 数据科学家面试经验：统计基础、产品分析与编程考察",
+  "originalContent": "<div class=\"article_body\"><td class=\"t_f\" id=\"postmessage_16791008\" itemprop=\"articleBody\">\n前几天拿到了offer 来回馈地里找工的同学 <br/>\n我的背景是统计和ml 没有high tech 公司的实习<br/>\n<br/>\n11月初 内推<br/>\n11月中旬 电面<br/>\n<br/>\n电面一个小时 主要分成三部分<br/>\n1.统计问题: 比较基本 s.e. of mean是多少， C.I.的宽度和sample size 关系 <br/>\n怎么使一个estimator更好<br/>\n2.open question： 分析机场安检时间 和什么因素有关 <br/>\n从google map角度 怎么给用户提供建议 关于机场等多久 几点出发之类的<br/>\n3.编程: data，test/train split. <br/>\n<div id=\"1p3a-ad-thread-paragraph\" style=\"margin-top: 20px; margin-bottom: 20px;\"></div><br/>\nVO 五轮 十二月初<br/>\n第一轮：<br/>\n两个dot plot， 分析哪个segregation更大 <br/>\n然后又问了一个experiment design 怎么改进 我从confounding factor角度回答的<br/>\n第二轮：<br/>\n关于google map 上商家 review的问题。如何收集和分析用户的评价 怎么衡量商家的review是否准确<br/>\n<span style=\"display:none\"></span>又问了一个问题 对于 图片 human labelling问题 怎么知道雇佣的人是不是在随便给图片分组<br/>\n第三轮 编程<br/>\n给一个data 求group mean 和一些data manipulation。 <br/>\n第四轮：<br/>\n比较 two sample t test vs paired t-test<br/>\n<span style=\"display:none\">. ----</span>老题目：regression，x1,x2 vs x1+x2,x1-x2<br/>\n第五轮 BQ <br/>\n<br/>\n<span style=\"display:none\"></span>一月底 加面了一轮 这一轮表现的不是很好 问了很多optimize google cloud capacity 的问题<br/>\n我之前完全不熟悉 GCP的业务 建议大家还是准备一下<br/>\n<br/>\nteam match: 2月中旬 3 个组<br/>\noffer：3 月初 google bay area office. <br/>\n收到offer还是比较惊喜的 加面那一轮不好以为没过了 希望大家今年找工作都有好运气！<br/>\n<br/>\n<br/>\n<br/>\n</td></div>",
+  "processedContent": "## 基本信息（公司/岗位/结果/难度）\n- **公司**：Google\n- **岗位**：数据科学家\n- **结果**：成功获得Offer\n- **难度**：4\n\n## 时间线\n- 内推时间：11月初\n- 电面时间：11月中旬\n- 视频面试（VO）时间：12月初\n- 加面时间：1月底\n- Team Match 时间：2月中旬\n- Offer 发放时间：3月初\n\n## 面试过程\n### 电面（60分钟）\n主要分为三个部分：\n\n1. **统计问题**\n   - 标准误（s.e. of mean）的计算方式\n   - 置信区间宽度与样本量之间的关系\n   - 如何提升估计量（estimator）的质量\n\n2. **开放性问题**\n   - 分析机场安检等待时间受哪些因素影响\n   - 从 Google Maps 的角度出发，如何为用户提供关于“何时出发”、“预计等待多久”的建议\n\n3. **编程题**\n   - 实现训练集与测试集的划分（data train/test split）\n\n### 视频面试（VO）——五轮\n\n#### 第一轮\n- 给出两个点图（dot plot），判断哪个群体的隔离程度（segregation）更高\n- 实验设计改进：如何优化一个实验设计？从混杂因子（confounding factor）的角度进行回答\n\n#### 第二轮\n- 关于 Google Maps 上商家用户评价的问题：\n  - 如何收集和分析用户的评价数据\n  - 如何衡量商家评价的准确性\n- 图像人工标注任务的质量控制：\n  - 如何判断标注人员是否认真完成分组任务（而非随意标注）\n\n#### 第三轮（编程）\n- 给定一组数据，要求实现分组均值计算及其他基本数据处理操作\n\n#### 第四轮\n- 比较独立样本t检验（two sample t-test）与配对样本t检验（paired t-test）的区别\n- 回归问题经典题：使用 x1, x2 建模 vs 使用 x1+x2, x1−x2 建模的效果比较\n\n#### 第五轮（BQ 行为面试）\n- 主要考察行为问题（Behavioral Questions）\n\n### 加面（附加一轮）\n- 时间：1月底\n- 内容聚焦于 Google Cloud Platform（GCP）容量优化相关问题\n- 面试者表示此前不熟悉 GCP 业务，表现不佳\n- 提醒后续候选人提前准备 GCP 相关知识\n\n### Team Match\n- 时间：2月中旬\n- 匹配了3个潜在团队\n\n## 题目总结\n- 统计基础\n  - 标准误公式\n  - 置信区间与样本量的关系\n  - 提升估计量的方法\n  - two sample t-test vs paired t-test\n- 实验设计\n  - 控制混杂因子\n  - 改进实验方案\n- 开放性问题\n  - 影响机场安检时间的因素分析\n  - 基于地图产品的出行建议机制设计\n  - 商家评价系统的构建与评估\n  - 图像标注质量监控方法\n- 编程与数据处理\n  - Train/Test 数据集划分\n  - 分组均值计算与数据操作\n  - 特征变换对回归模型的影响（x1,x2 vs x1+x2, x1−x2）\n- 行为问题（BQ）\n  - 标准行为面试问题（未具体列出）\n- 业务理解\n  - Google Cloud 容量优化策略（加面重点）\n\n## 个人总结（经验与建议）\n- 虽然加面表现不佳，但仍最终拿到offer，说明整体面试表现具有容错空间\n- 尽管背景为统计与机器学习方向，且无高科技公司实习经历，仍有机会通过考核\n- 强烈建议候选人提前了解 Google 各大产品线的业务逻辑，尤其是涉及 GCP 等云服务相关内容\n- 面试注重综合能力：统计理论 + 产品思维 + 编程实现 + 行为表现\n- 多轮面试中保持稳定发挥是关键",
+  "company": "Google",
+  "role": "数据科学家",
+  "difficulty": 4,
+  "tags": [
+    "数据科学家",
+    "统计建模",
+    "产品分析",
+    "编程题",
+    "行为面试",
+    "实验设计",
+    "Google Cloud",
+    "加面"
+  ],
+  "comments": [],
+  "usefulVotes": 0,
+  "uselessVotes": 0,
+  "shareCount": 0,
+  "isAnonymous": true
+}

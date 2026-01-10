@@ -1,0 +1,23 @@
+{
+  "title": "Google 数据科学研究员岗位面试经验分享",
+  "originalContent": "<div class=\"article_body\"><td class=\"t_f\" id=\"postmessage_20134075\" itemprop=\"articleBody\">tech round一共有两轮，首先面试官真的都很友善 以及 真的很聪明<br/>\n\n第一轮是stats problem，首先是真要手推公式，考了mle和条件概率分布，normal distribution 的pdf和cdf etc<br/>\n\n第二轮是data intuition， 考了unbiased estimation的assumption是从一个具体的问题出发的<br/>\n\n太难啦，确实达不到research要求，还请各位phd们大胆尝试！<br/></td></div>",
+  "processedContent": "## 基本信息（公司/岗位/结果/难度）\n\n- **公司**：Google\n- **岗位**：数据科学研究岗（Data Science Research）\n- **结果**：未通过\n- **难度**：5\n\n## 时间线\n\n未提及/不明确\n\n## 面试过程\n\n### 技术轮第一轮\n- 考察内容以统计学理论为主。\n- 要求手推公式，涉及最大似然估计（MLE）、条件概率分布。\n- 包含正态分布的概率密度函数（PDF）和累积分布函数（CDF）等基础知识的推导与应用。\n\n### 技术轮第二轮\n- 聚焦于数据直觉（data intuition）。\n- 从一个具体问题出发，考察无偏估计（unbiased estimation）的前提假设。\n- 强调对统计概念在实际场景中的理解与解释能力。\n\n## 题目总结\n\n- 推导最大似然估计（MLE）的相关公式\n- 条件概率分布的计算与建模\n- 正态分布的 PDF 与 CDF 手推及应用场景分析\n- 基于实际问题判断无偏估计成立的假设条件\n\n## 个人总结（经验与建议）\n\n- 面试官非常友善且专业水平高。\n- 对统计理论基础要求极高，远超一般数据科学岗位，接近博士研究级别。\n- 需具备扎实的数学推导能力和对经典统计模型的深刻理解。\n- 建议拥有扎实统计背景或正在攻读博士学位的同学积极尝试该类研究型岗位。",
+  "company": "Google",
+  "role": "数据科学研究岗",
+  "difficulty": 5,
+  "tags": [
+    "数据科学",
+    "统计学",
+    "研究岗",
+    "手推公式",
+    "MLE",
+    "无偏估计",
+    "正态分布",
+    "博士优先"
+  ],
+  "comments": [],
+  "usefulVotes": 0,
+  "uselessVotes": 0,
+  "shareCount": 0,
+  "isAnonymous": true
+}

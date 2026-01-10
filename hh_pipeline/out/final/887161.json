@@ -1,0 +1,23 @@
+{
+  "title": "Google 数据科学工程岗位面试经验：统计基础考察与挂经总结",
+  "originalContent": "<div class=\"article_body\"><td class=\"t_f\" id=\"postmessage_17057133\" itemprop=\"articleBody\">\n3月的时候HR reach out。本来没有特别想跳槽，但毕竟是Google这种dream company，还是决定试一试。<br/>\n<br/>\n面试官是给data center做DS工作的，他大概介绍了一下自己的组，然后就要我讲一个自己做的项目，会问一些细节。接下来就是做题：<br/>\n1. mean and median, ste(mean), ste(median)<br/>\n<span style=\"display:none\"></span>2. 有两个variables：X1 and X2, fit regression; 同时，我们用X1+X2 和 X1-X2再fit一个regression。比较两个regression。如果X1和X2 correlated，那么这两个regression有什么相同和不同， X1+X2和X1-X2还correlated吗？；如果给这两个regression都加regularization，这两个regression有什么相同和不同<br/>\n3.想判断go to college (predicting var) 和income (response var) 之间有没有因果关系。问在moutain view随机sample 1000个人做regression有什么问题吗？我说selection bias。然后他接着问，那这个linear regression的slope和真实population data fitted linear regression的slope比，有什么不同？<br/>\n4. 简单的coding：给一个list 是roots of number 1 to 1000, 分别计算even and odd index元素的和<br/>\n<span style=\"display:none\"></span><br/>\n周一刚面试完，本来感觉还行，但今天收到拒信说不move forward了，可能我的统计基础还是不够扎实，继续加油吧。希望对大家有所帮助。<br/>\n<br/>\n</td></div>",
+  "processedContent": "## 基本信息（公司/岗位/结果/难度）\n- **公司**：Google\n- **岗位**：数据科学工程师（DS Engineering）\n- **结果**：未通过，HR通知不再推进\n- **难度**：4\n\n## 时间线\n- HR首次联系时间：3月\n- 面试完成时间：面试当周周一\n- 结果通知时间：面试后几天内收到拒信\n\n## 面试过程\n### 店面轮次（电话面试）\n1. **自我介绍与项目深挖**：\n   - 面试官来自负责数据中心的数据科学团队，简要介绍了团队工作。\n   - 要求候选人讲解一个自己主导或参与的数据科学项目，并深入追问技术细节、方法选择和结果评估。\n\n2. **统计与建模问题**：\n   - 题目围绕均值与中位数的抽样误差、回归模型比较、共线性影响、正则化作用以及因果推断中的偏差展开。\n   - 包括理论推导和实际解释能力的考察。\n\n3. **简单编程题**：\n   - 实现一个基础的列表操作：给定一个包含1到1000各数平方根的列表，分别计算偶数索引和奇数索引位置元素的和。\n\n### 结果反馈\n- 面试结束后约数天收到HR邮件，被告知不继续推进流程。\n- 候选人反思可能原因为统计理论基础不够扎实，尤其在抽样误差、回归结构分析和因果推断方面存在短板。\n\n## 题目总结\n1. 计算均值（mean）和中位数（median）的抽样标准误（ste），并比较 ste(mean) 与 ste(median) 的大小关系。\n2. 给定两个变量 X1 和 X2：\n   - 使用 X1 和 X2 拟合线性回归；\n   - 使用 X1+X2 和 X1−X2 拟合另一个回归；\n   - 比较两个回归的结果；\n   - 若 X1 和 X2 相关，分析新特征是否仍相关；\n   - 若对两个模型加入正则化（如L2），比较其影响异同。\n3. 因果推断问题：\n   - 想研究“上大学”对“收入”的因果影响；\n   - 在Mountain View随机抽样1000人做回归是否存在偏差？\n   - 如存在selection bias，该样本回归得到的斜率与总体真实斜率相比有何差异？\n4. 编程题：\n   - 输入：长度为1000的列表，存储 √1, √2, ..., √1000；\n   - 输出：分别计算偶数索引和奇数索引元素之和。\n\n## 个人总结（经验与建议）\n- Google DS Engineering 对统计理论要求非常高，远超一般业务型数据岗，需熟练掌握抽样分布、回归代数、正则化机制及因果推断基础。\n- 项目陈述不仅要清晰，还需能应对深度技术追问，尤其是模型假设与局限性的讨论。\n- 简单coding题虽不难，但也不能出错，建议提前练习基础Python数据处理。\n- 本次失败主因可能是理论推导不够严谨，建议后续重点加强统计基础，尤其是小样本性质与变换空间下的模型行为理解。",
+  "company": "Google",
+  "role": "数据科学工程师",
+  "difficulty": 4,
+  "tags": [
+    "数据科学",
+    "统计建模",
+    "因果推断",
+    "线性回归",
+    "正则化",
+    "编程题",
+    "店面面试",
+    "挂经"
+  ],
+  "comments": [],
+  "usefulVotes": 0,
+  "uselessVotes": 0,
+  "shareCount": 0,
+  "isAnonymous": true
+}

@@ -1,0 +1,23 @@
+{
+  "title": "Google 资深数据科学家第一轮技术面经",
+  "originalContent": "<div class=\"article_body\"><td class=\"t_f\" id=\"postmessage_15483585\" itemprop=\"articleBody\">\ngoogle hr网上联系后，安排了第一轮技术面。不过说是技术面，其实是behavior  技术面。一个很nice的国人大哥面的。就30分钟。先介绍了一下他自己，然后让我介绍我。在我讲project的时候，问了很多关于建模的问题，尤其focus在overfitting这个问题上，问了很多。比如如何知道什么时候overfit了，怎么解决。如果evaluate model performance. 还问了regression, logistic regression的基本假设，以及区别。之后就是behavior问题，印象深刻的是，你在过去几年内，哪里变得不如以前了，还有跟别的组有conflict如何解决。还有如何manage project priority。基本就这些。很顺利进入onsite （但是onsite跪了，面经也已经发了）。<br/>\n<div id=\"1p3a-ad-thread-paragraph\" style=\"margin-top: 20px; margin-bottom: 20px;\"></div><br/>\n如果有用，你又有米，求加大米（貌似还差8颗，我也继续签到答题哈哈）<br/>\n</td></div>",
+  "processedContent": "## 基本信息\n- **公司**：Google\n- **岗位**：资深数据科学家（Lead Data Scientist）\n- **结果**：通过第一轮，进入onsite但最终未通过\n- **难度**：4\n\n## 时间线\n- HR线上联系后安排第一轮面试\n- 第一轮面试时长：30分钟\n- 面试形式：视频面试\n- 后续进展：通过本轮，进入onsite环节\n\n## 面试过程\n### 第一轮技术面（行为+技术混合）\n- 面试官为一位友善的华人工程师。\n- 面试开始时，面试官先自我介绍，随后让候选人介绍自己。\n- 在候选人讲述项目经历时，面试官深入追问建模相关问题，重点关注过拟合（overfitting）问题：\n  - 如何判断模型是否过拟合？\n  - 如何解决过拟合？\n  - 如何评估模型性能？\n- 技术问题延伸至基础模型知识：\n  - 线性回归与逻辑回归的基本假设\n  - 两者之间的区别\n- 行为面试部分提问包括：\n  - 过去几年中，你觉得自己在哪方面变得不如以前了？\n  - 如何处理与其他团队之间的冲突？\n  - 如何管理项目优先级？\n- 整体氛围友好，流程顺利。\n\n## 题目总结\n- 技术类：\n  - 如何判断模型是否过拟合？\n  - 解决过拟合的方法有哪些？\n  - 如何评估机器学习模型的性能？\n  - 线性回归的基本假设是什么？\n  - 逻辑回归的基本假设是什么？\n  - 线性回归与逻辑回归的区别？\n- 行为类：\n  - 过去几年中，你觉得自己在哪方面退步了？\n  - 如何解决跨团队冲突？\n  - 如何管理多个项目的优先级？\n\n## 个人总结\n- 本轮面试结合了技术和行为问题，虽标为“技术面”，实则为综合能力考察。\n- 建模细节尤其是过拟合和模型评估是重点，需准备扎实的基础知识。\n- 行为问题偏深度反思与协作能力，建议提前准备有真实感的故事。\n- 面试官态度友好，时间控制紧凑（仅30分钟），需精炼表达。\n- 成功进入onsite，说明本轮表现达标，但后续仍需加强系统性准备。",
+  "company": "Google",
+  "role": "Lead Data Scientist",
+  "difficulty": 4,
+  "tags": [
+    "数据科学家",
+    "行为面试",
+    "建模问题",
+    "过拟合",
+    "模型评估",
+    "项目优先级",
+    "跨团队协作",
+    "Google面试"
+  ],
+  "comments": [],
+  "usefulVotes": 0,
+  "uselessVotes": 0,
+  "shareCount": 0,
+  "isAnonymous": true
+}

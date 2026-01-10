@@ -1,0 +1,23 @@
+{
+  "title": "Google 产品分析师技术一面面经：SQL、AB测试与聚类方法考察",
+  "originalContent": "<div class=\"article_body\"><td class=\"t_f\" id=\"postmessage_16385425\" itemprop=\"articleBody\">\n<strong>新鲜出炉 1h视频面试 内容如下</strong><br/>\n<strong>SQL</strong><br/> \nTable 1 developer_id, developer_name, country<br/>\nTable 2 date, developer_id, revenue<br/>\nQ1 很简单的select<br/>\nQ2 简单的join, group by<br/>\nQ3 总revenue&gt;1000000的是earning developer 找出date of each developer in US becoming top earning developer （提示：window function算cumulative revenue）<br/>\n<br/>\n<strong>AB Test</strong><br/>\nYoutube: 一个新feature：允许有vertical video, short video (less than 60s) 怎么判断它的好坏<br/>\nFollow-up: reach stat significant, but not practical significant, then what?（应该看CI，CI最小值没有大于practical effect的话 就不launch）<br/>\n<br/>\n<strong>Clustering</strong><br/>\nYoutuber有不同category, number of subscribers, etc各种feature 怎么cluster他们<br/>\n（问的是clustering method）<br/>\n<br/>\n<strong>Q for interviews</strong><br/>\n得到的回复是：这个职位看重sql, experiment, ml (not no deep learning), communication<br/>\n<br/>\n<br/>\n<br/>\n</td></div>",
+  "processedContent": "## 基本信息（公司/岗位/结果/难度）\n- **公司**：Google\n- **岗位**：产品分析师（Product Analyst）\n- **结果**：未提及/不明确\n- **难度**：4\n\n## 时间线\n- 面试时长：1小时\n- 形式：视频面试\n- 具体日期：未提及/不明确\n\n## 面试过程\n### 技术一面（视频面试）\n面试共分为三个主要部分，涵盖 SQL 查询、AB 测试设计与解读、以及机器学习中的聚类方法。整体节奏紧凑，注重实际问题解决能力与沟通表达。\n\n#### 1. SQL 题目\n给定两张表：\n- Table 1: `developer_id`, `developer_name`, `country`\n- Table 2: `date`, `developer_id`, `revenue`\n\n**Q1**：基础 SELECT 查询（具体内容未详述，描述为“很简单”）\n\n**Q2**：使用 JOIN 和 GROUP BY 进行聚合统计（具体目标未详述，描述为“简单”）\n\n**Q3**：定义“高收入开发者”为累计总收入超过 1,000,000 的开发者；要求找出每个美国（US）开发者首次成为“高收入开发者”的日期。\n- **提示使用窗口函数**计算累计收入（cumulative revenue）\n- 解法关键：按 developer_id 分组，按 date 排序，使用 SUM() OVER() 计算累计 revenue，筛选 cumulative_revenue >= 1000000 的记录，再取最小 date\n\n#### 2. AB 测试（Experiment Design）\n**场景**：YouTube 推出新功能——支持竖屏短视频（时长小于60秒），如何评估该功能的好坏？\n- 考察点：指标选择（如观看时长、用户留存、互动率、上传量等）、实验设计（随机化单元、A/B分组）、假设检验\n\n**Follow-up 问题**：如果结果达到统计显著性（statistically significant），但未达到实际显著性（practically significant），该如何决策？\n- 参考回答：应查看置信区间（CI），若 CI 的下限仍未超过预设的“实际效应阈值”（practical effect size），则不应上线该功能\n\n#### 3. 聚类分析（Clustering）\n**场景**：YouTube 创作者具有不同类别（category）、粉丝数（subscribers）等特征，如何对这些创作者进行聚类？\n- 明确提问的是**聚类方法**（clustering method）\n- 可能答案包括：K-means、层次聚类、DBSCAN 等；需考虑特征标准化、距离度量、簇数量选择（如肘部法则）等\n\n#### 4. 向面试官提问环节\n候选人询问该职位最看重的能力，得到回复：\n- 重视 **SQL**、**实验设计（experimentation）**、**机器学习基础**（非深度学习）、以及 **沟通能力**（communication）\n\n## 题目总结\n- **SQL**\n  - 基础 SELECT 查询\n  - JOIN + GROUP BY 聚合统计\n  - 使用窗口函数计算累计收入，并找出美国开发者首次成为“高收入开发者”的日期\n- **AB 测试**\n  - 如何评估 YouTube 新增竖屏短视频功能的效果\n  - 统计显著 vs 实际显著：如何判断是否上线功能\n- **聚类分析**\n  - 如何对 YouTube 创作者进行聚类？使用哪些方法？\n\n## 个人总结（经验与建议）\n- 本场面试重点考察三项核心能力：数据查询（SQL）、因果推断（AB测试）、无监督学习基础（聚类）\n- SQL 题目难度中等偏上，第三题需要熟练掌握窗口函数的实际应用\n- AB 测试问题强调从“统计思维”到“产品决策”的过渡，不能只看 p-value\n- 聚类问题不涉及编码，重在方法论理解和业务适配性表达\n- 沟通清晰、逻辑严谨是加分项，尤其在解释技术选择理由时\n- 建议准备时重点关注：窗口函数、累积指标计算、AB测试完整框架（指标、假设、评估）、常见聚类算法对比",
+  "company": "Google",
+  "role": "Product Analyst",
+  "difficulty": 4,
+  "tags": [
+    "SQL",
+    "AB测试",
+    "聚类分析",
+    "窗口函数",
+    "实验设计",
+    "机器学习基础",
+    "沟通能力",
+    "YouTube产品场景"
+  ],
+  "comments": [],
+  "usefulVotes": 0,
+  "uselessVotes": 0,
+  "shareCount": 0,
+  "isAnonymous": true
+}

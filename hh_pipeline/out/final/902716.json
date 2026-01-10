@@ -1,0 +1,22 @@
+{
+  "title": "Google数据科学工程师面试复盘：YouTube相关开放性问题与SQL考察",
+  "originalContent": "<div class=\"article_body\"><td class=\"t_f\" id=\"postmessage_17257597\" itemprop=\"articleBody\">\n<i class=\"pstatus\"> 本帖最后由 匿名 于 2022-6-9 17:04 编辑 </i><br/>\n<br/>\n上周面了google的DS ENG VO。<br/>\n<br/>\n怀着沉重的心情写下面经吧。自己地理的面经看了很多，各种面经总结几乎都看了，可以追溯到2018年。各种统计概率的小作业，小难题，基本上自我觉得都比较熟了。看了地里同学的分享，面经出现概率还是挺高的。<br/>\n但是我的onsite前四轮全是关于youtube的，全是open-ended。没有一道是小作业，小概率。最后一轮是coding，四道题全是sql。五轮加起来甚至没有一轮是behavior。但是recuiter的邮件里写了一轮是leadership&amp;behavior, 还有一轮是communication。<br/>\n面的结果可想而知，糟糕。因为面试内容与自己准备的相差太远了。<br/>\n<br/>\n总结就是google的面试随机性太强了。有offer的同学真的各方面都比较强吧。另外，碰到面经原体的同学真的很幸运。<br/>\n<br/>\n</td></div>",
+  "processedContent": "## 基本信息（公司/岗位/结果/难度）\n- **公司**：Google\n- **岗位**：数据科学工程师（DS ENG）\n- **结果**：未通过\n- **难度**：5\n\n## 时间线\n- 面试时间：2022年6月上旬（具体日期不明确）\n- 准备周期：长期准备，参考了自2018年以来的大量面经和统计概率题目\n\n## 面试过程\n### 第一轮至第四轮：技术面（开放性问题）\n- 四轮均为与YouTube业务相关的开放性问题（open-ended）\n- 问题内容聚焦于实际业务场景，无小作业或统计概率类题目\n- 未涉及行为面试（Behavioral）或沟通能力考察，尽管招聘邮件中提及包含 leadership & behavior 和 communication 轮次\n\n### 第五轮：编码轮\n- 全部为SQL题目，共四道\n- 无算法或Python等编程语言考察\n- 无传统数据结构与算法题\n\n### 行为面试\n- 实际未进行，与 recruiter 邮件描述不符\n\n## 题目总结\n- 开放性问题（4轮）：\n  - 全部围绕 YouTube 业务场景设计\n  - 无具体题目记录，但强调非标准统计/概率小题\n- SQL 编码题（1轮）：\n  - 共4题，全部为SQL查询实现\n  - 无其他编程语言要求\n\n## 个人总结（经验与建议）\n- 面试内容与个人准备方向严重偏离，导致表现不佳\n- Google 面试随机性较强，不同候选人面对的问题差异大\n- 成功获得offer者通常综合实力较强\n- 熟悉原题面经的候选人具备明显优势\n- 建议后续准备者：\n  - 不仅准备统计、概率、小作业类题目\n  - 加强对目标团队（如YouTube）业务逻辑的理解\n  - 强化SQL实战能力\n  - 对开放性问题提升系统性回答框架（如指标设计、A/B测试思路等）\n- 注意recruiter提供的面试结构可能与实际流程不符，需做好多手准备",
+  "company": "Google",
+  "role": "数据科学工程师",
+  "difficulty": 5,
+  "tags": [
+    "数据科学",
+    "SQL",
+    "开放性问题",
+    "YouTube",
+    "面试随机性",
+    "行为面试缺失",
+    "Google面试"
+  ],
+  "comments": [],
+  "usefulVotes": 0,
+  "uselessVotes": 0,
+  "shareCount": 0,
+  "isAnonymous": true
+}

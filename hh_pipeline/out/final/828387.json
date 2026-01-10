@@ -1,0 +1,23 @@
+{
+  "title": "Google 数据科学岗位视频面试面经：侧重统计与A/B测试的多轮考察",
+  "originalContent": "<div class=\"article_body\"><td class=\"t_f\" id=\"postmessage_16395765\" itemprop=\"articleBody\">\n<i class=\"pstatus\"> 本帖最后由 nicolasaaron 于 2021-12-8 23:19 编辑 </i><br/>\n<br/>\n回报地里, 面data science 职位, 准备不足被狗家拒了, 强烈建议拿到vo的朋友重点复习A/B test<br/>\n<div class=\"locked\">以下内容需要积分高于 188 您已经可以浏览</div><br/>\n<div style=\"border: 1px solid #C2D5E3;padding:8px 8px 8px 24px;\">一面,  stats, 广告组的一哥们, 面了两题, 第一题, 给两个整数序列, 这些数据表示某个变量(没说是什么变量, 面试官说考虑成一个random variable) 的两种不同测量下的值. 问题:  如果拿到数据, 求mean, 我会怎么做? 分析可能出现什么问题.  (lz 回答, 数据太少, 可以用bootstrap,  数据多, 看看要不要做normalization, 测量值是实数,数据是integer, 可能出现很多重复, 这样train 出来的mean 可能bias 很大)<br/>\n第二题:  很长很长的题目, 大意是有一个linear regression,  现在要分析某个feature的重要性, 问如何评价这个feature 的回归系数的significance, 问如果要improve 这个feature, 除了regression, 我还能想到什么.  (lz 有点被问晕了)<br/>\n<br/>\n二面:  BQ;    问 how do you lead a group?  问: how to handle conflict<br/>\n<br/>\n三面: 一个中国姐姐, 语速很快, 面试官很着急. LZ感觉这轮面得非常不好, 节奏被带跑了. 建议面试的时候要控制好回答的语速, 这样才能有更好的发挥.<br/>\nQ1 : linear regression assumption Q2:  logistic regression, 问formulation, 问what is generalized linear regression<br/>\n<br/>\n四面:  印度大哥, 很幽默, 很有耐心. 这轮面得是 case study,  题目太长,重点是A/B 的 data co‍‍‌‍‌‍‍‍‍‌‌‌‌‍‌‍‍‍‌‍llection, feature generation, Simpson paradox, imbalance data 的理解, <br/>\n<br/>\n五面: coding, data manipulation,  纯数据处理, 基本上考pandas 的groupby , sort_values, extract rows, merge two data frames 的操作,</div><br/>\n<br/>\n<br/>\n求大米,大家加油! <br/>\n<br/>\n</td></div>",
+  "processedContent": "## 基本信息（公司/岗位/结果/难度）\n- **公司**：Google\n- **岗位**：数据科学（Data Science）\n- **面试结果**：未通过\n- **难度**：4\n\n## 时间线\n- 面试时间：2021年12月前后（具体日期不明确）\n- 流程阶段：视频面试（VO）阶段，共五轮\n\n## 面试过程\n\n### 一面：统计基础与数据分析思维\n面试官来自广告组。本轮考察两道问题：\n\n1. 给定两个整数序列，代表某变量在两种不同测量方式下的取值。要求描述如何计算均值，并分析可能存在的问题。\n   - 回答方向包括：样本量小可考虑使用Bootstrap；数据类型为整数但实际应为实数，可能导致重复值过多、估计偏差大；是否需要归一化等。\n\n2. 关于线性回归中特征重要性的评估：\n   - 如何判断某个特征回归系数的显著性？（如t检验、p值、置信区间）\n   - 除回归外，还有哪些方法可用于提升或评估该特征？（开放性问题，如树模型、SHAP值、特征选择方法等）\n   - 求职者表示当时略显混乱，未能清晰作答。\n\n### 二面：行为面试（BQ）\n主要围绕团队协作与领导力展开：\n- 如何带领一个团队？\n- 如何处理团队中的冲突？\n\n### 三面：模型理论深入考察\n面试官为一位语速较快的中国女性，节奏紧凑。\n\n1. 线性回归的基本假设有哪些？\n2. 逻辑回归的形式化表达是什么？什么是广义线性模型（Generalized Linear Model, GLM）？\n\n求职者反馈本场发挥较差，建议后续候选人注意控制回答节奏，避免被面试官带偏。\n\n### 四面：案例分析（Case Study）\n面试官为一位幽默且耐心的印度裔工程师。题目较长，核心围绕以下几点：\n- A/B测试的数据收集策略\n- 特征生成（feature generation）思路\n- 对辛普森悖论（Simpson's Paradox）的理解与应对\n- 不平衡数据（imbalanced data）的识别与处理\n\n### 五面：编程与数据操作（Coding）\n纯数据处理题，聚焦Pandas操作，主要包括：\n- `groupby` 分组聚合\n- `sort_values` 排序\n- 行数据提取（如条件筛选）\n- 两个DataFrame的合并（`merge`）\n\n题目难度不高，但强调熟练度和代码规范性。\n\n## 题目总结\n- 如何从两个整数序列估算均值？需考虑哪些数据质量问题？\n- 如何评估线性回归中某一特征的显著性？其他可用方法？\n- 线性回归的假设条件有哪些？\n- 逻辑回归的数学形式？什么是广义线性模型？\n- 如何领导团队？如何处理团队冲突？\n- A/B测试中的数据收集与特征设计，如何避免辛普森悖论？\n- 如何处理不平衡数据？\n- 使用Pandas完成groupby、排序、行提取、DataFrame合并等操作\n\n## 个人总结（经验与建议）\n- 强烈建议进入VO环节的候选人重点复习A/B测试相关内容，尤其是数据收集、辛普森悖论等易忽略点。\n- 统计基础必须扎实，特别是回归模型的原理与假设检验。\n- 编程题虽简单，但需熟练掌握Pandas常用操作。\n- 面试中注意控制语速和节奏，避免因紧张或面试官催促而影响发挥。\n- 行为问题准备要充分，结合STAR法则组织答案。",
+  "company": "Google",
+  "role": "数据科学",
+  "difficulty": 4,
+  "tags": [
+    "数据科学",
+    "A/B测试",
+    "统计建模",
+    "行为面试",
+    "案例分析",
+    "编程题",
+    "Pandas",
+    "线性回归"
+  ],
+  "comments": [],
+  "usefulVotes": 0,
+  "uselessVotes": 0,
+  "shareCount": 0,
+  "isAnonymous": true
+}

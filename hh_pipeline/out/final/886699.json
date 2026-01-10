@@ -1,0 +1,22 @@
+{
+  "title": "狗家 Product Analytics Lead 面试复盘：SQL 与业务指标设计考察",
+  "originalContent": "<div class=\"article_body\"><td class=\"t_f\" id=\"postmessage_17052123\" itemprop=\"articleBody\">\n最近找工作看了不少地里的面经，也发一个狗家product ds的面经来攒攒人品，希望能帮到在准备面试的你。<br/>\n职位是狗家的product ds，不是engineering ladder， title 是product <a class=\"relatedlink\" href=\"http://learn.1point3acres.com/courses/ds501-analytics/\" target=\"_blank\">analytics</a> lead，不知道是什么级别。面试一共一小时,前30分钟是sql， 后30分钟是case。 说实话整个面试题目非常简单，三姐面试官也没有为难，频频点头微笑，但最后还是挂了，可能面得不错只是我的错觉吧。。。<br/>\n直接上题目：<br/>\nSQL:<br/>\n给了一个表格是location check-in app，每一行是一个check-in at some location by someone, columns有user id, timestamp, location_name, city, 还有user check in 的时候打的分rating. 第一问是一共多少unique users, 第二问每个user最近的check in location，第三题是每个location的average rating 。都很简单，window function或者group by 直接搞定。<br/>\n<br/>\ncase题目是面试官大姐自己想的。。。 第一个是问电商业务发coupon email 给用户怎么measure 影响。第二个是问launch一个新算法来flag youtube上面的bad content 视频(比如宣传种族主义，有暴力内容之类的)，怎么衡量好坏。<br/>\n<br/>\n革命尚未成功，同志仍需努力。求大米！！<br/>\n</td></div>",
+  "processedContent": "## 基本信息（公司/岗位/结果/难度）\n\n- **公司**：Google\n- **岗位**：Product Analytics Lead（非工程师序列）\n- **面试结果**：未通过\n- **难度**：3\n\n## 时间线\n\n- 面试总时长：1小时\n- 各环节分配：前30分钟为 SQL 考察，后30分钟为案例分析（Case）\n- 具体日期：未提及/不明确\n\n## 面试过程\n\n### 第一轮（技术+案例面）\n\n整体为单轮一小时的综合面试，包含两个部分。\n\n#### SQL 部分（30分钟）\n\n题目基于一个模拟的“地点打卡应用”数据表，每行代表一次用户打卡记录。字段包括：\n\n- `user_id`\n- `timestamp`\n- `location_name`\n- `city`\n- `rating`（用户打卡时对地点的评分）\n\n**问题如下**：\n\n1. 统计总共有多少个唯一用户（unique users）。\n2. 查询每个用户最近一次打卡的地点（location）。\n3. 计算每个地点的平均评分（average rating）。\n\n> 解法提示：第一题用 `COUNT(DISTINCT user_id)`；第二题可用 `ROW_NUMBER()` 窗口函数按时间排序取最新一条；第三题使用 `GROUP BY location_name` 并计算 `AVG(rating)`。\n\n#### 案例分析部分（30分钟）\n\n面试官自拟题目，聚焦在如何设计衡量机制来评估产品决策或算法效果。\n\n1. **电商发券邮件的效果衡量**：\n   - 如何评估向用户发送优惠券（coupon）邮件对业务的影响？需要考虑哪些核心指标、实验设计与潜在偏差？\n\n2. **YouTube 不良内容识别算法评估**：\n   - 若上线一个新算法用于标记包含种族主义、暴力等内容的不良视频，应如何衡量该算法的有效性？从准确率、召回率、误伤率、人工审核反馈等角度展开讨论。\n\n> 面试官态度友好，频频点头微笑，整体氛围轻松，问题难度不高，但最终仍被拒，可能因评估标准较严格或存在其他隐性考量。\n\n## 题目总结\n\n### SQL 题目\n\n- 统计唯一用户总数。\n- 找出每个用户最近一次打卡的地点。\n- 计算每个地点的平均评分。\n\n### 案例分析题目\n\n- 如何衡量电商平台发送优惠券邮件的影响？\n- 如何评估用于识别 YouTube 不良内容的新算法的好坏？\n\n## 个人总结（经验与建议）\n\n- 虽然题目本身不难，且面试过程中感觉良好，但结果仍挂，说明“自我感觉良好”≠通过，需更深入准备背后的逻辑和表达结构。\n- 对于 Product Analytics 类岗位，SQL 是基本功，必须熟练掌握窗口函数、聚合操作和去重技巧。\n- Case 问题强调指标设计能力，建议系统学习 A/B 测试框架、因果推断基础、混淆变量控制方法。\n- 回答 case 时要结构化：先明确目标、再定义成功指标（KPI）、考虑实验设计（如是否可做 RCT）、监控副作用与长期影响。\n- 多参考经典场景（如增长策略、内容安全、推荐系统优化）的衡量思路，提升实战应对能力。\n- 即使一面就挂，也反映整体竞争力仍有提升空间，持续积累项目经验和思维模型是关键。",
+  "company": "Google",
+  "role": "Product Analytics Lead",
+  "difficulty": 3,
+  "tags": [
+    "Product Analytics",
+    "SQL",
+    "Case Interview",
+    "Metrics Design",
+    "A/B Testing",
+    "Behavioral Questions",
+    "Rejected"
+  ],
+  "comments": [],
+  "usefulVotes": 0,
+  "uselessVotes": 0,
+  "shareCount": 0,
+  "isAnonymous": true
+}

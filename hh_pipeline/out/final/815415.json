@@ -1,0 +1,23 @@
+{
+  "title": "狗家 Data Analytics 岗位电面经验（PA-DS 方向）",
+  "originalContent": "<div class=\"article_body\"><td class=\"t_f\" id=\"postmessage_16231346\" itemprop=\"articleBody\">\n两周前的时候领英收到了🐶家外包recruiter的inmail，说在招L4-L7的data analytics的岗位。想了想决定试试。<br/>\n10.11 - inmail<br/>\n<span style=\"display:none\"></span>10.13 - 我回复，约好第二天打电话<br/>\n10.14 - 和外包recruiter 打电话，他稍微介绍了一下，然后口述了那个调查问卷，其中包括很多问题，地里有帖子说过，例如说你最大处理过的数据有多大这种……他非得让我说出有多少行多少列。还有提到介绍一个project，我说了我目前在做的一个，数据集比较小，他说你挑个大的说。看得出来他是在努力帮忙推我的。<br/>\n10.18 - 外包recruiter通知我说move to the 1-hour phone screen，然后就把我转交给了🐶的recruiter。当天收到邮件，发现是PA（DS）岗，之前我以为是很偏tech的ds，还挺虚的。当然现在也不能说不虚。。邮件中提到要我提供1.认识的，能说好话的googler 2. 5个日期。并且列出了面试会涵盖的内容，要准备哪些东西，非常长的一封邮件。<br/>\n10.19 - 我回复邮件<br/>\n10.20 - 🐶的recruiter发来一个链接，让我在系统里申请一下<br/>\n10.21 - 🐶的coordinator发来了面当天的具体情况<br/>\n<br/>\n10.28 - 面试<br/>\n<br/>\n<div class=\"locked\">以下内容需要积分高于 200 您已经可以浏览</div><br/>\n<div style=\"border: 1px solid #C2D5E3;padding:8px 8px 8px 24px;\">面试小哥做了简单的自我介绍，我也介绍过后就开始进入正题。<br/>\n1. SQL<br/>\nschema: timestamp | patient_id | visit_ide<br/>\n1.1 List all fields for all patients' last visit - window function<br/>\n1.2 rolling count the number of active patients in the past 7 days. 意思就是数当前日期往前七天内active patient有多少个。例如日期1/7数的就是1/1-1/7的病人数，1/8数的是1/2-1/8的病人数。<br/>\n我问了两个问题<br/>\na) are you counting the number of unique patients in the past 7 days or just the number of patients? -- the number of unique patients<br/>\nb) Is there any gaps between visit days? like, no visits on 1/2 but we have patients on both 1/1 and 1/3. -- yes, there are gaps.<br/>\n<br/>\n最后用的是self join。又接着说，你要最后的结果是需要每一天都有吗？他说是的。我说能在别的地方实现吗还是必须sql？他说如果不是非得在sql你准备怎么做。我说pandas的date_range然后再join<br/>\n又说，如果你在database里有这个连续的日期呢？<br/>\n<br/>\n2. Product<br/>\nOn the landing page, there's a call to action button - \"Sign up\". the UX team plan to increase the font size by 100%. How do you evaluate it?<br/>\nFollow-up:<br/>\n什么是A/A test，在什么情况下A/A test会fail<br/>\n影响sample size的因素？<br/>\n<span style=\"display:none\"></span>什么是minimum detectable difference? (就是那个d）用plain language 解释<br/>\n<br/>\n3. 数据处理<br/>\n如果你在做一个linear regression，如何处理missing data</div><br/>\n<br/>\n<br/>\n面完我就一直想，这儿该这么说，那儿该那么说的。也是没有准备的特别好，加上十分想去。又想，人这么好的公司拒绝我应该的……反正就想很多。面完那天是周四，周五没消息，周一没消息。周二（11/2）下午接到了电话说positive，然后要准备onsite了！开心！<br/>\n<br/>\n<span style=\"display:none\"></span>希望大家面试都能不紧张，要风得风要雨得雨！然后也求个大米！<br/>\n<br/>\n</td></div>",
+  "processedContent": "## 基本信息\n- **公司**：Google\n- **岗位**：数据分析师 / Data Analytics (PA-DS)\n- **结果**：通过电话面试，进入onsite阶段\n- **难度**：4\n\n## 时间线\n- 10.11：收到外包招聘人员的 LinkedIn InMail\n- 10.13：回复并预约沟通时间\n- 10.14：与外包招聘人员通话，完成初步问卷\n- 10.18：被告知进入一小时电话面试环节，转交至Google正式招聘团队\n- 10.19：回复 recruiter 邮件，提供推荐人及可面试时间\n- 10.20：收到系统内正式申请链接\n- 10.21：协调员发送面试具体安排\n- 10.28：进行电话面试\n- 11.2：接到通过电话通知\n\n## 面试过程\n### 电话面试（1小时）\n面试官为一位工程师，双方简短自我介绍后直接进入技术问题。\n\n#### 1. SQL 题目\n**表结构**：`timestamp | patient_id | visit_id`\n\n**题目1.1**：列出每位患者最近一次就诊的所有字段信息。\n- 考察点：窗口函数（如 `ROW_NUMBER()` 按时间排序取最新记录）\n\n**题目1.2**：计算过去7天内活跃患者的滚动计数（unique patient count）\n- 示例：1月7日统计1月1日至1月7日间的唯一患者数；1月8日统计1月2日至1月8日\n- 明确要求：统计的是 unique patients，且数据中存在日期断层（无连续访问）\n- 解法讨论：使用 self join 实现滑动窗口逻辑\n- 追问：如果最终结果需要每天都有输出（包括无数据的日期），该如何处理？\n  - 回答：可用 Pandas 的 `date_range` 生成完整日期再 join，或在数据库中预存连续日期维度表\n\n#### 2. 产品分析题\n**场景**：登录页有一个“注册”按钮，UX 团队计划将其字体大小增加100%，如何评估该改动？\n- 讨论方向：A/B 测试设计、核心指标选择（如点击率、转化率）、用户分群、短期 vs 长期影响等\n\n**追问问题**：\n- 什么是 A/A 测试？在什么情况下会失败？\n  - 回答要点：A/A测试是验证实验系统稳定性的对照实验；若出现显著差异，可能说明流量分配不均、样本污染或统计方法错误\n- 影响样本量的因素有哪些？\n  - 回答要点：显著性水平（α）、统计功效（1−β）、效应大小（effect size）、基线转化率\n- 如何用通俗语言解释 minimum detectable difference（MDD）？\n  - 回答要点：能够被检测到的最小真实变化值，低于这个值即使有变化也可能无法识别\n\n#### 3. 数据处理题\n**问题**：在线性回归中如何处理缺失数据？\n- 可能回答方向：删除、均值/中位数填充、插值法、多重插补、模型预测填补、标记缺失为单独类别等\n- 可补充：不同机制下（MCAR/MAR/MNAR）的处理策略差异\n\n## 题目总结\n- **SQL**\n  - 使用窗口函数获取每个用户的最后一次记录\n  - 滚动7天内去重用户数统计（含日期断层处理）\n  - 完整日期序列的构建方式（Pandas 或 DB 维度表）\n\n- **产品分析**\n  - 字体变化对转化影响的评估框架\n  - A/A 测试定义与异常情况\n  - 样本量影响因素\n  - Minimum Detectable Difference 的通俗解释\n\n- **数据处理**\n  - 线性回归中的缺失值处理方法\n\n## 个人总结\n- 准备不足但仍通过，说明面试官更看重思维过程和沟通能力\n- 外包 recruiter 会尽力推进候选人流程，应积极配合\n- 收到面试邮件后需尽快提交推荐人和可用时间\n- 面试强调清晰表达思路，尤其是边界条件和假设的确认\n- 建议提前熟悉 Google PA（Product Analyst）类岗位考察重点：结合数据分析与产品决策，偏重业务理解与实验设计\n- 心态很重要，即使紧张也要保持条理清晰，展现解决问题的能力",
+  "company": "Google",
+  "role": "Data Analytics",
+  "difficulty": 4,
+  "tags": [
+    "电话面试",
+    "SQL",
+    "产品分析",
+    "A/B测试",
+    "数据处理",
+    "Missing Data",
+    "Window Function",
+    "Behavioral"
+  ],
+  "comments": [],
+  "usefulVotes": 0,
+  "uselessVotes": 0,
+  "shareCount": 0,
+  "isAnonymous": true
+}

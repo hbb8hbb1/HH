@@ -1,0 +1,23 @@
+{
+  "title": "Google 数据科学家面试案例分析题解析：YouTube首页推荐算法与收入影响",
+  "originalContent": "<div class=\"article_body\"><td class=\"t_f\" id=\"postmessage_17258828\" itemprop=\"articleBody\">\n求问大家，这道google 的case study题有什么回答思路吗？感谢！面经贴： <a href=\"https://instant.1point3acres.com/thread/671929\" target=\"_blank\">https://instant.1point3acres.com/thread/671929</a> <br/>\n<br/>\nYoutube home feed. 有一个新算法，得到的home feed总体提高了，但有8% channel sample的revenue下降超过10%，问你怎么看。如果又有一个算法把8%里面的4%的revenue提上来了，但引起另外4%sample revenue下降超过10%，问你怎么看。我往multiple testing方面扯了，感觉是对的。<br/>\n<br/>\n</td></div>",
+  "processedContent": "## 基本信息（公司/岗位/结果/难度）\n- **公司**：Google\n- **岗位**：数据科学家（Data Scientist）\n- **结果**：未提及/不明确\n- **难度**：4\n\n## 时间线\n未提及/不明确\n\n## 面试过程\n### 案例分析题（Case Study）\n面试中考察了一道关于 YouTube 首页信息流（Home Feed）推荐算法的业务分析题，重点在于如何评估算法变更对频道收入的影响，并进行归因分析和决策判断。\n\n1. **第一问**：\n   - 背景：一个新算法上线后，整体首页信息流的表现提升，但有 8% 的频道样本收入下降超过 10%。\n   - 问题：你如何看待这一现象？\n   - 回答思路方向：\n     - 关注指标的异质性影响（heterogeneous impact），不能仅看总体指标。\n     - 分析这 8% 下降的频道是否具有共同特征（如内容类型、受众规模、地区分布、广告密度等）。\n     - 考虑是否存在算法偏差（algorithmic bias），例如对长尾频道或特定类别的推荐减少。\n     - 提出应进行 A/B 测试的分层分析（segmented analysis），识别受影响群体。\n     - 可引入 multiple testing 校正思路，判断是否为统计显著的异常群体。\n\n2. **第二问**：\n   - 背景：另一个算法修复了原先 8% 中 4% 的收入下降问题，但导致另外 4% 的样本收入下降超过 10%。\n   - 问题：你如何看待这一变化？\n   - 回答思路方向：\n     - 指出可能存在“此消彼长”的权衡（trade-off），优化局部可能带来新的副作用。\n     - 强调需建立更全面的评估框架，包括公平性（fairness）、稳定性（stability）和长期生态健康。\n     - 建议使用多目标优化模型，而非单一目标最大化。\n     - 可考虑引入约束条件（如“不允许任何 segment 收入下降超 X%”）来设计算法目标函数。\n     - 再次使用 multiple testing 或 False Discovery Rate（FDR）控制方法识别异常波动群体。\n\n## 题目总结\n- YouTube 首页推荐算法上线后整体指标提升，但 8% 频道收入显著下降，如何分析？\n- 新算法修复部分问题却导致其他群体恶化，如何评估与应对？\n- 是否应采用 multiple testing 校正方法识别异常子群体？\n- 如何平衡整体性能提升与个体/群体公平性？\n- 如何设计更稳健的 A/B 测试评估体系？\n\n## 个人总结（经验与建议）\n- Google 数据科学家岗位重视复杂业务场景下的因果推理与权衡判断能力。\n- 面试中不仅要懂统计方法（如 multiple testing），更要能结合产品逻辑解释其应用合理性。\n- 建议准备时多练习平台型产品的归因分析、A/B 测试陷阱、算法公平性等高频主题。\n- 强调结构化表达：先定义问题 → 拆解指标 → 分析原因 → 提出解决方案 → 讨论权衡。",
+  "company": "Google",
+  "role": "数据科学家",
+  "difficulty": 4,
+  "tags": [
+    "数据科学家",
+    "案例分析",
+    "A/B测试",
+    "算法评估",
+    "multiple testing",
+    "YouTube",
+    "指标分析",
+    "Google"
+  ],
+  "comments": [],
+  "usefulVotes": 0,
+  "uselessVotes": 0,
+  "shareCount": 0,
+  "isAnonymous": true
+}

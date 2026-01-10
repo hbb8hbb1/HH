@@ -1,0 +1,23 @@
+{
+  "title": "Google Marketing Data Scientist 面试经验分享（含店面与Onsite）",
+  "originalContent": "<div class=\"article_body\"><td class=\"t_f\" id=\"postmessage_15759872\" itemprop=\"articleBody\">\n找工作开始的第一个面试 <br/>\n<br/>\n店面<br/>\nCoding:<br/>\nGiven a list calculate any order moving average <br/>\nAB Test<br/>\n一个假象的case，说你有一个客户来找你 想问你城市A/B 居民的身高是否有差别 你准备怎么来帮助客户回答这个问题。 然后又这个问题进行了延展 比如说，做调研，找online 数据， 随机选人来测量他们的身高。 每个方法快问快答了一下你觉得的优缺点<br/>\n然后说假设AB test 做的话 哪些因素会影响你的sample size。每一个因素用通俗的语句和客户讲解。 其中有一个follow up是如果estimate 年龄的standard deviation <br/>\n后面问了linear model的有哪些assumption，怎么检查违背了怎么办， VIF 具体是怎么算的， Multi collinearity 会有什么问题.. etc  <br/>\n店面完大概15分钟就通知过了，真是神速。。<br/>\n<br/>\nOn Site <br/>\n签了NDA 大致说一说 具体的问题不是下面的，不过会很类似<br/>\n<span style=\"display:none\">.--</span>coding<br/>\n<span style=\"display:none\"></span>和这个问题是一样的 <a href=\"https://www.1point3acres.com/bbs/interview/google-data-science-650889.html\" target=\"_blank\">https://www.1point3acres.com/bbs ... science-650889.html</a><br/>\n<br/>\nds 那轮问的有 <br/>\n1. 用什么数据什么方法去知道商品价格定价是最合理的<br/>\n2.        Estimating Pi using Monte Carlo Simulation 写个代码<br/>\n3.        AB test 如果Test Control 的Metric 有pre bias应该怎么办<br/>\n<br/>\nBq <br/>\n1.        平时如何set up  data analysis project<br/>\n2.你意识到做错一件事情的时候，如何与人沟通的<br/>\n<br/>\n最后挂了 不过体验是挺好的面试官们都很nice。 问问题也是先从最简单的情况开始不断的增加难度<br/>\n<br/>\n求米呀~~ 还差一点就可以看到面经了！<br/>\n<br/>\n<br/>\n<br/>\n<br/>\n</td></div>",
+  "processedContent": "# Google Marketing Data Scientist 面试经验\n\n## 基本信息\n- **公司**：Google\n- **岗位**：Marketing Data Scientist\n- **结果**：未通过\n- **难度**：4\n\n## 时间线\n- 店面面试后约15分钟即收到通过通知，进展迅速。\n- Onsite面试在店面通过后安排，具体时间未提及。\n\n## 面试过程\n\n### 店面轮次\n- **Coding**：\n  - 给定一个列表，计算任意窗口大小的移动平均值。\n- **AB Test 案例题**：\n  - 假设客户想了解城市A和城市B居民身高是否存在差异，如何帮助其分析？\n    - 探讨了多种数据收集方式（如调研、线上数据、随机抽样测量），并快速问答各种方法的优缺点。\n  - 若采用AB测试，哪些因素会影响样本量？需用通俗语言向客户解释每个因素。\n    - 追问：如何估计年龄的标准差（standard deviation）？\n- **统计建模问题**：\n  - 线性模型的基本假设有哪些？\n  - 如何检测假设是否被违反？违反后如何处理？\n  - VIF是如何计算的？\n  - 多重共线性会带来什么问题？\n\n### Onsite 轮次\n> 注：因签署NDA，题目为相似题型回顾\n\n#### 技术轮（Data Science）\n- 如何利用数据和方法判断商品定价是否合理？\n- 使用蒙特卡洛模拟（Monte Carlo Simulation）估算圆周率π，并编写代码实现。\n- 若AB测试中实验组与对照组在核心指标上存在前置偏差（pre-bias），应如何处理？\n\n#### 行为与项目轮（Behavioral & Project）\n- 平时如何规划和启动一个数据分析项目？\n- 当你意识到自己犯了一个错误时，如何与团队或同事沟通？\n\n## 题目总结\n- 编程题：\n  - 实现任意窗口的移动平均计算\n  - 蒙特卡洛法估算π（代码实现）\n- AB测试与实验设计：\n  - 如何设计研究以比较两个城市居民身高的差异\n  - 影响样本量的因素及其业务解释\n  - 实验组与对照组存在前置偏差时的应对策略\n- 统计建模：\n  - 线性回归假设及诊断方法\n  - 多重共线性问题与VIF计算\n- 数据分析方法论：\n  - 商品合理定价的数据驱动方法\n- 行为问题：\n  - 数据分析项目的组织流程\n  - 错误发生后的沟通策略\n\n## 个人总结\n- 面试体验良好，面试官态度友善，提问循序渐进，从简单场景切入逐步加深难度。\n- 重视对统计基础的理解，尤其是AB测试设计、假设检验与线性模型。\n- 编程考察偏实用，不强调算法难题，更关注逻辑清晰与实现正确。\n- 建议加强对实际业务场景中数据应用的理解，尤其是营销场景下的指标设计与归因分析。\n- 尽管最终挂掉，但整体流程专业，是一次有价值的练习经历。",
+  "company": "Google",
+  "role": "Marketing Data Scientist",
+  "difficulty": 4,
+  "tags": [
+    "Data Science",
+    "AB Testing",
+    "Statistics",
+    "Coding",
+    "Behavioral Questions",
+    "Monte Carlo Simulation",
+    "Linear Regression",
+    "Google"
+  ],
+  "comments": [],
+  "usefulVotes": 0,
+  "uselessVotes": 0,
+  "shareCount": 0,
+  "isAnonymous": true
+}

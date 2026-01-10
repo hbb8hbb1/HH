@@ -1,0 +1,97 @@
+﻿
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="utf-8">
+            <title>Extracted Content</title>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    line-height: 1.6;
+                    margin: 20px;
+                }
+                .thread_subject {
+                    font-size: 1.5em;
+                    font-weight: bold;
+                    margin-bottom: 20px;
+                }
+                .post_time {
+                    font-size: 0.9em;
+                    color: gray;
+                    margin-bottom: 10px;
+                }
+                .article_body {
+                    margin-top: 20px;
+                }
+                .attachments {
+                    margin-top: 20px;
+                    background: #f9f9f9;
+                    padding: 10px;
+                    border: 1px solid #ddd;
+                }
+                .attachments a {
+                    display: block;
+                    margin: 5px 0;
+                    text-decoration: none;
+                    color: blue;
+                }
+            </style>
+        </head>
+        <body>
+            <div class="thread_subject"><span id="thread_subject">骨骼PA,DS 电面 新鲜面经攒人品</span></div>
+            <div class="post_time">Published on: 2021-10-5 08:16</div>
+            <div class="article_body"><td class="t_f" id="postmessage_16090843" itemprop="articleBody">
+在职跳槽， 新鲜面经奉上，祝各位找工作顺利 offer满满！<font class="jammer"></font><br />
+之前找朋友内推， 用的他发的链接。之后HR reachout之后让我写了很长的一个questionnaire， 比如问你最擅长的programming language，那些skillsets 擅长 做的project如何 介绍一下之类的， 写了挺长的一个。 <font class="jammer"></font><br />
+<font class="jammer"></font><br />
+提交完了以后麻烦HR就马上回邮件约电话面试了。<font class="jammer"></font><br />
+<font class="jammer"></font><br />
+一共两个部分， SQL和statistics。面试开摄像头，share了一个google doc的文件写SQL， 其他的问题都是他在问， 我口头回他完了之后他一直在打字记笔记。说面试结果不是由他直接决定的， 是把我的答案share给别的一个什么评审小组决定上面的。 <font class="jammer"></font><br />
+<font class="jammer"></font><br />
+SQL：<br />
+<span style="display:none"></span>主要考了些window function 和subquery 没有太复杂。<font class="jammer"></font><br />
+一共两个问题， 第一个问题有两个小问， 第二题就一个。<font class="jammer"></font><br />
+<font class="jammer">. 1point 3 acres</font><br />
+统计：<font class="jammer">. ----</font><br />
+考的比较杂， 感觉就是在考知识面的广度。比如问了点Ab test的基础概念 alpha beta power etc，他一直都在负责记录， 打字复制粘贴我写在google doc 里面的sql。还考的就是Linear regression 相关的知识点 ，assumption之类的。<br />
+<span style="display:none"></span><font class="jammer"></font><br />
+<div class="locked">以下内容需要积分高于 123 您已经可以浏览</div><font class="jammer"></font><br />
+<div style="border: 1px solid #C2D5E3;padding:8px 8px 8px 24px;">SQL：<font class="jammer"></font><br />
+面试还是很注重细节的， 比如一些corner case.<font class="jammer"></font><br />
+1. user_id, timestamp, spend<font class="jammer"></font><br />
+1.1: top 10 customers spend <font class="jammer"></font><br />
+用了dense_rank function + subquery, 选了top 10. 我最开始的时候写了一个简单的sum groupby + order by + limit 10, 然后他后来给我指出来有corner case 没有考虑到， 我说应该就是 tie rank的情况了。就改了以后重新选了rank_num&lt;= 10.<font class="jammer"></font><br />
+<font class="jammer"></font><br />
+1.2 Top 1% of the customers by their spend<font class="jammer"></font><br />
+其实跟上面的题差别不大， 就是再套了一层subquery（面试官印度大叔态度非常和蔼，我先给他说了思路， 说有可能要多层subquery，他说没事， as many subrquery as you want...:)<font class="jammer"></font><br />
+所以我就嵌套了新的一层query计算 rank_percentage（= rank/total distinct count userid), 然后又加了一层选rank_perc&lt;= 1%<font class="jammer"></font><br />
+<font class="jammer"></font><br />
+2. 以前面经出现过的那个原题：<font class="jammer"></font><br />
+find user id who make transactions in Dec but not in Jan.<font class="jammer"></font><br />
+<font class="jammer"></font><br />
+我直接用了差集那个operation： Except 两个select+where再 剪一下就好了， 我觉得应该没错。欢迎大家讨论指正。<font class="jammer"></font><br />
+<font class="jammer">. 1point 3acres </font><br />
+statistics:<font class="jammer"></font><br />
+1. linear regression assumption<font class="jammer"></font><br />
+2. what is statistical power(by definition, formula, beta ect)<br />
+<span style="display:none"></span>&nbsp; &nbsp;what are the factors will effect the beta(我这个现场搜的， 说了三个他说ok了）<font class="jammer">. Χ</font><br />
+<br />
+<span style="display:none"></span>3. model case<font class="jammer"></font><br />
+其实这个我有点每太理解到他的意思一开始， 他说他们有个model跑了挺久比较稳定， 用10个变量造的model可以预测个revenue 预测的越准赚钱越多，现在有个vendor说他们还有20个变量的新数据 可以卖给你 但是花费很高， 问你怎么办。。。我就先说看值不值这个价了， 比如新的数据来了以后也就赚了一点钱 还没买数据价格高 那就不值了。但是也说了会考虑本身已有的model还有什么改进空间， 比如目前的model已经比较准确了 进步空间不大了那就不太需要考虑了。我本来因为需要考虑ab test了。。。毕竟之前的面经都说这一轮会考experiment design但是他后来记录完了把我拉回去了， 问我怎么评价linear regression accuracy， 问我用什么metrics 然后我后来才反应过来他是想考这个知识点， 就说了点Adjusted Rsquare， MSRE, MSE 之类的 他说好了（就感觉他听到了他想听到的答案他就不往下继续了）</div><font class="jammer"></font><br />
+<font class="jammer"></font><br />
+<font class="jammer"></font><br />
+印度大叔感觉态度一直很好， 但是比较疲惫，全程伸懒腰了好几次说他等下要去赶bus回家什么的。 聊了点关于职位本身的， 问他 biggest challenge for this role in Google, 他居然一开口就说 升职比较难。。。然后举了点例子吧，但是他说他还比较喜欢， 大概80% dive deep into data, 20% present result and analysis. 对了 他说他在map组， 做很多time series 所以难怪他考了的都是linear regression相关的。 <font class="jammer"></font><br />
+<font class="jammer"></font><br />
+不过感觉他还是很健谈的， 时间本来说是40分钟左右后来一共聊了一个小时 他也没着急要挂视频的意思。尤其是最后问问题都不紧不慢地给我讲他的故事和经验 回答我。 <br />
+<span style="display:none">. Χ</span><font class="jammer"></font><br />
+面试感觉不错， 但愿能进到下一轮吧。<font class="jammer"></font><br />
+<font class="jammer"></font><br />
+祝各位都顺利， 也顺便求波大米， 打字不易， 现在回帖看包裹还得掉大米。<font class="jammer">. Χ</font><br />
+<font class="jammer"></font><br />
+<font class="jammer">. .и</font><br />
+<font class="jammer"></font><br />
+</td></div>
+            <div class="attachments"></div>
+        </body>
+        </html>
+        

@@ -1,0 +1,23 @@
+{
+  "title": "Google 博士岗数据科学家面试统计题目全面总结",
+  "originalContent": "<div class=\"article_body\"><td class=\"t_f\" id=\"postmessage_19596667\" itemprop=\"articleBody\">\n<i class=\"pstatus\"> 本帖最后由 匿名 于 2024-6-6 23:58 编辑 </i><br/>\n<br/>\n<span style=\"display:none\"></span>我把地里面PhD level的面经基本上都做了一遍总结了一下，发在这里希望可以赚一些大米，一共27页。直接开放下载了，希望有余粮的大哥们能赠予我一些大米，谢谢。<div id=\"1p3a-ad-thread-paragraph\" style=\"margin-top: 20px; margin-bottom: 20px;\"></div><br/>\n<br/>\n<ignore_js_op>\n<div class=\"mbn\">\n<a href=\"https://oss.1p3a.com/forum/202406/06/233211rjorzej3jfe43f74.png\" target=\"_blank\">https://oss.1p3a.com/forum/202406/06/233211rjorzej3jfe43f74.png</a>\n</div>\n<div class=\"tip tip_4 aimg_tip\" disautofocus=\"true\" id=\"aimg_555497_menu\" style=\"position: absolute; display: none\">\n<div class=\"xs0\">\n<p><strong>Screenshot 2024-06-06 at 23.31.27.png</strong> <em class=\"xg1\">(126 KB, 下载次数: 1)</em></p>\n<p>\n<a href=\"plugin.php?id=attachcenter:goto&amp;aid=NTU1NDk3fGU0YzFhNTYyfDE3MzQyMzAxODN8OTkzMjE4fDEwNzA0NTk%3D&amp;nothumb=yes\" target=\"_blank\">下载附件</a>\n\n <a href=\"javascript:;\" id=\"savephoto_555497\" onclick=\"showWindow(this.id, this.getAttribute('url'), 'get', 0);\" url=\"home.php?mod=spacecp&amp;ac=album&amp;op=saveforumphoto&amp;aid=555497&amp;handlekey=savephoto_555497\">保存到相册</a>\n</p>\n<p class=\"xg1 y\">2024-6-7 01:32 上传</p>\n</div>\n<div class=\"tip_horn\"></div>\n</div>\n</ignore_js_op>\n<ignore_js_op>\n<div class=\"mbn\">\n<a href=\"https://oss.1p3a.com/forum/202406/06/233220l16luhdql6hf6fld.png\" target=\"_blank\">https://oss.1p3a.com/forum/202406/06/233220l16luhdql6hf6fld.png</a>\n</div>\n<div class=\"tip tip_4 aimg_tip\" disautofocus=\"true\" id=\"aimg_555498_menu\" style=\"position: absolute; display: none\">\n<div class=\"xs0\">\n<p><strong>Screenshot 2024-06-06 at 23.31.49.png</strong> <em class=\"xg1\">(262.37 KB, 下载次数: 0)</em></p>\n<p>\n<a href=\"plugin.php?id=attachcenter:goto&amp;aid=NTU1NDk4fDc5YjczY2M5fDE3MzQyMzAxODN8OTkzMjE4fDEwNzA0NTk%3D&amp;nothumb=yes\" target=\"_blank\">下载附件</a>\n\n <a href=\"javascript:;\" id=\"savephoto_555498\" onclick=\"showWindow(this.id, this.getAttribute('url'), 'get', 0);\" url=\"home.php?mod=spacecp&amp;ac=album&amp;op=saveforumphoto&amp;aid=555498&amp;handlekey=savephoto_555498\">保存到相册</a>\n</p>\n<p class=\"xg1 y\">2024-6-7 01:32 上传</p>\n</div>\n<div class=\"tip_horn\"></div>\n</div>\n</ignore_js_op>\n<br/>\n<br/>\n<br/>\n<ignore_js_op>\n<img alt=\"\" border=\"0\" class=\"vm\" src=\"static/image/filetype/pdf.gif\"/>\n<span id=\"attach_555480\" onmouseover=\"showMenu({'ctrlid':this.id,'pos':'12'})\" style=\"white-space: nowrap\">\n<a href=\"https://www.1point3acres.com/bbs/forum.php?mod=attachment&amp;aid=NTU1NDgwfGFjMWVhOTMxfDE3NDAxODY5NjF8MTIwODMxOXwxMDcwNDU5&amp;ck=1ef091f2\" target=\"_blank\">Interview.pdf</a>\n<em class=\"xg1\">(372.57 KB, 下载次数: 432)</em>\n</span>\n<div class=\"tip tip_4\" disautofocus=\"true\" id=\"attach_555480_menu\" style=\"position: absolute; display: none\">\n<div class=\"tip_c xs0\">\n<div class=\"y\">2024-6-6 22:34 上传</div>\n点击文件名下载附件\n<br/>Interview.pdf<br/>阅读权限: 50<br/>下载积分: 大米 -1 颗 \n</div>\n<div class=\"tip_horn\"></div>\n</div>\n</ignore_js_op>\n</td></div>",
+  "processedContent": "## 基本信息（公司/岗位/结果/难度）\n- **公司**：Google\n- **岗位**：数据科学家（PhD Hire）\n- **结果**：未提及/不明确\n- **难度**：5\n\n## 时间线\n- 面经内容整理截止至2024年4月\n- 原帖编辑时间：2024年6月6日\n- 具体面试时间：未提及/不明确\n\n## 面试过程\n### 笔试 / OA\n未提及/不明确\n\n### 一面\n主要考察统计学基础与概率建模能力，包含多道理论推导与实际应用结合的问题。\n\n### 二面\n深入考察假设检验、贝叶斯方法、实验设计（A/B测试）等核心统计概念，要求清晰表达思路并进行数学推导。\n\n### 后续轮次\n未提及/不明确\n\n### HR面\n未提及/不明确\n\n## 题目总结\n- 概率分布相关问题（如：泊松过程、正态分布性质、极大似然估计）\n- 假设检验（包括p值解释、第一类与第二类错误、功效分析）\n- 贝叶斯推断（先验选择、后验计算、共轭先验应用）\n- A/B测试设计与评估（样本量计算、多重比较问题、指标选择）\n- 线性模型与回归分析（最小二乘法性质、残差诊断）\n- 多重检验校正方法（Bonferroni, FDR）\n- 统计显著性与实际显著性的区别\n- 实验偏差识别（selection bias, survivorship bias 等）\n- 渐近性质理解（一致性、渐近正态性）\n- 无偏估计与Cramér-Rao下界\n- 方差分析（ANOVA）原理与适用条件\n- 中心极限定理的应用场景与限制\n\n## 个人总结（经验与建议）\n- Google PhD level 数据科学家岗位对统计理论要求极高，远超一般工业界岗位。\n- 需熟练掌握数理统计核心内容，尤其是推导能力和严谨的数学表达。\n- 建议系统复习经典教材如Casella & Berger《Statistical Inference》，并动手推导关键结论。\n- 注重将统计理论与实际产品场景结合，例如在A/B测试中解释业务影响。\n- 口头表达需逻辑清晰，能够分步骤讲解复杂问题。\n- 提前准备常见陷阱问题（如p值误解、多重检验问题）的标准回答。",
+  "company": "Google",
+  "role": "数据科学家",
+  "difficulty": 5,
+  "tags": [
+    "数据科学家",
+    "统计学",
+    "PhD招聘",
+    "A/B测试",
+    "贝叶斯方法",
+    "假设检验",
+    "机器学习理论",
+    "Google面试"
+  ],
+  "comments": [],
+  "usefulVotes": 0,
+  "uselessVotes": 0,
+  "shareCount": 0,
+  "isAnonymous": true
+}

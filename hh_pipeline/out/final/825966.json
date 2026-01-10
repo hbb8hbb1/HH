@@ -1,0 +1,23 @@
+{
+  "title": "谷歌数据科学家博士应届生面试全程面经：店面与虚拟现场轮次详细回顾",
+  "originalContent": "<div class=\"article_body\"><td class=\"t_f\" id=\"postmessage_16364730\" itemprop=\"articleBody\">\n新人第三贴，求米w<br/>\n<br/>\n关于lz背景可见刚刚发的第一贴<br/>\n<br/>\n朋友内推狗家DS PhD new grad<br/>\n八月底申请<br/>\n九月底recruiter call + 填背景问卷（问卷很重要不要瞎填，会跟到最后hiring committee）<br/>\n十月中店面<br/>\n十一月底VO<br/>\n<br/>\n店面1h，国人小姐姐，全是地里面经<br/>\n<div class=\"locked\">以下内容需要积分高于 188 您已经可以浏览</div><br/>\n<div style=\"border: 1px solid #C2D5E3;padding:8px 8px 8px 24px;\">1. standard error of sample mean? sample median? (bootstrap)<br/>\n2. X~N(mu, 1), test H0: mu=0 vs H1: mu!=0. Rejection region? 如果X被truncate到了&gt;1, 此时的type-I error?<br/>\n3. 1000个学生体测，第一次测完取前100和后100，训练一周后二测，能不能测出训练的effect?<br/>\n4. 1到100的奇数开方和和偶数开方和<br/>\n5. 从binomial distribution生成一个矩阵然后normalize每一列使其加和=1</div><br/>\n<br/>\n<br/>\n<br/>\n没几天收到通知约onsite，当时脑子傻了吧唧的把感恩节假期写进去了，最后只能约到感恩节之后了（幸好recruiter没有吐槽我，压根忘了要放假了）<br/>\n<br/>\nVO 5轮，每轮45min，因为已经有了别家offer而且deadline等不到这边出结果，所以也没怎么准备，就当体验一下狗家文化顺便历练自己（狗家VO好像也没什么好准备的。。问的问题太随性了）（真实动机当然是给各位提供新鲜面经！<br/>\n<br/>\n<div class=\"locked\">以下内容需要积分高于 188 您已经可以浏览</div><br/>\n<div style=\"border: 1px solid #C2D5E3;padding:8px 8px 8px 24px;\">因为签了NDA所以没法讲太细，希望大家谅解<br/>\n<br/>\nRound 1:  data intuition(?)<br/>\n1. 比较安卓更新系统后会不会让user花更多时间在手机上<br/>\n2. 预测国会下一届大选席位结果<br/>\n3. 建模预测足球场不同位置射门的进球率<br/>\n<br/>\nRound 2: Stats<br/>\n1. 估计normal distribution的未知参数，但是observed sample是truncated, e.g. 大于100的只知道是 &gt;100。如何估计。<br/>\n2. linear regression 的各种假设，如何验证，如何修正<br/>\n<br/>\nRound 3: applied stats(?)<br/>\n1. 有个问卷调查外部公司对谷歌广告服务的满意度（问卷有多道题，针对不同方面），如何计算出一个overall满意度<br/>\n2. 如何提高google search image的diversity<br/>\n<br/>\nRound 4: BQ(?)<br/>\n似BQ又非BQ，问了如果AB test的结果在一小撮人里不好但deployment deadline马上来临，如何做决定如何说服PM<br/>\n<br/>\nRound 5: coding<br/>\n1. 有个线性模型预测小孩年龄和身高的关系，写函数计算bootstrap confidence interval of 10岁小孩的身高预测值。<br/>\n（一开始不知道是coding，写了一堆式子推了个理论值，然后面试官又叫我写bootstrap，时间略紧）<br/>\n2. 实现knn regress‍‍‌‌‍‌‍‌‌‌‌‍‍‍‌‌‍‌‍‌ion，问了time complexity</div><br/>\n<br/>\n<br/>\n<br/>\n因为知道自己去不了了所以答的时候也没太大激情，状态比较差，八成是挂了<br/>\nVO的题真是各种天马行空，只能说是多和interviewer各种聊希望能聊到他们想听的点子上吧<br/>\n</td></div>",
+  "processedContent": "## 基本信息\n- **公司**：Google\n- **岗位**：数据科学家（Data Scientist）\n- **结果**：未明确（候选人表示因已有其他offer且状态不佳，推测大概率未通过）\n- **难度**：5\n\n## 时间线\n- **八月底**：通过内推提交申请\n- **九月底**：HR电话沟通 + 填写背景问卷（强调问卷重要性）\n- **十月中旬**：技术店面（1小时）\n- **十一月底**：虚拟现场面试（VO），共5轮，每轮45分钟\n\n## 面试过程\n\n### 店面（1小时）\n面试官为华人女性，问题均来自地里常见题型：\n1. 样本均值和样本中位数的标准误如何计算？如何用bootstrap方法估计？\n2. 设 $X \\sim N(\\mu, 1)$，检验 $H_0: \\mu = 0$ vs $H_1: \\mu \\neq 0$，写出拒绝域；若 $X$ 被截断为仅观测到 $>1$ 的值，此时第一类错误是多少？\n3. 1000名学生体测，第一次取前100和后100名，训练一周后再次测试，能否检测出训练效果？说明统计思路。\n4. 计算1到100中奇数的平方根之和与偶数的平方根之和。\n5. 从二项分布生成一个矩阵，并对每一列进行归一化使其列和为1。\n\n通过后收到onsite邀请，因在日程中标注感恩节假期，最终安排在节后。\n\n### 虚拟现场面试（VO）\n共5轮，每轮45分钟，题目广泛且灵活，部分轮次性质不明确。候选人表示未充分准备，更多作为经验积累。\n\n#### 第一轮：数据直觉（Data Intuition）\n1. 如何分析安卓系统更新后用户使用手机时长是否增加？\n2. 如何预测美国国会下一届选举的席位分布？\n3. 建模预测足球场上不同位置射门的进球概率。\n\n#### 第二轮：统计基础（Stats）\n1. 正态分布参数估计问题：观测样本被截断（如大于100的值仅知为>100），如何估计分布参数？\n2. 线性回归的假设有哪些？如何检验这些假设？若不满足应如何修正？\n\n#### 第三轮：应用统计（Applied Stats）\n1. 外部公司对谷歌广告满意度调查（多维度问卷），如何综合各题项得出整体满意度评分？\n2. 如何提升Google搜索图片结果的多样性？\n\n#### 第四轮：行为与产品判断（BQ-like）\n- 若A/B测试结果显示整体正向，但在某一小群体中表现负面，而上线截止时间临近，该如何决策？如何与产品经理沟通？\n\n#### 第五轮：编程与建模（Coding）\n1. 给定一个线性模型用于预测儿童年龄与身高的关系，编写函数使用bootstrap方法计算10岁儿童身高预测值的置信区间。（初期误用理论推导，后改为代码实现，时间较紧张）\n2. 实现KNN回归算法，并分析其时间复杂度。\n\n## 题目总结\n- **统计理论**：\n  - Bootstrap估计样本均值/中位数标准误\n  - 截断正态分布下的假设检验与参数估计\n  - 线性回归假设及诊断方法\n\n- **数据建模与分析**：\n  - 射门进球率建模\n  - 满意度指标构建（多题项聚合）\n  - 图片搜索多样性优化\n\n- **产品与业务理解**：\n  - 安卓更新对用户行为的影响分析\n  - 国会选举结果预测框架\n  - A/B测试异常群体的上线决策权衡\n\n- **编程题**：\n  - Bootstrap置信区间实现（Python/伪代码）\n  - KNN回归实现及其时间复杂度分析\n\n## 个人总结\n- 背景问卷非常重要，将影响至终面委员会评审环节，切勿随意填写。\n- Google DS面试风格极为开放，问题跨度大、场景广，难以精准预测，建议广泛涉猎真实业务场景分析。\n- 面试注重与面试官的互动交流，需展现清晰的思维过程和问题拆解能力。\n- 编程轮可能结合统计建模，需熟练掌握bootstrap、KNN等基础方法的代码实现。\n- VO轮次问题“天马行空”，难以系统准备，建议多练习开放式问题讨论，锻炼快速反应与结构化表达能力。\n- 即使无入职意愿，也可将其作为模拟面试机会，为其他offer争取经验积累。",
+  "company": "Google",
+  "role": "数据科学家",
+  "difficulty": 5,
+  "tags": [
+    "数据科学家",
+    "PhD应届生",
+    "统计建模",
+    "A/B测试",
+    "行为面试",
+    "编程题",
+    "Bootstrap",
+    "Google面试"
+  ],
+  "comments": [],
+  "usefulVotes": 0,
+  "uselessVotes": 0,
+  "shareCount": 0,
+  "isAnonymous": true
+}

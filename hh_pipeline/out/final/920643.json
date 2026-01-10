@@ -1,0 +1,22 @@
+{
+  "title": "谷歌 Product Analyst 一面面试经验分享",
+  "originalContent": "<div class=\"article_body\"><td class=\"t_f\" id=\"postmessage_17516508\" itemprop=\"articleBody\">\n<i class=\"pstatus\"> 本帖最后由 匿名 于 2022-8-18 00:55 编辑 </i><br/>\n<br/>\n先分享下7月份狗家PA 的一面面经，求加分~  <br/>\n<br/>\n最近要onsite的小伙伴，加我一起讨论和mock哈！  ---gyy0520 吉麦尔<br/>\n<br/>\n面经 ：<br/>\ntell me about experience <br/>\nSQL :  三题，很简单<br/>\nproduct :   <br/>\npick your favouriate google product, talk about the key metrics <br/>\nhow to measure the success of new feature launch <br/>\n<span style=\"display:none\">. 1point3acres.com </span>big drop in one metrics , how do you evaluate <br/>\nhow to determine if the the drop is related to seasonality or not ?  这个也想跟大家讨论如何通过data来确定是否是seasonality ？</td></div>",
+  "processedContent": "## 基本信息（公司/岗位/结果/难度）\n\n- **公司**：Google\n- **岗位**：Product Analyst\n- **结果**：未提及/不明确\n- **难度**：3\n\n## 时间线\n\n- **面试时间**：2022年7月（具体日期未提及）\n\n## 面试过程\n\n### 一面\n\n- **自我介绍与经历回顾**：\n  - 面试官让候选人介绍自己的过往经历（\"Tell me about your experience\"）。\n\n- **SQL 考察**：\n  - 共三道题，题目较为基础，难度不高。\n\n- **产品分析问题**：\n  - 选择一个你最喜欢的 Google 产品，并讨论其核心指标。\n  - 如何衡量一个新功能上线是否成功？\n  - 当某一项关键指标出现大幅下降时，你会如何评估和排查原因？\n  - 如何通过数据判断该下降是否由季节性因素导致？\n\n## 题目总结\n\n- Tell me about your experience.\n- SQL 编写题（共三题，具体内容未提及，但难度较低）。\n- 选择一个你最喜欢的 Google 产品，谈谈它的关键指标。\n- 如何衡量新功能上线的成功？\n- 某项指标出现显著下降，如何分析原因？\n- 如何通过数据分析判断指标下降是否由季节性引起？\n\n## 个人总结（经验与建议）\n\n- 面试整体偏重产品思维与数据能力的结合，尤其是对指标的理解和归因分析。\n- SQL 部分相对简单，重点应放在逻辑清晰与正确性上。\n- 产品问题需要结构化回答，建议准备常见 metric 框架（如 HEART、AARRR）以及归因分析思路（如漏斗拆解、用户分群、时间趋势对比等）。\n- 对于季节性判断，可通过同比、环比、历史同期数据对比、外部事件对照等方式进行验证。",
+  "company": "Google",
+  "role": "Product Analyst",
+  "difficulty": 3,
+  "tags": [
+    "Product Analyst",
+    "Google",
+    "SQL",
+    "产品分析",
+    "行为面试",
+    "指标设计",
+    "归因分析"
+  ],
+  "comments": [],
+  "usefulVotes": 0,
+  "uselessVotes": 0,
+  "shareCount": 0,
+  "isAnonymous": true
+}

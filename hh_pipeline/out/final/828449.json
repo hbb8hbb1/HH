@@ -1,0 +1,22 @@
+{
+  "title": "Google 数据科学家电话面试面经：统计与编程题目详解",
+  "originalContent": "<div class=\"article_body\"><td class=\"t_f\" id=\"postmessage_16396430\" itemprop=\"articleBody\">\n<i class=\"pstatus\"> 本帖最后由 nicolasaaron 于 2021-12-9 01:58 编辑 </i><br/>\n<br/>\n之前面DS 1st round<br/>\n<div class=\"locked\">以下内容需要积分高于 100 您已经可以浏览</div><br/>\n<div style=\"border: 1px solid #C2D5E3;padding:8px 8px 8px 24px;\">Q1:  colinearity:  1000 observation, 900 features, if we run a regression, justify the result<br/>\n( LZ 回答colinearity, 用PCA降维, 然后LZ还顺带说了降维的集中常用方法:<br/>\n- check nan, if percentage nan is too high, remove a column, <br/>\n- PCA <br/>\n- backward stagewise linear regression, check the significance of coefficients (p-value) at each regression, drop the non-significant ones  )<br/>\n<br/>\n<br/>\nQ2:  case study:  college entry and income level, given 1000 observations in Mountain view candidates.  What can we say about the regression coefficient?<br/>\n<br/>\n( 基本解法感觉是考虑 constrain in location 导致sample bias,  然后就是说income level 和college entry之间可能有confounder,  <br/>\n请参考 <a href=\"https://link.1point3acres.com/?url=https%3A%2F%2Fstats.stackexchange.com%2Fquestions%2F286850%2Flinear-regression-confounder\" rel=\"nofollow noopener\" target=\"_blank\">https://stats.stackexchange.com/ ... gression-confounder</a>)<br/>\n<br/>\n<br/>\ncoding:  <br/>\nQ3: given 99 elements from [1, 100], all of them are distinct, find the missing one.   Write for loop solu‍‍‌‍‌‍‍‍‍‌‌‌‍‌‌‌‍‌‌‍tion<br/>\n<br/>\n(经典题, 最简单 5050 - sum(arr) ,  或者用 xor,  或者一个个判断有没有出现过 )<br/>\n<br/>\n<br/>\nQ4: Given a 10 x 10 matrix, return a normalized matrix such that each entry is normalized by the sum of elements in the same column<br/>\n<br/>\n( 如果X 是一个np array, 直接用    X / X.sum(0) )</div><br/>\n<br/>\n<br/>\n回馈地里, 求大米!<br/>\n<br/>\n<br/>\n<br/>\n</td></div>",
+  "processedContent": "## 基本信息（公司/岗位/结果/难度）\n- **公司**：Google\n- **岗位**：数据科学家（Data Scientist）\n- **结果**：未提及/不明确\n- **难度**：4\n\n## 时间线\n- 面试轮次：第一轮电话面试\n- 时间：未提及具体时间，原始编辑时间为2021年12月9日，推测面试发生在此前后\n\n## 面试过程\n### 电话面试\n共考察了四个问题，涵盖统计建模、案例分析和编程实现。\n\n#### Q1: 多重共线性与降维方法\n给定1000个样本、900个特征的数据集，若进行回归分析，结果会受到什么影响？如何处理？\n\n**回答要点**：\n- 存在严重的多重共线性（multicollinearity），导致模型不稳定、系数估计不可靠。\n- 建议使用降维方法：\n  - 检查缺失值比例，过高则删除特征\n  - 使用主成分分析（PCA）降维\n  - 逐步后退回归（backward stagewise regression），根据p值判断变量显著性，剔除不显著变量\n\n#### Q2: 案例分析 —— 大学入学率与收入水平的关系\n给定Mountain View地区的1000名候选人数据，分析大学入学率对收入水平的回归系数能说明什么？\n\n**回答要点**：\n- 地理位置限制（locality constraint）可能导致样本偏差（sample bias）\n- 收入与入学率之间可能存在混杂因子（confounder），例如社会经济背景、教育资源等\n- 回归系数可能无法反映因果关系，需谨慎解释\n\n#### Q3: 编程题 —— 找出缺失数字\n给定一个包含99个不重复元素的数组，取值范围为[1, 100]，找出缺失的那个数字。\n\n**解法**：\n- 方法一：利用数学求和公式 `5050 - sum(arr)`\n- 方法二：异或运算（XOR），利用 `a ^ a = 0` 的性质\n- 方法三：遍历判断每个数是否出现（效率较低）\n\n#### Q4: 编程题 —— 矩阵列归一化\n给定一个10x10的矩阵，将每个元素按其所在列的总和进行归一化。\n\n**解法**：\n- 若使用NumPy，可直接通过广播实现：`X / X.sum(axis=0)`\n- 注意处理除零情况（如某列全为0）\n\n## 题目总结\n- 统计理论：\n  - 多重共线性的影响及处理方式\n  - 样本偏差与混杂因子对回归结果的干扰\n- 编程实现：\n  - 数组中找缺失数字（经典算法题）\n  - 矩阵列归一化操作（考察向量化计算能力）\n\n## 个人总结（经验与建议）\n- Google的数据科学家岗位重视统计基础与实际问题结合的能力，案例分析题需要体现批判性思维。\n- 编程题虽不难，但要求写出简洁高效的代码，熟悉Python科学计算库（如NumPy）是加分项。\n- 建议准备时重点复习：\n  - 常见降维方法（PCA、Lasso、逐步回归等）\n  - 回归假设与常见陷阱（共线性、过拟合、混杂变量）\n  - 基础算法题（数组、哈希表、位运算）\n  - 向量化编程实践",
+  "company": "Google",
+  "role": "数据科学家",
+  "difficulty": 4,
+  "tags": [
+    "数据科学家",
+    "电话面试",
+    "统计建模",
+    "编程题",
+    "案例分析",
+    "降维",
+    "回归分析"
+  ],
+  "comments": [],
+  "usefulVotes": 0,
+  "uselessVotes": 0,
+  "shareCount": 0,
+  "isAnonymous": true
+}

@@ -1,0 +1,23 @@
+{
+  "title": "Google 数字营销数据分析岗面试经历：AB测试与统计建模深度考察",
+  "originalContent": "<div class=\"article_body\"><td class=\"t_f\" id=\"postmessage_16564125\" itemprop=\"articleBody\">\n八月内推，九月初onsite，九月中旬左右送HC，等了两周告诉加面，10月27加面，之后一直等到1月7号才通知结果…<br/>\n漫长等待的被折磨的心情那叫一个细碎，终于调整了下心情来为大家分享一下。。<br/>\n<br/>\nsession1 <br/>\n整个是一个大的AB test。问一个campaign用IP做为unit of diversion, california作为treatment, 其他region作为control. 有什么问题？<br/>\n1.        IP is not a stable unit. California: income,age different from other regions.<br/>\n<span style=\"display:none\"></span>2.        How do you test, what data do you need? Histogram of percentage of subscriptions, see if it’normal or not; use randominzed block design: two way ANOVA, regression<br/>\n3.        If significant, do you launch? 我讨论了下想到的limitation: Replication of results, geographical specific result? Time specific result<br/>\n<span style=\"display:none\"></span><br/>\n<br/>\n<br/>\ncoding session<br/>\nR<br/>\n1.        csv 怎么读数据R， 各种group by 求mean , n(), <div class=\"locked\">以下内容需要积分高于 188 您已经可以浏览</div><br/>\n<div style=\"border: 1px solid #C2D5E3;padding:8px 8px 8px 24px;\">2.说下regression结果都是什么意思。Specices: cluster robust error (why? correlated) <br/>\n<br/>\n3.        Simulate girl numbers in a binomial setting. <br/>\n<br/>\nbehavior session 略<br/>\n<span style=\"display:none\"></span><br/>\napplied statistics 这一场感觉不好，不知道他想考什么，后来果然遇到加面。。<br/>\n开头讲了下论文 dynamic panel的研究方法。（persistent parameter close to 1; relatively short panel）<br/>\n1, two drugs, unpaired t-test 和paired t-test 好处和坏处<br/>\n<br/>\n<br/>\n<br/>\n2. 现在我们要看edcuation intervention 的效果，还是</div></td></div>",
+  "processedContent": "## 基本信息（公司/岗位/结果/难度）\n\n- **公司**：Google\n- **岗位**：数据科学家 / 数字化营销分析方向\n- **结果**：未通过（加面后挂）\n- **难度**：4\n\n## 时间线\n\n- 8月：内推启动流程\n- 9月初：完成Onsite面试\n- 9月中旬：进入HC审批阶段\n- 约2周后：被告知需加面\n- 10月27日：参加加面\n- 次年1月7日：收到最终拒信\n\n等待周期极长，整体流程跨度超过5个月，心理压力较大。\n\n## 面试过程\n\n### 第一轮：AB测试与实验设计（Session 1）\n\n围绕一个大型AB测试案例展开讨论：\n\n- 实验设计：以IP为分流单位（unit of diversion），加州为treatment组，其他地区为control组。\n- 提问方向：\n  1. 该设计存在哪些问题？\n     - IP不稳定，用户可能跨区域变化\n     - 加州在人口结构（如收入、年龄）上与其他地区差异显著，影响可比性\n  2. 如何进行检验？需要哪些数据？\n     - 建议使用订阅率的直方图判断分布形态\n     - 推荐采用随机区组设计（randomized block design）\n     - 可用双因素方差分析（Two-way ANOVA）或回归模型控制混杂变量\n  3. 若结果显著，是否应全量上线？\n     - 讨论了结果复现性、地理特异性、时间特异性等限制因素\n\n### 第二轮：编程与数据分析（Coding Session）\n\n使用R语言完成以下任务：\n\n1. 如何读取CSV文件并进行分组聚合操作（group by），计算均值和计数（mean, n()）\n2. 解释回归输出结果中各项含义，特别强调聚类稳健标准误（cluster-robust standard errors）的作用及其适用场景（如个体间相关性）\n3. 在二项分布设定下模拟女孩出生数量（binomial simulation）\n\n### 第三轮：行为面试（Behavioral Session）\n\n略过（原文标注“behavior session 略”）\n\n### 第四轮：应用统计（Applied Statistics）\n\n本场表现不佳，后续被要求加面：\n\n- 开头介绍个人研究论文中的动态面板方法（dynamic panel）：\n  - 参数持久性强（persistent parameter close to 1）\n  - 面板长度较短（relatively short panel）\n- 主要问题：\n  1. 比较独立样本t检验（unpaired t-test）与配对样本t检验（paired t-test）的优缺点\n  2. 设计教育干预效果评估方案（题目未完整给出，但方向明确为因果推断）\n\n### 加面（Additional Interview）\n\n- 时间：10月27日\n- 内容未详细提及，推测为对前述薄弱环节的补充考察\n- 形式应为技术深化面，聚焦统计建模与实际业务结合能力\n\n## 题目总结\n\n- AB测试设计缺陷分析（IP作为unit的问题）\n- 区域异质性对实验有效性的影响\n- 如何验证实验结果？所需数据类型与可视化方法\n- 推荐使用的统计方法：Two-way ANOVA、回归、随机区组设计\n- 显著性结果是否上线？讨论外部有效性与推广限制\n- R语言基础操作：读取CSV、group by、聚合函数\n- 回归结果解读：系数、p值、置信区间、聚类稳健标准误\n- 二项分布模拟实现\n- 动态面板模型的理解与挑战\n- 独立样本t检验 vs 配对样本t检验：适用条件与效率比较\n- 教育干预项目的因果效应评估设计思路\n\n## 个人总结（经验与建议）\n\n- Google对面经深度要求高，尤其重视AB测试的实际落地细节与统计严谨性\n- 区域性实验需警惕选择偏差与混淆变量，建议提前准备geo-based experiment的经典陷阱\n- 编程题虽基础，但需熟练掌握R/Python的数据处理语法\n- 统计理论不能仅停留在公式层面，要能解释“为什么用聚类标准误”这类机制性问题\n- 长等待期常见，尤其是HC紧张时；保持心态稳定至关重要\n- 若收到加面通知，大概率说明前序某轮表现未达预期，需针对性强化短板\n- 建议系统复习实验设计、面板数据、因果推断三大模块",
+  "company": "Google",
+  "role": "数据科学家",
+  "difficulty": 4,
+  "tags": [
+    "AB测试",
+    "统计建模",
+    "R语言",
+    "因果推断",
+    "实验设计",
+    "动态面板",
+    "加面经历",
+    "长期等待"
+  ],
+  "comments": [],
+  "usefulVotes": 0,
+  "uselessVotes": 0,
+  "shareCount": 0,
+  "isAnonymous": true
+}

@@ -1,0 +1,23 @@
+{
+  "title": "Google 数据科学工程师电面经验分享",
+  "originalContent": "<div class=\"article_body\"><td class=\"t_f\" id=\"postmessage_17335318\" itemprop=\"articleBody\">\n基本都是地里出现过的题目：<br/>\n1.解释standard error，怎么跟non technical的人沟通。怎么得到95percentile的standard error，bootstrap sample大小怎么选<br/>\n<span style=\"display:none\"></span>2. Linear regression, overfitting issue, and how to resolve it. (linear regression, sample size 1000， feature 900, 可能什么问题，怎么解 决?)<br/>\n3. 想用xxx（不太记得了）(predicting var) predict income(response var)。问在 moutain view 随机 sample1000 个人 做 regression可以吗？<br/>\n<span style=\"display:none\"></span>4. Google 有很多 color related query which can show users' preference to different colors，在query后给一个survey，能不能判断用户更喜欢什么颜色<br/>\n5. coding：随机生成1000个N(0,1)向量，求even和odd的sum，如果sum(even) = 6, 能判断是真的从normal distribution出来的吗？<br/>\n求大米<br/>\n</td></div>",
+  "processedContent": "## 基本信息（公司/岗位/结果/难度）\n- **公司**：Google\n- **岗位**：数据科学工程师（Data Science Engineering）\n- **面试结果**：未提及/不明确\n- **难度评分**：4\n\n## 时间线\n- 未提及/不明确\n\n## 面试过程\n### 电面（技术轮）\n本轮为纯技术面试，主要考察统计基础、建模理解与编程能力，问题涵盖统计解释、回归模型、抽样偏差及简单模拟编码。\n\n1. **统计概念解释**：\n   - 解释 standard error 的含义。\n   - 如何向非技术人员通俗地解释 standard error？\n   - 如何通过 bootstrap 方法估计 95th percentile 的 standard error？\n   - Bootstrap 样本大小应如何选择？依据是什么？\n\n2. **线性回归与过拟合**：\n   - 给定一个线性回归问题，样本量为 1000，特征数为 900，可能遇到什么问题？\n   - 过拟合的表现与成因是什么？\n   - 如何解决高维低样本情况下的过拟合问题？（如正则化、特征选择、PCA 等）\n\n3. **抽样偏差与模型泛化**：\n   - 使用某个预测变量（记不清具体名称）来预测收入（response variable）。\n   - 若在 Mountain View 随机抽取 1000 人进行回归分析，该模型是否具有普遍适用性？\n   - 讨论地理区域带来的样本偏差及其对模型外推的影响。\n\n4. **因果推断与实验设计**：\n   - Google 观察到大量与颜色相关的搜索词，反映用户对不同颜色的偏好。\n   - 若在用户搜索颜色相关词后弹出调查问卷，能否据此判断用户真实偏好？\n   - 讨论该方法的偏差来源（如响应偏差、选择偏差），是否有更好的替代方案？\n\n5. **编程题（Python 模拟）**：\n   - 编写代码随机生成 1000 个服从标准正态分布 N(0,1) 的数值。\n   - 分别计算偶数位和奇数位元素的和。\n   - 若观察到 sum(even) = 6，是否可以判断这些数据并非来自标准正态分布？\n   - 要求从统计检验角度分析该现象的显著性（可使用中心极限定理或模拟 p-value）。\n\n## 题目总结\n- 解释 standard error 及其向非技术人员的沟通方式\n- Bootstrap 方法估计 95th percentile 的 standard error，样本大小选择\n- 高维线性回归中的过拟合问题与解决方案\n- 区域抽样（Mountain View）对收入预测模型的泛化影响\n- 利用搜索后问卷判断用户颜色偏好的有效性与偏差分析\n- 编程模拟：生成正态分布数据，分析偶数位求和结果的合理性（假设检验视角）\n\n## 个人总结（经验与建议）\n- Google 数据科学岗重视统计基础与实际问题结合的能力，尤其关注候选人能否将技术概念清晰传达给非技术背景同事。\n- 建议熟练掌握 bootstrap、SE、p-value、过拟合诊断与正则化等核心知识点。\n- 对于实验设计类问题，需具备识别常见偏差（selection bias, response bias）的能力，并能提出改进方案。\n- 编程题虽简单，但需结合统计思维进行解释，不能只写代码。\n- 多刷面经中高频题目，尤其是地里（一亩三分地）常出现的经典题型。",
+  "company": "Google",
+  "role": "数据科学工程师",
+  "difficulty": 4,
+  "tags": [
+    "数据科学",
+    "统计基础",
+    "线性回归",
+    "过拟合",
+    "Bootstrap",
+    "实验设计",
+    "编程题",
+    "电面"
+  ],
+  "comments": [],
+  "usefulVotes": 0,
+  "uselessVotes": 0,
+  "shareCount": 0,
+  "isAnonymous": true
+}

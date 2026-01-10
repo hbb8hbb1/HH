@@ -1,0 +1,23 @@
+{
+  "title": "数据科学岗位面试复盘：两轮技术面与HM面经验分享",
+  "originalContent": "<div class=\"article_body\"><td class=\"t_f\" id=\"postmessage_19980736\" itemprop=\"articleBody\">\n<i class=\"pstatus\"> 本帖最后由 匿名 于 2024-11-20 17:54 编辑 </i><br/>\n<br/>\n收到recruiter伊妹儿约会聊了下 提到了我的推荐人 然后问了一下疏松平常的问题 为什么想跳槽 介绍最近在做什么项目<br/>\n一共两轮 第一轮两个面试 第二轮三个面试+hm<br/>\n<br/>\n<div id=\"1p3a-ad-thread-paragraph\" style=\"margin-top: 20px; margin-bottom: 20px;\"></div><br/>\n第一轮 （45min + 45min）<br/>\n签了nda 所以面试内容就大概概括<br/>\n第一个面试考了一题sql一题python manipulation 然后case 聊聊metrics<br/>\n第二个面试从一个case开始的问题包括 define metrics，abtest，data intuition （distribution的胡乱猜想）， 数据可视化聊聊想法怎么搭建，然后开始聊modeling 怎么搭建模型 （continuous/classification）从数据处理开始到最后evaluatation <br/>\n<br/>\n<br/>\n然后hr发邮件说有update打了个电话 过了。感觉在于知识面的覆盖面积 自己提到的modeling一定要复习好 <br/>\n<br/>\n<span style=\"display:none\"></span>求加米！为之后的vo积累人品～<br/>\n<br/>\n对了，低水平=ds p</td></div>",
+  "processedContent": "## 基本信息（公司/岗位/结果/难度）\n- **公司**：未提及/不明确\n- **岗位**：数据科学家（Data Scientist）\n- **结果**：通过第一轮，进入后续流程\n- **难度**：4\n\n## 时间线\n- 初始联系：收到招聘人员（recruiter）邮件，进行初步沟通\n- 第一轮面试：包含两场45分钟的技术面试\n- 第二轮计划：三场技术面试 + 汇报经理（HM）面试（尚未完成）\n- 当前进展：通过第一轮，HR电话通知有更新\n\n## 面试过程\n### 第一轮 - 技术面试一（45分钟）\n- 一道 SQL 题目\n- 一道 Python 数据处理题（如 pandas 操作等）\n- 一个案例分析（case），围绕指标（metrics）设计展开讨论\n\n### 第一轮 - 技术面试二（45分钟）\n- 从一个业务场景出发，逐步深入：\n  - 定义关键指标（define metrics）\n  - 设计 A/B 测试\n  - 数据直觉考察（如对分布形态的合理推测）\n  - 数据可视化思路讨论（如何呈现和解释数据）\n  - 建模能力考察：包括连续型和分类任务\n    - 涉及数据预处理、特征工程、模型选择、评估方法等全流程\n\n### HR沟通\n- 收到 HR 邮件并接到电话，确认通过第一轮\n- 反馈重点：知识覆盖面广，对自己提到的技术点（如建模）需准备充分\n\n## 题目总结\n- SQL 编写与查询优化\n- Python 数据操作（pandas / 数据清洗）\n- 指标定义（Metrics Definition）\n- A/B 测试设计\n- 数据分布直觉判断\n- 数据可视化方案设计\n- 建模流程（从数据处理到模型评估）\n  - 回归与分类任务\n\n## 个人总结（经验与建议）\n- 面试注重全面性，尤其是数据科学核心技能的覆盖\n- 对自己简历中提到的内容（特别是建模部分）必须深入掌握\n- Case 类问题需要结构化思维，能够清晰表达分析逻辑\n- 建议系统复习 DS 各模块知识点，避免在基础环节失分\n- 积累人品，为后续终面（VO）做好准备",
+  "company": "未提及/不明确",
+  "role": "Data Scientist",
+  "difficulty": 4,
+  "tags": [
+    "数据科学",
+    "A/B测试",
+    "SQL",
+    "Python",
+    "建模",
+    "数据分析",
+    "Case面试",
+    "HR面试"
+  ],
+  "comments": [],
+  "usefulVotes": 0,
+  "uselessVotes": 0,
+  "shareCount": 0,
+  "isAnonymous": true
+}

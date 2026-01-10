@@ -1,0 +1,22 @@
+{
+  "title": "狗家数据科学工程岗技术面试面经",
+  "originalContent": "<div class=\"article_body\"><td class=\"t_f\" id=\"postmessage_17063016\" itemprop=\"articleBody\">\n回馈地里的面经 第一轮tech inteview<br/>\n1) 1000 observations, 900 variables, in sample fitting is good, how abt out-of-sample? what is the problem?<br/>\n2）regression regularization, explain lasso in plain english<br/>\n3)  youtube launch a new feature, how to design the experient to measure the use watching length?<br/>\n4) coding, calcualte the median from a sample (no distribution) using boostrap <br/>\n<br/>\n面试管还问了做过哪些model, previsou experience and 然后提问， 求大米 继续刷题 大家加油！<br/>\n</td></div>",
+  "processedContent": "## 基本信息（公司/岗位/结果/难度）\n\n- **公司**：Meta\n- **岗位**：数据科学工程（DS Engineering）\n- **结果**：未提及/不明确\n- **难度**：4\n\n## 时间线\n\n未提及/不明确\n\n## 面试过程\n\n### 第一轮技术面试\n\n1. **统计建模问题**：\n   - 给定一个包含1000个观测值和900个变量的数据集，样本内拟合效果良好，问样本外表现可能如何？可能存在什么问题？\n\n2. **正则化方法**：\n   - 解释回归中的正则化，用通俗语言描述Lasso回归。\n\n3. **实验设计**：\n   - YouTube推出一项新功能，如何设计实验来衡量该功能对用户观看时长的影响？\n\n4. **编程题**：\n   - 使用Bootstrap方法从一个未知分布的样本中计算中位数的估计值。\n\n此外，面试官还询问了候选人过往建模经验与项目经历，并围绕相关经历进行了提问。\n\n## 题目总结\n\n- 样本内拟合好但变量多时的过拟合风险\n- Lasso回归的直观解释\n- 新功能上线后的A/B测试设计（以观看时长为指标）\n- Bootstrap抽样实现中位数估计（编码）\n- 个人项目与建模经验深挖\n\n## 个人总结\n\n本次面试结合了统计理论、机器学习、实验设计与编程能力，考察全面。建议重点准备：\n\n1. 高维数据下的过拟合问题与偏差-方差权衡\n2. 正则化方法（尤其是Lasso与Ridge）的直观理解与数学表达\n3. A/B测试设计流程：假设设定、分组方式、指标选择、显著性检验\n4. Bootstrap重采样方法及其在估计统计量（如中位数）中的应用\n5. 清晰阐述个人项目中的模型选择、评估与业务影响\n\n持续刷题、强化统计基础与系统化表达是通过此类面试的关键。",
+  "company": "Meta",
+  "role": "DS Engineering",
+  "difficulty": 4,
+  "tags": [
+    "数据科学",
+    "统计建模",
+    "A/B测试",
+    "正则化",
+    "Bootstrap",
+    "编程题",
+    "行为面试"
+  ],
+  "comments": [],
+  "usefulVotes": 0,
+  "uselessVotes": 0,
+  "shareCount": 0,
+  "isAnonymous": true
+}

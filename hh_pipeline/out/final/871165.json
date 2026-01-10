@@ -1,0 +1,22 @@
+{
+  "title": "谷歌数据科学家面试面经：统计基础与建模问题考察",
+  "originalContent": "<div class=\"article_body\"><td class=\"t_f\" id=\"postmessage_16890246\" itemprop=\"articleBody\">\n<br/>\n<span style=\"display:none\"></span>前段时间面了谷歌DS，以下是记得的题目。求加米看面经呀～～<br/>\n<br/>\n- How to calculate standard error of mean and median<br/>\n- 1000 observations, 900 features, linear regression.<br/>\n    - What’s the problem here? <br/>\n    - How to improve？<br/>\n- Online survey red/blue/yellow, trigger is people who searched color, what’s the problem<br/>\n- Coding: generate normal data<br/>\n</td></div>",
+  "processedContent": "## 基本信息（公司/岗位/结果/难度）\n- **公司**：Google\n- **岗位**：数据科学家（Data Scientist）\n- **结果**：未提及/不明确\n- **难度**：4\n\n## 时间线\n未提及/不明确\n\n## 面试过程\n### 店面轮次（Phone Screen）\n面试包含统计理论、建模场景分析与编程题目，整体侧重对基础统计概念的理解与实际应用能力。\n\n#### 统计与建模问题\n- 如何计算均值和中位数的标准误（Standard Error of Mean and Median）？\n- 拥有1000个观测样本和900个特征的线性回归模型存在什么问题？\n- 如何改进该模型？\n- 在线调查使用红/蓝/黄颜色触发，目标人群为搜索过颜色关键词的用户，该设计存在什么问题？\n\n#### 编程题\n- 编码生成正态分布数据（Generate normal data）。\n\n## 题目总结\n- 如何计算均值和中位数的标准误？\n- 高维低样本线性回归的问题（过拟合、维度灾难、多重共线性等）\n- 高维线性回归的优化方法（正则化、降维、特征选择等）\n- 在线调查实验设计偏差（选择偏差、触发机制导致的样本代表性问题）\n- 使用代码生成正态分布数据（可能要求使用Python如numpy.random或R实现）\n\n## 个人总结（经验与建议）\n谷歌DS面试重视统计基本功与实际问题结合的能力。建议重点准备：\n- 常见统计量的标准误推导\n- 高维数据建模挑战与解决方案\n- A/B测试与调查设计中的偏差识别\n- 简单但准确的代码实现能力（尤其分布生成、数据模拟）\n保持思路清晰，解释完整，注重问题背后的假设与影响。",
+  "company": "Google",
+  "role": "Data Scientist",
+  "difficulty": 4,
+  "tags": [
+    "数据科学家",
+    "统计建模",
+    "A/B测试",
+    "编程题",
+    "高维数据",
+    "正态分布",
+    "Google面试"
+  ],
+  "comments": [],
+  "usefulVotes": 0,
+  "uselessVotes": 0,
+  "shareCount": 0,
+  "isAnonymous": true
+}

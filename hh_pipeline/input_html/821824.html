@@ -1,0 +1,57 @@
+﻿
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="utf-8">
+            <title>Extracted Content</title>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    line-height: 1.6;
+                    margin: 20px;
+                }
+                .thread_subject {
+                    font-size: 1.5em;
+                    font-weight: bold;
+                    margin-bottom: 20px;
+                }
+                .post_time {
+                    font-size: 0.9em;
+                    color: gray;
+                    margin-bottom: 10px;
+                }
+                .article_body {
+                    margin-top: 20px;
+                }
+                .attachments {
+                    margin-top: 20px;
+                    background: #f9f9f9;
+                    padding: 10px;
+                    border: 1px solid #ddd;
+                }
+                .attachments a {
+                    display: block;
+                    margin: 5px 0;
+                    text-decoration: none;
+                    color: blue;
+                }
+            </style>
+        </head>
+        <body>
+            <div class="thread_subject"><span id="thread_subject">Google DS PhD 电面 11月中</span></div>
+            <div class="post_time">Published on: 2021-11-20 04:26</div>
+            <div class="article_body"><td class="t_f" id="postmessage_16312347" itemprop="articleBody">
+背景：理工科PhD 可以说是毫无统计经验，平时的research也主要是理论，coding技术比较差lol，英语比较好. 总结：面试不是很难<br />
+<span style="display:none">. 1point3acres</span><font class="jammer"></font><br />
+1. 不让我做introduction，直接说让我说一个data science project, 要 substantial，我说我主要做理论，但是带过一些master 学生做项目，讲了一个regression 做prediction 的问题，问得很细，怎么做feature engineering， 然后怎么evaluate，用什么model什么考量，没有准备这个问题，就现说，中间问了很多follow up<font class="jammer"></font><br />
+2. stats: y~ X1+X2, linear regression, linear transform X1,X2 问结果变不变，有很多帖子说这个题，不变，给他写了一些背后的数学，问加regularization 变不变，我说变，然后讲了一下regularization背后的数学和为什么变<font class="jammer"></font><br />
+3. stats: 1000 observations, 900 features, 问 testing data error 怎么样，答 overfitting, 如何解决 overfitting, 答： feature selection先来一遍，不行就CV，CV再不行 regularization，follow up 如何选择 CV的k, 我扯了一通 CV的原理，然后balance training and testing需要，然后可以试，看看这些error variance，找个小的<font class="jammer"></font><br />
+4. simpson's paradox: 给了一个context 是 Google 的 一个product，说有一个 metrics 在每个country average 都上升 across time，但是 globally average 下降了，问我为啥，我说是 SP， 然后讲解了原理，他让我给一个 数值example 来用上这个context<font class="jammer"></font><br />
+5. 新题： AB testing， 1000 个人treatment， 1000个人 control, 但是系统坏了， 100个看到 ads 的人 被记录成了没看到， 所以现在系统里显示的是 1100 VS900， 问我对结果什么expectation，我说mean underestimate，se 都不知道会咋样了 说了下背后的数学原因， 她说对，然后问 现在知道 具体的数字，就是 10% 是没有记录的，可以怎么correct这个 AB test，答mu0-mu1,其中 mu1其实是 真实mu1+0.1mu0, 转换coefficient或者转换distribution来算，她说对，然后跟我说不是exactly 0.1， 我说对 11%，然后他很满意。 <font class="jammer"></font><br />
+6. 这时候只剩 15分钟了，我看他一直不让我coding，于是问了两题 python，都是旧题我就不写了很简单。5分钟写完， 然后剩下 10分钟聊天，问了问他日常工作，然后industry和PhD 生活有什么不一样。<font class="jammer">. From 1point 3acres bbs</font><br />
+<font class="jammer"></font><br />
+</td></div>
+            <div class="attachments"></div>
+        </body>
+        </html>
+        

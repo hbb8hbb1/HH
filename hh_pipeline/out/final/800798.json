@@ -1,0 +1,22 @@
+{
+  "title": "Data Scientist（Engineering方向）电面经验分享",
+  "originalContent": "<div class=\"article_body\"><td class=\"t_f\" id=\"postmessage_16039022\" itemprop=\"articleBody\">\n狗家data scientist, enginerring 电面，三个题。。第二题求指点。 另求bless能有个onsite<br/>\n<br/>\n1. 面经， 1000 variables， 900 obs。 问题，怎么解决<br/>\n2. 不知道是不是面经。 假设有个data， data 记录每个user 干什么事的session time。从这个data，每个月都可以知道 monthly unique user 数目。 但是这个有滞后性，比如8月data要9月1号才知道。 有没有什么办法， 能提早，比如在月中就predict出来每个月unique user 数目。请说出variable， 和模型<br/>\n3. 一个list，算出even 和odd 位置的各自sum <br/>\n<span style=\"display:none\"></span></td></div>",
+  "processedContent": "## 基本信息（公司/岗位/结果/难度）\n- **公司**：Google\n- **岗位**：Data Scientist (Engineering)\n- **结果**：未提及/不明确\n- **难度**：4\n\n## 时间线\n- 未提及/不明确\n\n## 面试过程\n### 电面\n共三道题目，涵盖数据科学问题建模、预测方法与编程实现。\n\n1. **高维低样本问题处理**\n   - 给定一个包含1000个变量但仅有900个观测值的数据集，询问如何处理这种高维低样本情况。\n\n2. **月活用户数的中期预测建模**\n   - 数据记录每个用户的会话时长（session time），可用于统计每月独立用户数（monthly unique users）。但由于数据延迟，例如8月的数据要到9月1日才能完整获取。\n   - 提问：是否可以在月中（如8月15日）就对当月的月活用户数进行预测？\n   - 要求说明使用的特征变量（variables）和推荐的预测模型。\n\n3. **编程题：偶数与奇数位置元素求和**\n   - 给定一个列表，计算处于偶数索引位置和奇数索引位置的元素各自的总和。\n   - 示例：list = [1, 2, 3, 4] → 偶数位和 = 1 + 3 = 4，奇数位和 = 2 + 4 = 6。\n\n## 题目总结\n- 如何处理1000个变量、900个观测值的高维数据？\n- 如何在月中预测本月的月度独立用户数？请列出变量和模型。\n- 编程实现：计算列表中偶数索引和奇数索引位置元素的和。\n\n## 个人总结（经验与建议）\n- 本轮面试结合了统计建模、机器学习预测与基础编程能力，体现对Data Scientist工程能力的要求。\n- 第二题为开放性建模题，关键在于特征构造（如截至当前月累计UV、日增长趋势、周周期性、滚动窗口活跃度等）以及选择合适的预测模型（如时间序列模型ARIMA、指数平滑，或回归模型）。\n- 第三题虽简单，但需注意索引起始（0为偶数位）并写出清晰代码。\n- 建议准备高维数据降维方法（PCA、正则化、特征选择）、常见预测模型及实际应用场景。",
+  "company": "Google",
+  "role": "Data Scientist",
+  "difficulty": 4,
+  "tags": [
+    "Data Science",
+    "Machine Learning",
+    "Programming",
+    "Modeling",
+    "Phone Interview",
+    "Prediction",
+    "High-dimensional Data"
+  ],
+  "comments": [],
+  "usefulVotes": 0,
+  "uselessVotes": 0,
+  "shareCount": 0,
+  "isAnonymous": true
+}

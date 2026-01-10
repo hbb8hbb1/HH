@@ -1,0 +1,22 @@
+{
+  "title": "谷歌数据科学岗第一轮技术面试面经",
+  "originalContent": "<div class=\"article_body\"><td class=\"t_f\" id=\"postmessage_16021489\" itemprop=\"articleBody\">\n<br/>\n<ignore_js_op>\n<div class=\"mbn\">\n<a href=\"https://oss.1point3acres.cn/forum/202109/19/203942usr11k44pprwtggo.png\" target=\"_blank\">https://oss.1point3acres.cn/forum/202109/19/203942usr11k44pprwtggo.png</a>\n</div>\n<div class=\"tip tip_4 aimg_tip\" disautofocus=\"true\" id=\"aimg_417268_menu\" style=\"position: absolute; display: none\">\n<div class=\"xs0\">\n<p><strong>Picture1.png</strong> <em class=\"xg1\">(26.5 KB, 下载次数: 0)</em></p>\n<p>\n<a href=\"forum.php?mod=attachment&amp;aid=NDE3MjY4fDBlOTRjYjUxfDE2NDQwNDc0NTJ8ODMwNTI0fDc5OTQzNQ%3D%3D&amp;nothumb=yes\" target=\"_blank\">下载附件</a>\n <a href=\"javascript:;\" id=\"savephoto_417268\" onclick=\"showWindow(this.id, this.getAttribute('url'), 'get', 0);\" url=\"home.php?mod=spacecp&amp;ac=album&amp;op=saveforumphoto&amp;aid=417268&amp;handlekey=savephoto_417268\">保存到相册</a>\n</p>\n<p class=\"xg1 y\">2021-9-20 11:39 上传</p>\n</div>\n<div class=\"tip_horn\"></div>\n</div>\n</ignore_js_op>\n<br/>\n<br/>\ny          x        g<br/>\ny1,1    x1,1    orange<br/>\n⋮        ⋮        ⋮<br/>\ny1,100    x1,100     orange<br/>\ny2,1     x2,1     blue<br/>\n⋮        ⋮        ⋮<br/>\ny2,100    x2,100     blue<br/>\ny3,1       x3,1        red<br/>\n⋮        ⋮        ⋮<br/>\ny3,       100        x3,       100        red<br/>\n1.        Given the following data set with 300 points, divided evenly into 3 distinct groups, answer the following questions:<br/>\n2.        What single linear model would you fit to describe the data? y is a numeric response, x is a numeric covariate, and g is a categorical covariate with 3 levels.<br/>\n3.        Fit this with three separate models?<br/>\n4.        Fit one model for orange<br/>\n5.        Fit the data with python/R?<br/>\n<br/>\n<br/>\n6. How many degrees of freedom do you have in your model?<br/>\n<span style=\"display:none\"></span><br/>\n<br/>\n<br/>\n<br/>\n一个case study，具体忘了。。。记得自己当时说了Selection Bias （Only collect feedback for users who are likely to respond），可以转换成一个Classification problem啥的<br/>\n<br/>\n求加米！!加米不扣自己家米！有啥问题欢迎给我留言<br/>\n<br/>\n<br/>\n<br/>\n<br/>\n<br/>\n<br/>\n<br/>\n<br/>\n<br/>\n<br/>\n<br/>\n<br/>\n<br/>\n</td></div>",
+  "processedContent": "## 基本信息（公司/岗位/结果/难度）\n- **公司**：Google\n- **岗位**：数据科学家 / 数据相关岗位（未明确具体职位名称）\n- **面试结果**：未提及\n- **难度**：4\n\n## 时间线\n- **面试时间**：不明确，原始内容中提到上传时间为2021年9月，推测面试发生在2021年9月前后\n\n## 面试过程\n### 第一轮技术面试\n- **形式**：线上技术面，可能为视频面试或共享白板形式\n- **主要内容**：围绕一个包含300个数据点的数据集展开，数据分为三组（orange、blue、red），每组100个样本，涉及变量 y（数值型响应变量）、x（数值型协变量）和 g（三水平分类协变量）\n- **问题类型**：统计建模、模型选择、编程实现与自由度分析\n- **附加题目**：一个案例分析题，具体内容遗忘，但回忆中提到了 Selection Bias 和将其转化为分类问题的思路\n\n## 题目总结\n1. 给定一个包含300个数据点的数据集，均匀分为3个组（g = orange, blue, red），y 是数值响应变量，x 是数值协变量，g 是三水平分类变量。如何用一个线性模型拟合该数据？\n2. 是否可以分别对三个组拟合三个独立模型？各自的优劣是什么？\n3. 如何单独为 orange 组拟合一个模型？\n4. 如何使用 Python 或 R 实现上述模型拟合？（要求写出代码框架或关键函数）\n5. 所构建的联合模型有多少自由度？如何计算？\n6. 一道案例分析题：关于用户反馈收集中的偏差问题（提到 Selection Bias），例如只收集可能回应用户的反馈；是否可转化为分类问题进行建模？\n\n## 个人总结（经验与建议）\n- 面试注重对基础统计模型的理解，尤其是线性模型在分组数据中的应用（如带虚拟变量的回归 vs 分层建模）\n- 需要清晰表达模型设定、参数数量与自由度之间的关系\n- 编程能力考察偏向实际应用，能用 Python/R 快速写出建模代码是加分项\n- 案例分析题强调问题转化能力，将实际业务问题抽象为机器学习或统计任务（如将偏差问题转为分类建模）\n- 建议准备时重点复习：多元线性回归、分类变量处理、AIC/BIC 模型比较、常见偏误类型（如 Selection Bias）及其解决思路",
+  "company": "Google",
+  "role": "数据科学家",
+  "difficulty": 4,
+  "tags": [
+    "数据科学",
+    "线性模型",
+    "统计建模",
+    "Python/R",
+    "案例分析",
+    "Selection Bias",
+    "自由度分析"
+  ],
+  "comments": [],
+  "usefulVotes": 0,
+  "uselessVotes": 0,
+  "shareCount": 0,
+  "isAnonymous": true
+}

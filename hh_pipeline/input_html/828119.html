@@ -1,0 +1,67 @@
+﻿
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="utf-8">
+            <title>Extracted Content</title>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    line-height: 1.6;
+                    margin: 20px;
+                }
+                .thread_subject {
+                    font-size: 1.5em;
+                    font-weight: bold;
+                    margin-bottom: 20px;
+                }
+                .post_time {
+                    font-size: 0.9em;
+                    color: gray;
+                    margin-bottom: 10px;
+                }
+                .article_body {
+                    margin-top: 20px;
+                }
+                .attachments {
+                    margin-top: 20px;
+                    background: #f9f9f9;
+                    padding: 10px;
+                    border: 1px solid #ddd;
+                }
+                .attachments a {
+                    display: block;
+                    margin: 5px 0;
+                    text-decoration: none;
+                    color: blue;
+                }
+            </style>
+        </head>
+        <body>
+            <div class="thread_subject"><span id="thread_subject">发个狗狗家ds面经vo</span></div>
+            <div class="post_time">Published on: 2021-12-9 01:15</div>
+            <div class="article_body"><td class="t_f" id="postmessage_16392980" itemprop="articleBody">
+发个狗狗家ds的onsite面经回报地理的小伙伴 攒攒人品。<font class="jammer"></font><br />
+<font class="jammer"></font><br />
+最近面完的 跟地里之前的一样 vo是五轮： 三轮统计/data intuition&nbsp;&nbsp;+ bq + coding。<font class="jammer">. check 1point3acres for more.</font><br />
+<font class="jammer"></font><br />
+1.data intuition：一个看表格 决定哪个verdor更好。重点就是要量化每个vendor的表现和他们的性价比。言之有理就好，我当时答的一般，但是每一步都给他解释我的想法，最终想要量化成一个什么metric，没有最后算出答案，面试官说可以了。。第二个是看两个histogram, 之前地里有的，impression, skip rate。说一下有什么陷阱或者为什么会这样。。没有一下答出来，但是说了一下我的理解，哪里可能会有问题，面试官人很好 给了一些提示，然后我说了答案，就提前结束了。<font class="jammer"></font><br />
+<font class="jammer"></font><br />
+2. bq，纯聊天，是一个中国小姐姐，人超级好笑起来很亲切。真是感受到了同胞的关照哈！！让人一下就不紧张了还很耐心的和我聊天讨论问题，特别感动，面试过程很暖心。没啥难的问题，大概就问了怎么multi-tasking,遇到困难怎么办。<font class="jammer"></font><br />
+<font class="jammer"></font><br />
+3. stats/ab test，主要问了一些简历 但是很早之前的项目记不清了，面试官非常冷漠不回应我的问题&#128514;，一直在challenge，然后问了很多a/b testing问题，selection bias， a/b test 样本不均有没有问题。我说90% 比10% 问题很大，他说那65%比35%呢。。卡住了。。。后来问了一些p-value，之类的testing的问题，可能是交流不太好吧，越答越差，诶这一轮可能比较遗憾了。。大家复习的时候，一定要好好复习a/b tesing或者假设检验！！感觉这个是一定会考的，因为无论面试官具体的组是干嘛，狗狗的ds很多很多都是要做experiment design的。<font class="jammer"></font><br />
+<font class="jammer"></font><br />
+4. data intuition/communication/coding，其实没考code，面试官对某个简历比较感兴趣，问了很多，然后如果换一个方法你想怎么实现。感觉这次面试很多都是从你个人的经历切入，再转换成他们想问的问题。比较有价值的一个问题就是，survey调查红绿蓝，只给每个搜索颜色的人发问卷，有怎么问题，怎么解决问题 （要先问一些clarification的问题，goal, 平台..... 答 - sample 有bias, 不够representative。如果可以重新发，要random给每个人。如果不能怎么改search里的design，那就看收集的样本像不像population，看看age/gender/其他特质的distribution；如果样本很大，可以downsample一些让样本更像总体，面试官说这个损失了信息不好。那就可以再从别的平台发问卷收集一些data，让样本更具有代表性）。。。没有写code，面试官是个大叔人很好，说hr会一两周以后联系，之后选组可以看自己的preference，祝我好运如果想跟他联系可以叫hr把我们connect一下。。。谢谢他，希望大哥真的很enjoy我们的discussion给我一个positive哈。。&#128514;<font class="jammer"></font><br />
+<font class="jammer"></font><br />
+5，同胞小哥，人也超好，聊了一些简历上他感兴趣的项目，考了两个code （一题+follow up）。地里之前有过这个题，生成均匀分布(0,1)的随机数，加到一个list里面，如果新的数比之前list里的最大（follow up题： 是之前第二大），就停止，返回那个list。很简单哈很快写完了。然后就聊了点别的，感觉聊天很愉快。<font class="jammer"></font><br />
+<font class="jammer"></font><br />
+之前看地里的帖子复习了很多统计题，感觉学到了不少东西。我个人的经验是面试官可能会看你的背景来出题，如果不是phd，可能不会出的很理论，但是a/b test的基本知识和code里生成各种分布的随机数(python的话numpy.random里的各种, normal, uniform,..都练习一下)应该一定会出。别的就多积累现场好好讨论，多跟面试官互动，他们大部分都是很好的人愿意跟你讨论。总的来说面试比我想象中简单，但是还是很遗憾某一场答得很不好。。。被challenge得连p-value都没解释清楚，有点可惜。。再就是，同胞人都很好，聊天让人如沐春风，应该也没有选难的题为难我，太感动了。无论是在地里还是在面试中，感觉大家都很无私地分享自己的经验，希望我能做一点点小小的贡献。感谢同胞面试官们，会像他们学习的，以后自己当了面试官，遇到同胞也会尽量好好照顾一下！<font class="jammer"></font><br />
+<font class="jammer"></font><br />
+最后祝大家都好运，早日找到理想的工作！<font class="jammer"></font><br />
+<font class="jammer">-baidu 1point3acres</font><br />
+<font class="jammer"></font><br />
+</td></div>
+            <div class="attachments"></div>
+        </body>
+        </html>
+        

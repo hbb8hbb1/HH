@@ -1,0 +1,23 @@
+{
+  "title": "Google 数据科学家现场面试经验分享",
+  "originalContent": "<div class=\"article_body\"><td class=\"t_f\" id=\"postmessage_16320278\" itemprop=\"articleBody\">\n因为签了NDA，所以不方便透漏信息太多。<br/>\n第一轮是国人小哥哥：问的是概率题目，以及confidence interval的构建，以及如何处理一些extreme value的情况，比如ratio是0的时候如何构建CI<br/>\n第二轮是econ phd:面的是代码，主要就是tidyverse包的使用，然后第二题目是一个simulation的题目。建议复习一下R for data science chapter 5 and 12.<div id=\"1p3a-ad-thread-paragraph\" style=\"margin-top: 20px; margin-bottom: 20px;\"></div><br/>\n第三轮: 感觉是侧重modelling的部分，主要问了一些关于linear regression的题目，有confounding variable的时候会导致什么问题，如何处理<br/>\n第四轮：AB Testing, 如何设计实验，怎么选实验对象，如何搜集数据，如何做假设检验等等。<br/>\n第五轮BQ<br/>\n</td></div>",
+  "processedContent": "## 基本信息（公司/岗位/结果/难度）\n- **公司**：Google\n- **岗位**：数据科学家（Data Scientist）\n- **结果**：未提及/不明确\n- **难度**：4\n\n## 时间线\n- 未提及/不明确\n\n## 面试过程\n### 第一轮：技术面（概率与统计）\n面试官为一位华人男性。主要考察概率类题目，重点涉及置信区间（confidence interval）的构建方法。特别讨论了在极端情况下（如比率 ratio 为 0 时）如何合理构建置信区间，以及对异常值（extreme values）的处理策略。\n\n### 第二轮：编程与数据操作（R语言）\n面试官拥有经济学博士学位。考核内容以 R 语言为主，重点考察 tidyverse 包的使用能力。第二题为一个模拟（simulation）类编程题。建议准备者复习《R for Data Science》第5章和第12章相关内容。\n\n### 第三轮：建模能力考察\n侧重于建模知识，围绕线性回归展开提问。具体问题包括：当存在混杂变量（confounding variable）时会对模型造成何种影响，以及应对这类问题的常见处理方法（如控制变量、分层分析等）。\n\n### 第四轮：AB测试设计\n全面考察 AB 测试的设计流程，包括实验对象的选择、数据收集方式、假设检验的方法设计等。要求候选人具备完整的实验设计思维框架。\n\n### 第五轮：行为面试（BQ）\n基于 Google 行为问题（Behavioral Questions, BQ）的标准形式进行提问，考察沟通协作、领导力、问题解决等软技能。具体内容因 NDA 未详细透露。\n\n## 题目总结\n- 概率题：计算特定场景下的概率\n- 如何构建置信区间？在 ratio = 0 时如何处理？\n- 使用 tidyverse 进行数据清洗与转换\n- 编写 R 脚本实现模拟实验（simulation）\n- 线性回归中混杂变量的影响及处理方法\n- AB 实验设计全流程：目标设定、用户分组、指标选择、显著性检验\n- 行为问题（BQ）：团队合作、挑战应对、项目领导经历等\n\n## 个人总结（经验与建议）\n- 统计基础必须扎实，尤其是置信区间、假设检验和抽样方法\n- 熟练掌握 R 语言，特别是 tidyverse 生态（dplyr, ggplot2 等）\n- 推荐系统学习《R for Data Science》，重点关注第5章（数据转换）和第12章（绘图与可视化）\n- 建模部分需理解基本假设与偏差来源，能解释实际业务中的模型局限\n- AB 测试要形成标准化回答框架，涵盖从实验设计到结果解读全过程\n- BQ 提前准备 STAR 结构化回答，结合自身经历打磨故事",
+  "company": "Google",
+  "role": "数据科学家",
+  "difficulty": 4,
+  "tags": [
+    "数据科学家",
+    "AB测试",
+    "统计建模",
+    "R语言",
+    "行为面试",
+    "置信区间",
+    "混杂变量",
+    "模拟题"
+  ],
+  "comments": [],
+  "usefulVotes": 0,
+  "uselessVotes": 0,
+  "shareCount": 0,
+  "isAnonymous": true
+}

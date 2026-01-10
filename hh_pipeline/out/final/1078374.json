@@ -1,0 +1,22 @@
+{
+  "title": "Google 数据科学岗招聘评估（Hiring Assessment）面经分享",
+  "originalContent": "<div class=\"article_body\"><td class=\"t_f\" id=\"postmessage_19709469\" itemprop=\"articleBody\">\n新人求米，如果觉得分享有用请各位支持一下加米，谢谢！<br/>\n<br/>\n朋友帮忙refer了Google的职位：DS。<br/>\n第二天就收到Recruiter说要做一个hiring assessment并且要用过了才可以看resume。<div id=\"1p3a-ad-thread-paragraph\" style=\"margin-top: 20px; margin-bottom: 20px;\"></div><br/>\n<br/>\nhiring assessment非常容易，全部是选择题问的也是behavior类的而且没有对错答案，类似看看你符不符合company culture而且要求答题速度快，注意里面有些陷阱题来防止你都选一个答案，要看清楚。<br/>\n<br/>\n答完第二天recruiter就说通过了而且这个assessment两年有效。<br/>\n<br/>\n后面的我resume没听过hiring manager就没有然后了。<br/>\n<br/>\n希望分享能帮助大家。</td></div>",
+  "processedContent": "## 基本信息\n- **公司**：Google\n- **岗位**：数据科学家（DS）\n- **结果**：Hiring Assessment通过，简历未进入后续面试轮次\n- **难度**：2\n\n## 时间线\n- 第一天：通过内推提交申请\n- 第二天：收到招聘人员（Recruiter）通知，需完成Hiring Assessment\n- 完成评估后第二天：收到通过通知\n- 后续：简历未被招聘经理（Hiring Manager）选中，流程终止\n\n## 面试过程\n### Hiring Assessment\n- 形式：在线测评\n- 内容类型：全为选择题，行为类问题（Behavioral Questions）\n- 特点说明：\n  - 无标准对错答案，主要考察候选人是否符合公司文化\n  - 要求答题速度较快\n  - 存在陷阱题，用于防止候选人批量选择同一选项，需仔细阅读题目\n  - 通过后有效期为两年\n- 结果：通过后由Recruiter通知，可进入下一阶段（但需Hiring Manager查看简历）\n\n### 后续流程\n- 简历未被Hiring Manager选中，未进入技术面试或后续轮次\n\n## 题目总结\n- 全部为行为类选择题，示例方向包括：\n  - 面对冲突时的处理方式\n  - 团队合作中的角色倾向\n  - 工作优先级判断\n  - 对反馈的接受与回应方式\n  - 情境判断题（如“你会如何应对 deadline 压力”）\n- 注意：存在反作弊机制题，例如重复情境但表述不同，测试回答一致性\n\n## 个人总结\n- Hiring Assessment门槛较低，重点在于体现与Google文化的契合度\n- 答题时需保持自然、真实，避免机械性连选相同选项\n- 尽管评估通过，仍不保证进入面试，最终取决于Hiring Manager对简历的筛选\n- 建议：认真对待每一环节，尤其是简历与内推渠道的选择，提升进入技术轮的可能性",
+  "company": "Google",
+  "role": "数据科学家",
+  "difficulty": 2,
+  "tags": [
+    "Hiring Assessment",
+    "行为面试",
+    "数据科学",
+    "Google",
+    "内推",
+    "简历筛选",
+    "文化匹配"
+  ],
+  "comments": [],
+  "usefulVotes": 0,
+  "uselessVotes": 0,
+  "shareCount": 0,
+  "isAnonymous": true
+}

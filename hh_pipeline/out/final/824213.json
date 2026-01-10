@@ -1,0 +1,23 @@
+{
+  "title": "Google 数据科学家店面面试经验分享",
+  "originalContent": "<div class=\"article_body\"><td class=\"t_f\" id=\"postmessage_16342960\" itemprop=\"articleBody\">\n<ul><li>上周刚结束的店面，整理一下给小伙伴们，希望大家可以拿到心怡的offer. 顺便求大米，好继续２周后的onsite,回头给大家继续分享。<br/>\n</li></ul><br/>\n<br/>\n1.        介绍自己一个统计相关的项目，问的特别细致，务必做好准备，知道项目的每个细节，不要给自己挖坑哈。主要问题是如何设计模型，避免减少confounding factors的影响，如何account for 相关的features, 如何做test,并解释结果。<br/>\n2.        Given an Unfair coin, 如何生成fair probability (50%). 假设这个coin生成head概率为p, 可以考虑生成（tail, head）or (head, tail) 因为他们的概率 都是p（1-p）,如果得到(tail, tail) 或者（head,head）重新生成一个pair就好了。<br/>\n3.        OLS, 把现有数据duplicate一遍，问参数estimate和方差，Confidence interval有啥变化。 根据公式参数不变，方程相当于scale了下除以sqrt(2),所以变小了。CI也变小了。<br/>\n4.        OLS的assumption有哪些？linear in the predictors, 变量independent(no collinearity)， error terms’ mean为0并且similar variance(no heteroscedasticity)<br/>\n5.        生成一个序列的Unif（0，1）随机数，如果当前数字小于前一个数字，则停止，否则继续生成。问这个序列的expected 长度是多少。并simulate结果。根据P(r.v&lt;xi)=xi, xi in (0,1)<br/>\n6.        解释什么是Multiple hypothesis testing, Bonferroni correction, FDR。如果有些变量是强相关的，对test会有哪些影响？more conservative.<br/>\n<br/>\n总体感觉面试官小菇凉还是蛮专业，非常友好的。大家不要紧张，慢慢聊的感觉。<br/>\n</td></div>",
+  "processedContent": "## 基本信息（公司/岗位/结果/难度）\n- **公司**：Google\n- **岗位**：数据科学家（Data Scientist）\n- **结果**：进入下一轮（onsite待进行）\n- **难度**：4\n\n## 时间线\n- 面试时间：近期（具体日期未提及）\n- 当前进度：已完成店面，即将进行onsite面试\n\n## 面试过程\n### 店面轮次（Phone Screen）\n共包含6个主要问题，涵盖项目深挖与统计理论，整体节奏为逐步深入，注重细节理解与推导能力。\n\n1. **项目介绍与深挖**\n   - 要求介绍一个与统计相关的个人项目。\n   - 面试官提问非常细致，重点关注：\n     - 模型设计思路\n     - 如何控制混杂因素（confounding factors）\n     - 特征选择与解释（account for relevant features）\n     - 假设检验方法及结果解读\n   - 提醒：务必熟悉项目的每一个细节，避免给自己制造漏洞。\n\n2. **概率设计题**\n   - 问题：给定一枚不公平硬币（正面概率为p），如何生成公平的0.5概率？\n   - 解法思路：\n     - 连续抛两次，若结果为（Tail, Head）或（Head, Tail），二者概率均为 p(1-p)，可视为等概率事件；\n     - 若为（Head, Head）或（Tail, Tail），则重新抛掷一对；\n     - 最终实现公平输出。\n\n3. **OLS模型扰动分析**\n   - 问题：将现有数据重复一遍（duplicate），问对OLS估计的影响。\n   - 回答要点：\n     - 参数估计值不变（因X'X和X'y同比放大）；\n     - 误差方差估计变小（相当于样本量增加，标准误除以√2）；\n     - 置信区间（CI）随之变窄。\n\n4. **OLS假设条件**\n   - 被问及OLS的基本假设，回答包括：\n     - 线性关系（linear in the predictors）\n     - 无多重共线性（independent predictors, no perfect collinearity）\n     - 误差项均值为0\n     - 同方差性（no heteroscedasticity）\n     - 误差项独立且不相关\n\n5. **随机序列期望计算**\n   - 问题：生成独立同分布 Unif(0,1) 随机数序列，若当前数小于前一个数则停止，否则继续。求序列长度的期望。\n   - 提示：利用 P(X_{n} < X_{n-1}) = X_{n-1}（因X_n ~ Uniform(0,1)）\n   - 可通过模拟验证结果（需写代码模拟过程）\n\n6. **多重检验问题**\n   - 解释概念：\n     - Multiple hypothesis testing\n     - Bonferroni correction（控制族错误率FWER）\n     - FDR（False Discovery Rate）\n   - 延伸问题：若变量间高度相关，对校正方法有何影响？\n     - 回答：会导致更保守的判断（more conservative），尤其是Bonferroni在强相关时可能过度惩罚。\n\n## 题目总结\n- 项目深挖：统计建模全流程细节\n- 不公平硬币生成公平概率\n- OLS数据复制后的参数与置信区间变化\n- OLS基本假设\n- Unif(0,1)递增序列的期望长度\n- 多重假设检验及其校正方法（Bonferroni, FDR）与相关性影响\n\n## 个人总结\n- 面试官专业且友好，整体氛围轻松，像在交流而非考试。\n- 强调准备项目时要深入细节，避免泛泛而谈。\n- 统计基础必须扎实，尤其常见模型假设、推导逻辑和边界情况。\n- 建议练习概率推导题与简单模拟编程题，提升现场表达清晰度。\n- 放松心态，把面试当作技术讨论来应对。",
+  "company": "Google",
+  "role": "数据科学家",
+  "difficulty": 4,
+  "tags": [
+    "数据科学家",
+    "店面面试",
+    "统计基础",
+    "概率题",
+    "OLS回归",
+    "多重假设检验",
+    "随机过程",
+    "Google"
+  ],
+  "comments": [],
+  "usefulVotes": 0,
+  "uselessVotes": 0,
+  "shareCount": 0,
+  "isAnonymous": true
+}

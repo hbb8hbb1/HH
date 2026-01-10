@@ -1,0 +1,23 @@
+{
+  "title": "狗家数据科学岗位面试复盘：漫长流程与多轮考察的挑战",
+  "originalContent": "<div class=\"article_body\"><td class=\"t_f\" id=\"postmessage_16682163\" itemprop=\"articleBody\">\nTimeline：<br/>\n10月被reach out<br/>\n11月得到JD<br/>\n12月店面<br/>\n1月得到店面结果<br/>\n2月VO<br/>\n昨天告知结果L3过（没有HC）L4（Product sense不够）<br/>\n<br/>\n狗家的时间线是真的长，过程也是比较复杂，第一次Go through这个流程，还是觉得挺累的。因为全签了NDA所以不好细说。<br/>\n大概店面：Python考了基础的Coding，考了Data structure，考了SQL，考了stats还有Product sense。本来计划的45分钟直接面了1小时25分钟。然后Feedback L3/L4都可但是stats不扎实（被“推荐”给另一个组）<br/>\n<br/>\n<span style=\"display:none\"></span>VO面了3轮（有一轮因为面试官之间的沟通问题不纳入Feedback，这有伏笔后面讲）第一轮SQL，stakeholder management还有一部分BQ。Feedback：Lean L4<br/>\n<br/>\n第二轮：ERD（因为面试题不在JD考察范围，跟Recruiter投诉之后作废）<br/>\n<br/>\n第三轮：BQ，product sense。Feedback：down level to L3<br/>\n<br/>\n总体来说不难，就是面试题真的非常随机，所以准备起来很难面面俱到。建议如果有兴趣狗家多了解下狗的product，被Downlevel L3因为我不太了解一个Product，被问到如何给solution时说的太笼统。复习的话其实Meta的DSA内容如果可以随心所欲的掌握，其实这个面试就是个Easy难度。LZ因为只剩下3个Feedback不够用strong所以无法L4送HC，L3暂时没开放HC，蚌埠住了。因为有很多strong所以没有锁定期，3个月后如果还有open面试可以再补一些strong的Feedback可以L4假如L3有Open直接送L3。（挺难受的，总体来说recuriter还算给力）</td></div>",
+  "processedContent": "## 基本信息（公司/岗位/结果/难度）\n- **公司**：Meta\n- **岗位**：数据科学家（Data Scientist）\n- **结果**：L3通过但无HC，L4因Product sense不足未通过\n- **难度**：4\n\n## 时间线\n- 10月：被HR联系（reach out）\n- 11月：收到职位描述（JD）\n- 12月：进行店面面试\n- 1月：收到店面结果\n- 2月：进行虚拟现场面试（VO）\n- 面试后：被告知L3过但无HC，L4因Product sense不够未通过\n\n## 面试过程\n### 店面面试\n- 时长：原定45分钟，实际持续1小时25分钟\n- 内容涵盖：\n  - Python基础编程\n  - 数据结构\n  - SQL\n  - 统计学（Stats）\n  - 产品思维（Product Sense）\n- 反馈：L3/L4均可考虑，但统计基础不扎实，被“推荐”至另一组\n\n### 虚拟现场面试（VO）\n共计划三轮，实际有效两轮：\n\n#### 第一轮\n- 内容：SQL、利益相关者管理（Stakeholder Management）、部分行为问题（BQ）\n- 反馈：Lean L4\n\n#### 第二轮\n- 内容：ERD（实体关系图），但该内容不在JD考察范围内\n- 处理：向Recruiter投诉后，本轮面试作废，不计入反馈\n\n#### 第三轮\n- 内容：行为问题（BQ）、产品思维（Product Sense）\n- 反馈：Down level至L3\n\n## 题目总结\n- Python基础编码题\n- 数据结构相关问题\n- SQL查询设计与优化\n- 统计学概念与应用\n- ERD建模（非JD范围，最终作废）\n- 产品思维题：针对某一产品提出解决方案（需具体化）\n- 行为问题（BQ）：团队协作、冲突处理、项目经历等\n- Stakeholder Management场景题\n\n## 个人总结（经验与建议）\n- 面试流程极为漫长，从接触到出结果超过5个月，心理和精力消耗较大。\n- 面试题随机性高，部分题目超出JD范围，准备难度大。\n- Product Sense是关键短板，因对某产品不了解，回答方案过于笼统导致降级。\n- 建议深入研究Meta系产品的设计逻辑与使用场景，提升产品分析能力。\n- DSA（数据结构与算法）若掌握扎实，coding部分压力较小。\n- Feedback数量影响评级，需积累足够Strong Feedback才能推动HC审批。\n- 当前无HC开放，即使通过L3也无法入职；未来可补充Feedback重新申请。\n- Recruiter沟通较为积极，整体流程透明度尚可。",
+  "company": "Meta",
+  "role": "数据科学家",
+  "difficulty": 4,
+  "tags": [
+    "数据科学",
+    "产品思维",
+    "SQL",
+    "行为面试",
+    "统计学",
+    "面试流程长",
+    "Meta面试",
+    "Feedback机制"
+  ],
+  "comments": [],
+  "usefulVotes": 0,
+  "uselessVotes": 0,
+  "shareCount": 0,
+  "isAnonymous": true
+}

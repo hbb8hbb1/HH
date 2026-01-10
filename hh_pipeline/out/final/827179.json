@@ -1,0 +1,23 @@
+{
+  "title": "Google 数据科学岗位面试面经：题目解析与经验总结",
+  "originalContent": "<div class=\"article_body\"><td class=\"t_f\" id=\"postmessage_16380820\" itemprop=\"articleBody\">\nGoogle:<br/>\n<br/>\n1.  设计一个调查红绿蓝的survey, 如果只给有过color related query 的用户发问卷，有什么问题？<br/>\n答：Sample error(convenience sampling or voluntary sampling?); 应该考虑其他的国家的language; 应该考虑红绿色盲的人，他们只会随便选一个答案，甚至not able to tell the answer； 可以结合其他的Google product，gmail 还有其他的产品作为sampling pool<br/>\n2. coding: m*n matrix, each column is from normal distribution<br/>\n3. 问了sample mean standard error, 假设是normal distribution 和不是normal distribution的情况下的区别；以及sample median standard error.（boostrapping)<br/>\n4. coaching的top 100 and bottom 100<br/>\n5. 1000个数据，900个feature的问题<br/>\n6. Regularization解释一下。<br/>\n7. 解释了一下PCA, 如果PCA用全部的principal component的话会什么问题。<br/>\n</td></div>",
+  "processedContent": "## 基本信息（公司/岗位/结果/难度）\n\n- **公司**：Google\n- **岗位**：数据科学家（Data Scientist）\n- **结果**：未提及/不明确\n- **难度**：5\n\n## 时间线\n\n未提及/不明确\n\n## 面试过程\n\n### 店面轮次（Phone Screen）\n\n1. **产品设计题**：\n   - 设计一个关于红、绿、蓝颜色偏好的调查问卷。如果仅向有过颜色相关搜索行为的用户发放问卷，可能存在哪些问题？\n   - 回答要点：\n     - 存在样本偏差（sample bias），属于便利抽样（convenience sampling），无法代表整体用户群体。\n     - 忽略了不同语言和文化背景下的颜色认知差异。\n     - 未考虑色盲用户（如红绿色盲），他们可能随机作答或无法准确回答，影响数据质量。\n     - 建议结合其他 Google 产品（如 Gmail）的用户池进行更全面的抽样。\n\n2. **编程题**：\n   - 给定一个 m×n 的矩阵，每一列数据来自正态分布，要求进行相关分析或处理（具体任务未明确）。\n\n3. **统计理论题**：\n   - 询问样本均值的标准误（standard error of sample mean）：\n     - 在总体服从正态分布和非正态分布情况下的区别。\n     - 如何估计样本中位数的标准误（可使用 Bootstrap 方法）。\n\n4. **业务分析题**：\n   - 关于 coaching 系统中的 top 100 和 bottom 100 用户的分析思路。\n\n5. **高维数据问题**：\n   - 当有 1000 个样本、900 个特征时，会面临什么挑战？\n     - 过拟合风险、维度灾难、模型解释性差等。\n\n6. **正则化**：\n   - 解释正则化的作用与常见方法（如 L1/L2 正则化）。\n\n7. **PCA 相关问题**：\n   - 解释主成分分析（PCA）的基本原理。\n   - 如果使用全部主成分，会出现什么问题？\n     - 无法实现降维目的，可能保留噪声，失去 PCA 的核心优势。\n\n## 题目总结\n\n- 设计颜色偏好调查问卷，并分析仅对特定用户群发问卷的潜在偏差。\n- 编程题：处理一个每列为正态分布的 m×n 矩阵。\n- 计算样本均值的标准误，在正态与非正态分布下的差异。\n- 使用 Bootstrap 方法估计样本中位数的标准误。\n- 分析 coaching 系统中表现最好与最差的各 100 名用户。\n- 高维数据问题：900 个特征、1000 个样本带来的建模挑战。\n- 解释正则化（Regularization）的概念及其作用。\n- 解释 PCA 并讨论使用全部主成分的后果。\n\n## 个人总结（经验与建议）\n\n本次面试涵盖产品思维、编程能力、统计基础与机器学习知识，综合性强，难度较高。建议准备如下：\n\n- **统计基础要扎实**：特别是抽样误差、标准误、Bootstrap 等概念需深入理解。\n- **熟悉常见 ML 方法**：如正则化、PCA，不仅要会用，还要能解释其背后的逻辑与局限。\n- **产品思维训练**：在设计类问题中，注意代表性、公平性、可访问性（如色盲用户）等问题。\n- **编程练习不可少**：虽未明确写出编码细节，但涉及矩阵操作，建议熟练掌握 Python 中 NumPy/Pandas 的应用。\n- **多维度思考业务场景**：如 coaching 用户分析，应从归因、干预、评估等多个角度展开。",
+  "company": "Google",
+  "role": "Data Scientist",
+  "difficulty": 5,
+  "tags": [
+    "数据科学",
+    "统计学",
+    "机器学习",
+    "行为面试",
+    "编程题",
+    "系统设计",
+    "Bootstrap",
+    "PCA"
+  ],
+  "comments": [],
+  "usefulVotes": 0,
+  "uselessVotes": 0,
+  "shareCount": 0,
+  "isAnonymous": true
+}

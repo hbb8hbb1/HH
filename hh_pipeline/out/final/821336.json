@@ -1,0 +1,22 @@
+{
+  "title": "Google Product Analyst (Data Science方向) 面经：SQL与统计学考察",
+  "originalContent": "<div class=\"article_body\"><td class=\"t_f\" id=\"postmessage_16306605\" itemprop=\"articleBody\">\n【代发】最近狗家Product Analyst, Data Science岗的店面面经<br/>\n面试时间：11月初<br/>\n主要内容是SQL + Stats (没有面product case..)<br/>\n<br/>\n1. SQL一共三题<br/>\n第一题（貌似没在地里见过）：<br/>\nTable: <br/>\nDATE(timestamp) | DAU(1/7/28 day) | BROWSER | BUYER<br/>\n1 | 1 | 250 | 180<br/>\n1 | 7 | 100 | 200<br/>\n1 | 28 |30 |10<br/>\n2 | 1 | 50 | 150<br/>\n2 | 7 | 60 | 300<br/>\n2 | 28 |110 |80<br/>\n<br/>\nPlease use SQL to transform into format:<br/>\nDATE | TYPE(BROWSER or BUYER) | 1DAU | 7DAU | 28DAU<br/>\n1 | BROWSER | 250 | 100 | 30<br/>\n1 | BUYER | 180 | 200 | 10<br/>\n<br/>\n第二，三题是地里原题，比较简单就不放了。<br/>\n<br/>\n<span style=\"display:none\"></span>2. Stats<br/>\n看图<br/>\n<br/>\n<br/>\n希望对在面狗家的小伙伴有帮助！求加米呀～感谢！<br/>\n</td></div>",
+  "processedContent": "## 基本信息（公司/岗位/结果/难度）\n- **公司**：Google\n- **岗位**：Product Analyst, Data Science方向\n- **结果**：未提及/不明确\n- **难度**：4\n\n## 时间线\n- **面试时间**：11月初（具体年份未提及）\n\n## 面试过程\n### 店面轮次（Phone Screen）\n本次面试为远程店面，主要考察内容为 SQL 编写与统计学基础知识，未涉及产品案例分析（Product Case）。\n\n#### SQL 部分（共三题）\n1. **第一题（数据格式转换）**：\n   - 给定表结构：\n     - `DATE` (timestamp)\n     - `DAU` (值为1、7、28，表示周期类型)\n     - `BROWSER` (数值型，表示该类型的用户数)\n     - `BUYER` (数值型，表示该类型的用户数)\n   - 示例数据：\n     | DATE | DAU | BROWSER | BUYER |\n     |------|-----|---------|-------|\n     | 1    | 1   | 250     | 180   |\n     | 1    | 7   | 100     | 200   |\n     | 1    | 28 | 30      | 10    |\n     | 2    | 1   | 50      | 150   |\n     | 2    | 7   | 60      | 300   |\n     | 2    | 28 | 110     | 80    |\n   - 要求使用 SQL 将其转换为以下格式：\n     | DATE | TYPE       | 1DAU | 7DAU | 28DAU |\n     |------|------------|------|------|-------|\n     | 1    | BROWSER    | 250  | 100  | 30    |\n     | 1    | BUYER      | 180  | 200  | 10    |\n     | 2    | BROWSER    | 50   | 60   | 110   |\n     | 2    | BUYER      | 150  | 300  | 80    |\n   - 解法提示：需使用条件聚合（如 CASE WHEN + GROUP BY）或 PIVOT 操作实现行列转换。\n\n2. **第二、三题**：\n   - 来自“地里”（即求职社区）的常见原题，难度较低，内容未提供。\n\n#### 统计学部分\n- 形式：看图分析（具体内容未说明，可能为分布图、假设检验示意图等）\n- 考察方式：未详细描述，推测需根据图表解释统计现象或结论\n\n## 题目总结\n- **SQL**\n  1. 多行数据转多列（UNPIVOT + PIVOT 或 CASE WHEN 实现）\n  2. 地里常见简单SQL题（未具名）\n  3. 地里常见简单SQL题（未具名）\n- **统计学**\n  1. 图表解读类开放问题（具体知识点未明）\n\n## 个人总结\n- 本次店面重点考察数据处理能力（尤其是SQL中的复杂变换）和基础统计直觉。\n- 与部分预期不同，**未考察产品分析案例**，更偏向数据科学技能而非典型PA的产品思维。\n- 建议准备时：\n  - 强化SQL中行转列、列转行、窗口函数等高级操作\n  - 复习AB测试、p值、置信区间等统计核心概念，并练习结合图表进行口头解释\n  - 即使申请的是Product Analyst岗，若标明Data Science方向，仍需按DS标准准备技术环节。",
+  "company": "Google",
+  "role": "Product Analyst",
+  "difficulty": 4,
+  "tags": [
+    "SQL",
+    "Statistics",
+    "Phone Screen",
+    "Data Transformation",
+    "Graph Interpretation",
+    "No Product Case",
+    "Entry Level"
+  ],
+  "comments": [],
+  "usefulVotes": 0,
+  "uselessVotes": 0,
+  "shareCount": 0,
+  "isAnonymous": true
+}
