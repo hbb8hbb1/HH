@@ -120,7 +120,7 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({ icon, label, options, v
   const displayOptions = useMemo(() => options, [options]);
 
   return (
-    <div className="relative" ref={dropdownRef}>
+    <div className="relative z-[60]" ref={dropdownRef}>
       {/* 按钮 */}
       <button
         onClick={() => {
@@ -138,10 +138,10 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({ icon, label, options, v
           transition-all duration-200 ease-out
           ${isClosing ? 'opacity-50 cursor-not-allowed' : ''}
           ${isActive
-            ? 'bg-gradient-to-r from-indigo-500 via-indigo-600 to-indigo-700 text-white shadow-lg shadow-indigo-500/40 border border-indigo-400/50 hover:shadow-xl hover:shadow-indigo-500/50 hover:scale-[1.02]'
-            : 'bg-white/95 text-slate-700 border border-slate-200/80 shadow-sm hover:border-indigo-300 hover:shadow-md hover:bg-white hover:scale-[1.01]'
+            ? 'bg-gradient-to-r from-indigo-500 via-indigo-600 to-indigo-700 text-white shadow-lg shadow-indigo-500/40 border border-indigo-400/50 hover:shadow-xl hover:shadow-indigo-500/50 hover:scale-[1.02] active:scale-[0.98]'
+            : 'bg-white/95 text-slate-700 border border-slate-200/80 shadow-sm hover:border-indigo-300 hover:shadow-md hover:bg-white hover:scale-[1.01] active:scale-[0.98]'
           }
-          min-w-[140px] justify-between group backdrop-blur-sm
+          min-w-[140px] justify-between group backdrop-blur-sm gpu-accelerated
         `}
       >
         <div className="flex items-center gap-2.5 truncate">
@@ -163,7 +163,7 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({ icon, label, options, v
         <>
           {/* 背景遮罩层（用于点击外部关闭） */}
           <div 
-            className={`fixed inset-0 z-40 transition-opacity duration-300 ${isClosing ? 'opacity-0' : 'opacity-100'}`}
+            className={`fixed inset-0 z-[55] transition-opacity duration-300 ${isClosing ? 'opacity-0' : 'opacity-100'}`}
             onClick={handleClose}
             style={{ backgroundColor: 'transparent' }}
           />
@@ -173,7 +173,7 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({ icon, label, options, v
                        bg-white/99 backdrop-blur-xl 
                        border border-slate-200/90 
                        rounded-2xl
-                       z-50 overflow-hidden overflow-x-hidden
+                       z-[60] overflow-hidden overflow-x-hidden
                        transition-all duration-200 ease-out
                        ${isClosing 
                          ? 'opacity-0 -translate-y-2 scale-95 pointer-events-none' 
@@ -275,11 +275,52 @@ export const FilterPanel: React.FC<Props> = ({ filters, onFilterChange, isLoadin
   const isLoadingRef = useRef(false);
 
   useEffect(() => {
-    // 如果已有缓存，直接使用（避免重复请求）
+    // 清除旧的缓存（修复公司名称规范化问题后，需要清除旧缓存）
+    const CACHE_KEY = 'offermagnet_filter_options';
+    const CACHE_VERSION = '2.0'; // 版本号，用于强制清除旧缓存
+    const CACHE_VERSION_KEY = 'offermagnet_filter_options_version';
+    
+    try {
+      const cachedVersion = localStorage.getItem(CACHE_VERSION_KEY);
+      if (cachedVersion !== CACHE_VERSION) {
+        // 版本不匹配，清除旧缓存
+        localStorage.removeItem(CACHE_KEY);
+        localStorage.setItem(CACHE_VERSION_KEY, CACHE_VERSION);
+        filterOptionsCacheRef.current = null; // 清除内存缓存
+        console.log('[FilterPanel] 检测到缓存版本更新，已清除旧缓存');
+      }
+    } catch (e) {
+      console.warn('[FilterPanel] 缓存版本检查失败:', e);
+    }
+
+    // 优先从内存缓存读取
     if (filterOptionsCacheRef.current) {
       setFilterOptions(filterOptionsCacheRef.current);
       setLoading(false);
       return;
+    }
+
+    // 从 localStorage 读取缓存（避免每次刷新都请求）
+    const CACHE_TTL = 30 * 60 * 1000; // 30分钟缓存
+    try {
+      const cached = localStorage.getItem(CACHE_KEY);
+      if (cached) {
+        const { data, timestamp } = JSON.parse(cached);
+        const now = Date.now();
+        if (now - timestamp < CACHE_TTL) {
+          // 缓存有效，直接使用
+          filterOptionsCacheRef.current = data;
+          setFilterOptions(data);
+          setLoading(false);
+          console.log('[FilterPanel] 使用 localStorage 缓存');
+          return;
+        } else {
+          // 缓存过期，清除
+          localStorage.removeItem(CACHE_KEY);
+        }
+      }
+    } catch (e) {
+      console.warn('[FilterPanel] localStorage 读取失败:', e);
     }
 
     // 如果正在加载，不重复请求
@@ -292,12 +333,24 @@ export const FilterPanel: React.FC<Props> = ({ filters, onFilterChange, isLoadin
         isLoadingRef.current = true;
         setLoading(true);
         setError(null);
-        const response = await fetch('/api/filter-options');
+        // 添加 refresh 参数强制刷新后端缓存
+        const response = await fetch('/api/filter-options?refresh=true');
         const data = await response.json();
         
         if (data.success) {
-          filterOptionsCacheRef.current = data.data; // 缓存结果
+          filterOptionsCacheRef.current = data.data; // 内存缓存
           setFilterOptions(data.data);
+          
+          // 保存到 localStorage
+          try {
+            localStorage.setItem(CACHE_KEY, JSON.stringify({
+              data: data.data,
+              timestamp: Date.now()
+            }));
+            console.log('[FilterPanel] 已保存到 localStorage 缓存');
+          } catch (e) {
+            console.warn('[FilterPanel] localStorage 保存失败:', e);
+          }
         } else {
           setError(data.error || '加载筛选选项失败');
         }

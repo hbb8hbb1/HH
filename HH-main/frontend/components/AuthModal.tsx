@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { X, Mail, Lock, User as UserIcon, Loader2, ArrowRight, UserCheck } from 'lucide-react';
+import { X, Mail, Lock, User as UserIcon, Loader2, ArrowRight, UserCheck, Briefcase, GraduationCap, MessageSquare } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import { UserRole } from '../types';
 
 interface AuthModalProps {
   isOpen: boolean;
@@ -13,10 +14,32 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, initialView = 'l
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [role, setRole] = useState<UserRole>('job_seeker');
   const [error, setError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   
   const { login, register, loginAsGuest } = useAuth();
+  
+  const roleOptions: Array<{ value: UserRole; label: string; icon: React.ReactNode; description: string }> = [
+    { 
+      value: 'job_seeker', 
+      label: '求职者', 
+      icon: <Briefcase size={20} />,
+      description: '发布面经、查看职位'
+    },
+    { 
+      value: 'recruiter', 
+      label: '招聘者', 
+      icon: <GraduationCap size={20} />,
+      description: '发布职位、招聘人才'
+    },
+    { 
+      value: 'coach', 
+      label: '辅导者', 
+      icon: <MessageSquare size={20} />,
+      description: '提供面试辅导、分享经验'
+    }
+  ];
 
   if (!isOpen) return null;
 
@@ -29,7 +52,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, initialView = 'l
       if (view === 'login') {
         await login(email, password);
       } else {
-        await register(name, email, password);
+        await register(name, email, password, role);
       }
       onClose();
     } catch (err: any) {
@@ -74,22 +97,50 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, initialView = 'l
         {/* Form */}
         <form onSubmit={handleSubmit} className="px-8 pb-4 space-y-4">
           {view === 'register' && (
-            <div className="space-y-1.5">
-              <label className="text-xs font-semibold text-gray-700 ml-1">昵称</label>
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
-                  <UserIcon size={18} />
+            <>
+              <div className="space-y-1.5">
+                <label className="text-xs font-semibold text-gray-700 ml-1">昵称</label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
+                    <UserIcon size={18} />
+                  </div>
+                  <input
+                    type="text"
+                    required
+                    className="w-full pl-10 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:bg-white focus:outline-none transition-all text-sm text-gray-900 placeholder:text-gray-400"
+                    placeholder="给自己起个好名字"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                  />
                 </div>
-                <input
-                  type="text"
-                  required
-                  className="w-full pl-10 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:bg-white focus:outline-none transition-all text-sm text-gray-900 placeholder:text-gray-400"
-                  placeholder="给自己起个好名字"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                />
               </div>
-            </div>
+              
+              <div className="space-y-2">
+                <label className="text-xs font-semibold text-gray-700 ml-1">选择身份</label>
+                <div className="grid grid-cols-3 gap-2">
+                  {roleOptions.map((option) => (
+                    <button
+                      key={option.value}
+                      type="button"
+                      onClick={() => setRole(option.value)}
+                      className={`p-3 rounded-xl border-2 transition-all text-center ${
+                        role === option.value
+                          ? 'border-blue-500 bg-blue-50 text-blue-700 shadow-sm'
+                          : 'border-gray-200 bg-white text-gray-700 hover:border-gray-300 hover:bg-gray-50'
+                      }`}
+                    >
+                      <div className="flex flex-col items-center gap-1.5">
+                        <div className={role === option.value ? 'text-blue-600' : 'text-gray-400'}>
+                          {option.icon}
+                        </div>
+                        <span className="text-xs font-semibold">{option.label}</span>
+                        <span className="text-[10px] text-gray-500 leading-tight">{option.description}</span>
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </>
           )}
 
           <div className="space-y-1.5">

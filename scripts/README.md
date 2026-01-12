@@ -123,3 +123,4 @@ node scripts/check_database.js
 - 检查 Pipeline 日志，查看验证错误
 - 重新运行 Pipeline
 
+

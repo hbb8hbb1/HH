@@ -175,8 +175,13 @@ const PostCard: React.FC<PostCardProps> = ({ post, onAddComment, onVote, onToggl
   const [copied, setCopied] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  const isPremium = post.difficulty >= 3 && post.processedContent.length > 200;
-  const isLocked = isPremium && !user?.isPro && post.authorId !== user?.id;
+  // 安全地获取内容长度
+  const processedContentLength = (post.processedContent || '').length;
+  // 访客可以浏览所有内容，只有注册用户且非Pro才需要锁定
+  const isGuest = user?.id === 'guest_temp';
+  const isPremium = (post.difficulty || 0) >= 3 && processedContentLength > 200;
+  // 访客可以看所有内容，注册用户非Pro且非作者才锁定
+  const isLocked = !isGuest && isPremium && !user?.isPro && post.authorId !== user?.id;
 
   const renderStars = (count: number) => {
     return Array.from({ length: 5 }).map((_, i) => (
@@ -224,7 +229,7 @@ const PostCard: React.FC<PostCardProps> = ({ post, onAddComment, onVote, onToggl
   const totalComments = countComments(post.comments);
 
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow duration-200 flex flex-col h-full relative group/card">
+    <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 ease-out flex flex-col h-full relative group/card gpu-accelerated z-10">
       <button 
         onClick={(e) => {
           e.stopPropagation();
@@ -268,11 +273,11 @@ const PostCard: React.FC<PostCardProps> = ({ post, onAddComment, onVote, onToggl
         </div>
 
         <div className="flex flex-wrap gap-2 mb-4">
-            {post.tags.map((tag, idx) => (
+            {(post.tags && post.tags.length > 0) ? post.tags.map((tag, idx) => (
                 <span key={idx} className="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-bold bg-gray-50 text-gray-400 border border-gray-100 uppercase">
                    <Tag size={10} className="mr-1" /> {tag}
                 </span>
-            ))}
+            )) : null}
         </div>
 
         <div className={`prose prose-sm prose-slate max-w-none text-gray-600 relative ${expanded ? '' : 'max-h-40 overflow-hidden'}`}>

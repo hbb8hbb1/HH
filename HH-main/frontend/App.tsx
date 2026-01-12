@@ -1,9 +1,10 @@
 
 import React, { useState, useEffect, useRef, useMemo } from 'react';
-import { Search, RotateCcw, Plus, ChevronDown, Compass, Building2, Cpu, Banknote, ShoppingBag, Layers, Filter as FilterIcon, Check, MapPin, Award, PartyPopper, Trash2, Briefcase, Tag as TagIcon, X, Zap, Loader2, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Search, RotateCcw, Plus, ChevronDown, Compass, Building2, Cpu, Banknote, ShoppingBag, Layers, Filter as FilterIcon, Check, MapPin, Award, PartyPopper, Trash2, Briefcase, Tag as TagIcon, X, Zap, Loader2, ChevronLeft, ChevronRight, LogOut, User, GraduationCap, MessageSquare } from 'lucide-react';
 import PostCard from './components/PostCard';
 import JobCard from './components/JobCard';
 import EditorModal from './components/EditorModal';
+import JobEditorModal from './components/JobEditorModal';
 import AuthModal from './components/AuthModal';
 import Sidebar from './components/Sidebar';
 import { FilterPanel, initialFilters, Filters } from './components/FilterPanel';
@@ -115,7 +116,7 @@ const MOCK_JOBS: JobPost[] = [
 ];
 
 function App() {
-  const { user, grantFreePro } = useAuth();
+  const { user, grantFreePro, logout } = useAuth();
   const [posts, setPosts] = useState<InterviewPost[]>([]);
   const [jobs, setJobs] = useState<JobPost[]>([]);
   
@@ -131,7 +132,9 @@ function App() {
   console.log('🎨 当前 jobs 数量:', jobs.length);
   const [activeTab, setActiveTab] = useState<'interviews' | 'jobs' | 'coaching'>('interviews');
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isJobModalOpen, setIsJobModalOpen] = useState(false);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [showPublishMenu, setShowPublishMenu] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [isFiltering, setIsFiltering] = useState(false);
   const [showMilestoneToast, setShowMilestoneToast] = useState(false);
@@ -140,7 +143,10 @@ function App() {
   // 使用新的筛选结构（与 FilterPanel 兼容）
   const [filters, setFilters] = useState<Filters>(initialFilters);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [showUserMenu, setShowUserMenu] = useState(false);
   const filterRef = useRef<HTMLDivElement>(null);
+  const userMenuRef = useRef<HTMLDivElement>(null);
+  const publishMenuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -151,6 +157,24 @@ function App() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // 点击外部关闭用户菜单
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (userMenuRef.current && !userMenuRef.current.contains(event.target as Node)) {
+        setShowUserMenu(false);
+      }
+      if (publishMenuRef.current && !publishMenuRef.current.contains(event.target as Node)) {
+        setShowPublishMenu(false);
+      }
+    };
+    if (showUserMenu || showPublishMenu) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showUserMenu, showPublishMenu]);
 
   // 获取帖子数据（支持分页和筛选）
   const fetchPosts = async (page: number = 1) => {
@@ -230,7 +254,11 @@ function App() {
           uselessVotes: post.uselessVotes || 0,
           shareCount: post.shareCount || 0,
           authorName: post.authorName || '匿名用户',
-          authorIsPro: post.authorIsPro || false
+          authorIsPro: post.authorIsPro || false,
+          authorId: post.authorId || null,
+          isFavorited: post.isFavorited || false,  // 添加缺失字段
+          userVote: post.userVote || undefined,   // 添加缺失字段
+          isAnonymous: post.isAnonymous || false   // 添加缺失字段
         }));
         
         console.log('📝 格式化后的 posts:', formattedPosts.length, '条');
@@ -293,7 +321,10 @@ function App() {
       try { setJobs(JSON.parse(savedJobs)); } catch (e) { setJobs(MOCK_JOBS); }
     } else { setJobs(MOCK_JOBS); }
 
-    // 初始加载第一页
+    // 初始加载第一页（只在interviews标签时执行）
+    // 筛选选项和帖子数据可以并行加载，提升页面加载速度
+    // 注意：这里不检查activeTab，因为初始时activeTab总是'interviews'
+    // 实际的标签切换逻辑在另一个useEffect中处理
     fetchPosts(1);
   }, []);
 
@@ -302,23 +333,69 @@ function App() {
   const prevFiltersRef = useRef<string>('');
   const prevPageRef = useRef<number>(1);
   
-  // 当筛选条件改变时，重置到第一页
+  // 当筛选条件改变时，重置到第一页（只在interviews标签时生效）
   useEffect(() => {
-    if (activeTab === 'interviews') {
-      const currentFiltersStr = JSON.stringify({ filters, searchQuery });
-      if (prevFiltersRef.current && prevFiltersRef.current !== currentFiltersStr) {
-        // 筛选条件改变，重置到第一页
-        if (currentPage !== 1) {
-          setCurrentPage(1);
-        }
+    if (activeTab !== 'interviews') return;
+    
+    const currentFiltersStr = JSON.stringify({ filters, searchQuery });
+    if (prevFiltersRef.current && prevFiltersRef.current !== currentFiltersStr) {
+      // 筛选条件改变，重置到第一页
+      if (currentPage !== 1) {
+        setCurrentPage(1);
       }
-      prevFiltersRef.current = currentFiltersStr;
     }
+    // 只在interviews标签时更新prevFiltersRef
+    prevFiltersRef.current = currentFiltersStr;
   }, [filters.company, filters.location, filters.recruitType, filters.category, filters.experience, filters.salary, searchQuery, activeTab, currentPage]);
+
+  // 使用 ref 跟踪上一个标签，用于检测标签切换
+  const prevTabRef = useRef<'interviews' | 'jobs' | 'coaching'>('interviews');
+  
+  // 监听标签切换，立即清空数据避免显示旧内容
+  useEffect(() => {
+    const prevTab = prevTabRef.current;
+    const isTabSwitch = prevTab !== activeTab;
+    
+    if (isTabSwitch) {
+      // 清除所有待执行的防抖定时器
+      if (debounceRef.current) {
+        clearTimeout(debounceRef.current);
+        debounceRef.current = null;
+      }
+      
+      // 标签切换时，立即清空对应数据
+      if (activeTab === 'interviews') {
+        // 切换到面经广场：清空posts，重置分页，准备加载新数据
+        setPosts([]);
+        setCurrentPage(1);
+        setIsLoading(true);
+        // 重置筛选条件引用，触发重新加载
+        prevFiltersRef.current = '';
+        prevPageRef.current = 1;
+      } else {
+        // 切换到其他标签：清空posts，停止加载，避免触发任何数据请求
+        setPosts([]);
+        setIsLoading(false);
+        // 重置引用，避免下次切换回来时触发不必要的请求
+        prevFiltersRef.current = '';
+        prevPageRef.current = 1;
+      }
+    }
+    
+    prevTabRef.current = activeTab;
+  }, [activeTab]);
 
   // 当页码改变或筛选条件改变时重新获取数据（添加防抖优化）
   useEffect(() => {
-    if (activeTab !== 'interviews') return;
+    // 只在interviews标签时执行，其他标签直接返回
+    if (activeTab !== 'interviews') {
+      // 确保清除所有待执行的定时器
+      if (debounceRef.current) {
+        clearTimeout(debounceRef.current);
+        debounceRef.current = null;
+      }
+      return;
+    }
     
     // 清除之前的防抖定时器
     if (debounceRef.current) {
@@ -333,7 +410,12 @@ function App() {
     // 如果是页码改变（且不是筛选导致的页码重置），立即执行
     if (isPageChange && !isFilterChange) {
       fetchPosts(currentPage);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      // 使用更平滑的滚动
+      window.scrollTo({ 
+        top: 0, 
+        behavior: 'smooth',
+        block: 'start'
+      });
       prevPageRef.current = currentPage;
       return;
     }
@@ -341,18 +423,32 @@ function App() {
     // 如果是筛选条件改变，使用防抖延迟执行
     if (isFilterChange || (prevFiltersRef.current === '' && currentFiltersStr !== '')) {
       debounceRef.current = setTimeout(() => {
+        // 再次检查activeTab，避免在定时器执行时标签已切换
+        if (activeTab === 'interviews') {
+          fetchPosts(currentPage);
+          // 使用更平滑的滚动
+          window.scrollTo({ 
+            top: 0, 
+            behavior: 'smooth',
+            block: 'start'
+          });
+          prevFiltersRef.current = currentFiltersStr;
+          prevPageRef.current = currentPage;
+        }
+        debounceRef.current = null;
+      }, 250); // 减少防抖延迟到250ms，提升响应速度
+    } else {
+      // 初始加载：立即执行（只在prevFiltersRef为空时，即首次加载或标签切换后）
+      if (prevFiltersRef.current === '') {
         fetchPosts(currentPage);
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        window.scrollTo({ 
+          top: 0, 
+          behavior: 'smooth',
+          block: 'start'
+        });
         prevFiltersRef.current = currentFiltersStr;
         prevPageRef.current = currentPage;
-        debounceRef.current = null;
-      }, 300); // 300ms 防抖延迟
-    } else {
-      // 初始加载：立即执行
-      fetchPosts(currentPage);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      prevFiltersRef.current = currentFiltersStr;
-      prevPageRef.current = currentPage;
+      }
     }
     
     // 清理函数
@@ -408,6 +504,21 @@ function App() {
     setIsModalOpen(false);
   };
 
+  const handleSaveJob = (jobData: Omit<JobPost, 'id' | 'createdAt' | 'authorId' | 'authorName' | 'authorIsPro'>) => {
+    const newJob: JobPost = {
+      ...jobData,
+      id: Math.random().toString(36).substr(2, 9),
+      createdAt: new Date().toISOString(),
+      authorId: user?.id,
+      authorName: user?.name || '匿名用户',
+      authorIsPro: user?.isPro || false
+    };
+    setJobs([newJob, ...jobs]);
+    setIsJobModalOpen(false);
+    // 保存到localStorage
+    localStorage.setItem('offermagnet_jobs', JSON.stringify([newJob, ...jobs]));
+  };
+
   const handleVote = (postId: string, type: 'useful' | 'useless') => {
     setPosts(prev => prev.map(post => {
       if (post.id !== postId) return post;
@@ -446,7 +557,7 @@ function App() {
 
   return (
     <div className="min-h-screen bg-[#F8FAFC]">
-      <header className="sticky top-0 z-[60] bg-white border-b border-gray-100 shadow-sm">
+      <header className="sticky top-0 z-[110] bg-white/95 backdrop-blur-md border-b border-gray-100 shadow-sm transition-all duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center gap-3 cursor-pointer group" onClick={() => window.location.reload()}>
@@ -473,15 +584,137 @@ function App() {
             </div>
 
             <div className="flex items-center gap-4">
-              <button 
-                onClick={() => setIsModalOpen(true)} 
-                className="hidden sm:flex items-center gap-2 px-5 py-2.5 bg-slate-900 text-white rounded-xl text-sm font-black shadow-lg hover:bg-black hover:-translate-y-0.5 transition-all"
-              >
-                <Plus size={18} /> 发布
-              </button>
               {user ? (
-                <div className={`w-9 h-9 rounded-xl flex items-center justify-center text-sm font-black border-2 border-white shadow-lg transition-all cursor-pointer hover:rotate-6 ${user.isPro ? 'bg-gradient-to-br from-yellow-400 to-amber-600 text-white' : 'bg-slate-200 text-slate-600'}`}>
-                  {user.name[0]}
+                <div className="relative" ref={publishMenuRef}>
+                  <button 
+                    onClick={() => setShowPublishMenu(!showPublishMenu)} 
+                    className="hidden sm:flex items-center gap-2 px-5 py-2.5 bg-slate-900 text-white rounded-xl text-sm font-black shadow-lg hover:bg-black hover:-translate-y-0.5 active:scale-95 transition-all duration-200 gpu-accelerated"
+                  >
+                    <Plus size={18} /> 发布
+                  </button>
+                  
+                  {/* 发布菜单 - 根据用户身份显示不同选项 */}
+                  {showPublishMenu && (
+                    <div className="absolute right-0 top-12 mt-2 w-56 bg-white border border-slate-200 rounded-xl shadow-2xl z-[120] overflow-hidden animate-in fade-in zoom-in-95 duration-150">
+                      {user.role === 'job_seeker' && (
+                        <button
+                          onClick={() => {
+                            setIsModalOpen(true);
+                            setShowPublishMenu(false);
+                          }}
+                          className="w-full flex items-center gap-3 px-4 py-3 text-sm font-bold text-slate-700 hover:bg-slate-50 transition-colors border-b border-slate-100"
+                        >
+                          <Briefcase size={16} />
+                          发布面经
+                        </button>
+                      )}
+                      
+                      {user.role === 'recruiter' && (
+                        <button
+                          onClick={() => {
+                            setIsJobModalOpen(true);
+                            setShowPublishMenu(false);
+                          }}
+                          className="w-full flex items-center gap-3 px-4 py-3 text-sm font-bold text-slate-700 hover:bg-slate-50 transition-colors border-b border-slate-100"
+                        >
+                          <GraduationCap size={16} />
+                          发布职位
+                        </button>
+                      )}
+                      
+                      {user.role === 'coach' && (
+                        <button
+                          onClick={() => {
+                            // 暂时使用面经模态框，后续可以创建专门的辅导模态框
+                            setIsModalOpen(true);
+                            setShowPublishMenu(false);
+                          }}
+                          className="w-full flex items-center gap-3 px-4 py-3 text-sm font-bold text-slate-700 hover:bg-slate-50 transition-colors"
+                        >
+                          <MessageSquare size={16} />
+                          发布辅导内容
+                        </button>
+                      )}
+                      
+                      {/* 如果没有身份或身份不明确，显示所有选项 */}
+                      {!user.role && (
+                        <>
+                          <button
+                            onClick={() => {
+                              setIsModalOpen(true);
+                              setShowPublishMenu(false);
+                            }}
+                            className="w-full flex items-center gap-3 px-4 py-3 text-sm font-bold text-slate-700 hover:bg-slate-50 transition-colors border-b border-slate-100"
+                          >
+                            <Briefcase size={16} />
+                            发布面经
+                          </button>
+                          <button
+                            onClick={() => {
+                              setIsJobModalOpen(true);
+                              setShowPublishMenu(false);
+                            }}
+                            className="w-full flex items-center gap-3 px-4 py-3 text-sm font-bold text-slate-700 hover:bg-slate-50 transition-colors"
+                          >
+                            <GraduationCap size={16} />
+                            发布职位
+                          </button>
+                        </>
+                      )}
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <button 
+                  onClick={() => setIsAuthModalOpen(true)} 
+                  className="hidden sm:flex items-center gap-2 px-5 py-2.5 bg-slate-900 text-white rounded-xl text-sm font-black shadow-lg hover:bg-black hover:-translate-y-0.5 active:scale-95 transition-all duration-200 gpu-accelerated"
+                >
+                  <Plus size={18} /> 发布
+                </button>
+              )}
+              {user ? (
+                <div className="relative" ref={userMenuRef}>
+                  <div 
+                    onClick={() => setShowUserMenu(!showUserMenu)}
+                    className={`w-9 h-9 rounded-xl flex items-center justify-center text-sm font-black border-2 border-white shadow-lg transition-all cursor-pointer hover:rotate-6 ${user.isPro ? 'bg-gradient-to-br from-yellow-400 to-amber-600 text-white' : 'bg-slate-200 text-slate-600'}`}
+                  >
+                    {user.name[0]}
+                  </div>
+                  {showUserMenu && (
+                    <div className="absolute right-0 top-12 mt-2 w-48 bg-white border border-slate-200 rounded-xl shadow-2xl z-[120] overflow-hidden animate-in fade-in zoom-in-95 duration-150">
+                      <div className="px-4 py-3 border-b border-slate-100">
+                        <div className="text-sm font-black text-slate-900">{user.name}</div>
+                        <div className="text-xs text-slate-500 mt-0.5">{user.email}</div>
+                        {user.id === 'guest_temp' && (
+                          <div className="text-xs text-amber-600 mt-1 font-bold">访客模式</div>
+                        )}
+                      </div>
+                      {user.id === 'guest_temp' ? (
+                        <button
+                          onClick={() => {
+                            logout();
+                            setShowUserMenu(false);
+                            setIsAuthModalOpen(true);
+                          }}
+                          className="w-full flex items-center gap-3 px-4 py-3 text-sm font-bold text-slate-700 hover:bg-slate-50 transition-colors"
+                        >
+                          <LogOut size={16} />
+                          退出访客，去登录
+                        </button>
+                      ) : (
+                        <button
+                          onClick={() => {
+                            logout();
+                            setShowUserMenu(false);
+                          }}
+                          className="w-full flex items-center gap-3 px-4 py-3 text-sm font-bold text-red-600 hover:bg-red-50 transition-colors"
+                        >
+                          <LogOut size={16} />
+                          退出登录
+                        </button>
+                      )}
+                    </div>
+                  )}
                 </div>
               ) : (
                 <button onClick={() => setIsAuthModalOpen(true)} className="px-4 py-2 text-sm font-black text-slate-600 hover:text-slate-900 transition-colors">登录</button>
@@ -500,7 +733,7 @@ function App() {
              {/* --- Advanced Filter Bar --- */}
              <div 
                ref={filterRef}
-               className={`transition-all duration-300 ${isSticky ? 'sticky top-[64px] z-50 -mx-4 px-4 py-3 bg-white/80 backdrop-blur-xl border-b border-slate-100 shadow-xl' : 'bg-white rounded-3xl p-6 mb-8 border border-slate-200 shadow-sm'}`}
+               className={`transition-smooth gpu-accelerated ${isSticky ? 'sticky top-[64px] z-[50] -mx-4 px-4 py-3 bg-white/90 backdrop-blur-xl border-b border-slate-100 shadow-xl' : 'bg-white rounded-3xl p-6 mb-8 border border-slate-200 shadow-sm relative z-[50]'}`}
              >
                 <div className="max-w-7xl mx-auto">
                   <div className="flex items-center justify-between mb-4">
@@ -519,9 +752,9 @@ function App() {
                     {isFilterActive && (
                       <button 
                         onClick={clearAllFilters}
-                        className="group flex items-center gap-2 text-xs font-black text-slate-400 hover:text-red-500 transition-all bg-slate-50 hover:bg-red-50 px-4 py-2 rounded-xl border border-slate-100"
+                        className="group flex items-center gap-2 text-xs font-black text-slate-400 hover:text-red-500 transition-all bg-slate-50 hover:bg-red-50 px-4 py-2 rounded-xl border border-slate-100 active:scale-95 gpu-accelerated"
                       >
-                        <Trash2 size={14} className="group-hover:rotate-12 transition-transform" />
+                        <Trash2 size={14} className="group-hover:rotate-12 transition-transform duration-200" />
                         清除全部重置
                       </button>
                     )}
@@ -538,14 +771,28 @@ function App() {
 
              {/* --- Content List with Loading Overlay --- */}
              <div className="relative min-h-[400px]">
-                {/* 只在初始加载时显示加载动画 */}
-                {isLoading && posts.length === 0 ? (
+                {/* 只在初始加载或切换标签时显示加载动画（当没有数据时） */}
+                {isLoading && posts.length === 0 && activeTab === 'interviews' ? (
                    <div className="absolute inset-0 z-40 bg-slate-50/50 backdrop-blur-[1px] flex items-center justify-center rounded-3xl">
                       <div className="flex flex-col items-center gap-3">
-                         <div className="w-12 h-12 border-4 border-indigo-200 border-t-indigo-600 rounded-full animate-spin"></div>
-                         <span className="text-xs font-black text-indigo-600 uppercase tracking-widest">加载中...</span>
+                         <div className="w-12 h-12 border-4 border-indigo-200 border-t-indigo-600 rounded-full loading-spinner"></div>
+                         <span className="text-xs font-black text-indigo-600 uppercase tracking-widest animate-pulse">加载中...</span>
                       </div>
                    </div>
+                ) : null}
+                
+                {/* 骨架屏加载效果（只在筛选/分页时显示，切换标签时不显示） */}
+                {isLoading && posts.length > 0 && activeTab === 'interviews' && !isFiltering ? (
+                  <div className="space-y-6 mb-6">
+                    {[...Array(2)].map((_, i) => (
+                      <div key={i} className="bg-white rounded-xl p-6 border border-gray-100 animate-pulse">
+                        <div className="h-6 w-3/4 bg-slate-200 rounded-lg mb-4"></div>
+                        <div className="h-4 w-full bg-slate-200 rounded mb-2"></div>
+                        <div className="h-4 w-5/6 bg-slate-200 rounded mb-2"></div>
+                        <div className="h-4 w-4/6 bg-slate-200 rounded"></div>
+                      </div>
+                    ))}
+                  </div>
                 ) : null}
 
                 <div className={`space-y-6 transition-all duration-300 ${isFiltering && posts.length > 0 ? 'opacity-70' : 'opacity-100'}`}>
@@ -553,7 +800,11 @@ function App() {
                     <>
                       {filteredPosts.length > 0 ? (
                         <>
-                          {filteredPosts.map(post => <PostCard key={post.id} post={post} onVote={handleVote} searchQuery={searchQuery} />)}
+                          {filteredPosts.map((post, index) => (
+                            <div key={post.id} className="card-enter" style={{ animationDelay: `${index * 0.05}s` }}>
+                              <PostCard post={post} onVote={handleVote} searchQuery={searchQuery} />
+                            </div>
+                          ))}
                           
                           {/* 分页控件 - 始终显示分页信息 */}
                           {totalPosts > 0 && (
@@ -590,6 +841,7 @@ function App() {
       </div>
 
       <EditorModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onSave={handleSavePost} />
+      <JobEditorModal isOpen={isJobModalOpen} onClose={() => setIsJobModalOpen(false)} onSave={handleSaveJob} />
       <AuthModal isOpen={isAuthModalOpen} onClose={() => setIsAuthModalOpen(false)} />
     </div>
   );
@@ -657,10 +909,10 @@ function Pagination({ currentPage, totalPages, totalPosts, onPageChange }: {
         <button
           onClick={() => onPageChange(currentPage - 1)}
           disabled={currentPage === 1}
-          className={`flex items-center gap-1 px-4 py-2 rounded-xl text-sm font-black transition-all ${
+          className={`flex items-center gap-1 px-4 py-2 rounded-xl text-sm font-black transition-all duration-200 gpu-accelerated ${
             currentPage === 1
               ? 'bg-slate-100 text-slate-400 cursor-not-allowed'
-              : 'bg-slate-900 text-white hover:bg-black hover:-translate-y-0.5 shadow-lg'
+              : 'bg-slate-900 text-white hover:bg-black hover:-translate-y-0.5 active:scale-95 shadow-lg'
           }`}
         >
           <ChevronLeft size={18} />
@@ -684,10 +936,10 @@ function Pagination({ currentPage, totalPages, totalPosts, onPageChange }: {
               <button
                 key={pageNum}
                 onClick={() => onPageChange(pageNum)}
-                className={`min-w-[40px] px-3 py-2 rounded-xl text-sm font-black transition-all ${
+                className={`min-w-[40px] px-3 py-2 rounded-xl text-sm font-black transition-all duration-200 gpu-accelerated ${
                   isActive
                     ? 'bg-indigo-600 text-white shadow-md scale-105'
-                    : 'bg-slate-50 text-slate-600 hover:bg-indigo-50 hover:text-indigo-600'
+                    : 'bg-slate-50 text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 active:scale-95'
                 }`}
               >
                 {pageNum}
@@ -699,10 +951,10 @@ function Pagination({ currentPage, totalPages, totalPosts, onPageChange }: {
         <button
           onClick={() => onPageChange(currentPage + 1)}
           disabled={currentPage === totalPages}
-          className={`flex items-center gap-1 px-4 py-2 rounded-xl text-sm font-black transition-all ${
+          className={`flex items-center gap-1 px-4 py-2 rounded-xl text-sm font-black transition-all duration-200 gpu-accelerated ${
             currentPage === totalPages
               ? 'bg-slate-100 text-slate-400 cursor-not-allowed'
-              : 'bg-slate-900 text-white hover:bg-black hover:-translate-y-0.5 shadow-lg'
+              : 'bg-slate-900 text-white hover:bg-black hover:-translate-y-0.5 active:scale-95 shadow-lg'
           }`}
         >
           下一页

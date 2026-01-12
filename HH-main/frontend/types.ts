@@ -1,10 +1,13 @@
 
+export type UserRole = 'job_seeker' | 'recruiter' | 'coach';
+
 export interface User {
   id: string;
   name: string;
   email: string;
   avatar?: string;
   isPro?: boolean; // Subscription status
+  role?: UserRole; // 用户身份：求职者、招聘者、辅导者
 }
 
 export interface Comment {
@@ -21,6 +24,8 @@ export interface TagDimensions {
   recruitType?: string;     // 招聘类型：校招、社招、暑期实习、日常实习、其他
   location?: string;         // 地点
   category?: string;        // 部门类别：研发、算法、产品等
+  experience?: string;      // 经验要求：0, 0-2, 2-5, 5-10, 10+
+  salary?: string;          // 薪资范围：0-100k, 100k-150k, 150k-200k, 200k-300k, 300k+
   subRole?: string;         // 子角色：前端、后端、机器学习等
   custom?: string[];        // 自定义标签数组
 }

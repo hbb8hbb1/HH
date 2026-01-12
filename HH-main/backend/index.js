@@ -10,6 +10,7 @@ require('dotenv').config();
 const User = require('./models/User');
 const Post = require('./models/Post');
 const Job = require('./models/Job');
+const TagValidator = require('./utils/tagValidator');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -112,7 +113,9 @@ app.get('/api/posts', async (req, res) => {
     
     // 添加筛选条件（只处理非空值，这些可以使用索引）
     if (company && company !== '' && company !== '全部') {
-      query.company = company;
+      // 规范化公司名称（将别名转换为标准名称）
+      const normalizedCompany = new TagValidator().normalizeValue('company', company);
+      query.company = normalizedCompany;
     }
     
     if (location && location !== '' && location !== '全部') {
@@ -174,66 +177,69 @@ app.get('/api/posts', async (req, res) => {
       }
     }
     
-    // ✅ 使用聚合管道在数据库层面截断内容，避免从磁盘读取大量数据
-    // 这样可以大大减少数据传输量，提高查询速度
-    const posts = await Post.aggregate([
-      { $match: query },  // 匹配查询条件
-      { $sort: { createdAt: -1 } },  // 使用索引排序
-      { $skip: skip },
-      { $limit: limit },
-      { $project: {
-        _id: 1,
-        title: 1,
-        company: 1,
-        role: 1,
-        difficulty: 1,
-        tags: 1,
-        tagDimensions: 1,
-        comments: 1,
-        createdAt: 1,
-        usefulVotes: 1,
-        uselessVotes: 1,
-        shareCount: 1,
-        authorName: 1,
-        authorIsPro: 1,
-        authorId: 1,
-        // 在数据库层面截断内容，只返回前 500/1000 个字符
-        originalContent: {
-          $cond: {
-            if: { $gt: [{ $strLenCP: { $ifNull: ['$originalContent', ''] } }, 500] },
-            then: { $concat: [{ $substrCP: ['$originalContent', 0, 500] }, '...'] },
-            else: '$originalContent'
+    // ✅ 性能优化：并行执行数据查询和总数计算
+    const hasFilters = company || location || recruitType || category || experience || salary || technologies || search;
+    
+    // 并行执行：同时查询数据和计算总数
+    const [postsResult, total] = await Promise.all([
+      // 查询帖子数据
+      Post.aggregate([
+        { $match: query },  // 匹配查询条件
+        { $sort: { createdAt: -1 } },  // 使用索引排序
+        { $skip: skip },
+        { $limit: limit },
+        { $project: {
+          _id: 1,
+          title: 1,
+          company: 1,
+          role: 1,
+          difficulty: 1,
+          tags: 1,
+          tagDimensions: 1,
+          comments: 1,
+          createdAt: 1,
+          usefulVotes: 1,
+          uselessVotes: 1,
+          shareCount: 1,
+          authorName: 1,
+          authorIsPro: 1,
+          authorId: 1,
+          // 在数据库层面截断内容，只返回前 500/1000 个字符
+          originalContent: {
+            $cond: {
+              if: { $gt: [{ $strLenCP: { $ifNull: ['$originalContent', ''] } }, 500] },
+              then: { $concat: [{ $substrCP: ['$originalContent', 0, 500] }, '...'] },
+              else: '$originalContent'
+            }
+          },
+          processedContent: {
+            $cond: {
+              if: { $gt: [{ $strLenCP: { $ifNull: ['$processedContent', ''] } }, 1000] },
+              then: { $concat: [{ $substrCP: ['$processedContent', 0, 1000] }, '...'] },
+              else: '$processedContent'
+            }
           }
-        },
-        processedContent: {
-          $cond: {
-            if: { $gt: [{ $strLenCP: { $ifNull: ['$processedContent', ''] } }, 1000] },
-            then: { $concat: [{ $substrCP: ['$processedContent', 0, 1000] }, '...'] },
-            else: '$processedContent'
-          }
-        }
-      }}
+        }}
+      ]),
+      // 计算总数（并行执行，不阻塞数据查询）
+      hasFilters ? Post.countDocuments(query) : Post.countDocuments({})
     ]);
+    
+    const posts = postsResult;
+    
+    // ✅ 规范化返回数据中的公司名称
+    const validator = new TagValidator();
+    posts.forEach(post => {
+      if (post.company) {
+        post.company = validator.normalizeValue('company', post.company);
+      }
+    });
     
     // ✅ 在内存中过滤没有内容的帖子（比在数据库里用 $or + $exists + $type 过滤更快）
     const filteredPosts = posts.filter(post => {
       const content = post.originalContent || post.processedContent || '';
       return content.length >= 50;
     });
-    
-    // ✅ 计算实际的数据总数
-    // 对于有筛选条件的查询，使用 countDocuments 计算精确总数
-    // 对于无筛选条件的查询，也使用 countDocuments 获取准确总数（避免硬编码）
-    const hasFilters = company || location || recruitType || category || experience || salary || technologies || search;
-    let total;
-    
-    if (hasFilters) {
-      // 有筛选条件时，计算匹配的文档总数
-      total = await Post.countDocuments(query);
-    } else {
-      // 没有筛选条件时，计算所有文档的总数
-      total = await Post.countDocuments({});
-    }
     
     const totalPages = Math.ceil(total / limit);
     
@@ -266,12 +272,12 @@ app.get('/api/posts', async (req, res) => {
 // [Simplified for brevity - but in a real file you'd keep all logic]
 app.post('/api/auth/register', async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password, role } = req.body;
     const hashedPassword = await bcrypt.hash(password, 8);
-    const user = new User({ name, email, password: hashedPassword });
+    const user = new User({ name, email, password: hashedPassword, role: role || 'job_seeker' });
     await user.save();
     const token = jwt.sign({ id: user._id.toString() }, JWT_SECRET);
-    res.status(201).send({ user: { id: user._id, name: user.name, email: user.email, isPro: user.isPro }, token });
+    res.status(201).send({ user: { id: user._id, name: user.name, email: user.email, isPro: user.isPro, role: user.role }, token });
   } catch (error) { res.status(400).send({ error: 'Registration failed.' }); }
 });
 
@@ -281,10 +287,10 @@ app.post('/api/auth/login', async (req, res) => {
     const user = await User.findOne({ email });
     if (!user || !(await bcrypt.compare(password, user.password))) throw new Error('Invalid credentials');
     const token = jwt.sign({ id: user._id.toString() }, JWT_SECRET);
-    res.send({ user: { id: user._id, name: user.name, email: user.email, isPro: user.isPro }, token });
+    res.send({ user: { id: user._id, name: user.name, email: user.email, isPro: user.isPro, role: user.role }, token });
   } catch (error) { res.status(400).send({ error: error.message }); }
 });
 
-app.get('/api/auth/me', auth, async (req, res) => { res.send({ id: req.user._id, name: req.user.name, email: req.user.email, isPro: req.user.isPro }); });
+app.get('/api/auth/me', auth, async (req, res) => { res.send({ id: req.user._id, name: req.user.name, email: req.user.email, isPro: req.user.isPro, role: req.user.role }); });
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

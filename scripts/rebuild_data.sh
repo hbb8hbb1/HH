@@ -83,3 +83,4 @@ node scripts/check_database.js
 echo ""
 echo "🎉 数据重建完成！"
 
+

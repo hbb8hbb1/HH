@@ -8,11 +8,19 @@
     <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
+      * {
+        -webkit-tap-highlight-color: transparent;
+      }
       body { 
         font-family: 'Plus Jakarta Sans', sans-serif; 
         background-color: #F8FAFC; 
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+      }
+      html {
+        scroll-behavior: smooth;
       }
       .scrollbar-hide::-webkit-scrollbar { display: none; }
       .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
@@ -70,6 +78,77 @@
       }
       .checkmark-enter {
         animation: checkmarkAppear 0.2s ease-out;
+      }
+      /* 流畅的页面过渡动画 */
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @keyframes scaleIn {
+        from {
+          opacity: 0;
+          transform: scale(0.95);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+      @keyframes shimmer {
+        0% {
+          background-position: -1000px 0;
+        }
+        100% {
+          background-position: 1000px 0;
+        }
+      }
+      /* 骨架屏加载动画 */
+      .skeleton {
+        background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+        background-size: 200% 100%;
+        animation: shimmer 1.5s infinite;
+      }
+      /* 流畅的卡片进入动画 */
+      .card-enter {
+        animation: fadeInUp 0.4s ease-out backwards;
+      }
+      .card-enter:nth-child(1) { animation-delay: 0.05s; }
+      .card-enter:nth-child(2) { animation-delay: 0.1s; }
+      .card-enter:nth-child(3) { animation-delay: 0.15s; }
+      .card-enter:nth-child(4) { animation-delay: 0.2s; }
+      .card-enter:nth-child(5) { animation-delay: 0.25s; }
+      /* GPU加速的变换 */
+      .gpu-accelerated {
+        transform: translateZ(0);
+        will-change: transform;
+      }
+      /* 流畅的按钮点击反馈 */
+      button:active {
+        transform: scale(0.98);
+        transition: transform 0.1s ease-out;
+      }
+      /* 平滑的滚动 */
+      .smooth-scroll {
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+      }
+      /* 优化过渡性能 */
+      .transition-smooth {
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      /* 加载状态优化 */
+      .loading-spinner {
+        animation: spin 0.8s linear infinite;
+      }
+      @keyframes spin {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
       }
     </style>
   <script type="importmap">

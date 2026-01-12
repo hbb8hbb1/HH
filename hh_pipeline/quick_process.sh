@@ -30,3 +30,4 @@ fi
 echo "🚀 开始处理: $HTML_FILE"
 python3 "$SCRIPT_DIR/process_single.py" "$HTML_FILE"
 
+

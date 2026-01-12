@@ -108,7 +108,10 @@ def build_prompt(title: str, content_text: str) -> str:
 5) 输出为 JSON 格式，包含以下字段：
    - title: 精炼、专业的中文标题
    - processedContent: Markdown 格式的结构化面经正文
-   - company: 公司名称（外企用英文，如"Meta"、"Google"）
+   - company: 公司名称（外企用英文标准名称，如"Meta"、"Google"）
+     重要：必须识别并规范化以下别名：
+     * Meta的别名：买它、买他、buyit、BuyIt、脸书、Facebook、FB等 → 统一为"Meta"
+     * Google的别名：狗家、狗云、骨骼、G家、g家、谷歌、goog等 → 统一为"Google"
    - role: 岗位（中文或英文均可，如"软件工程师"、"Software Engineer"）
    - difficulty: 难度 1-5（整数）
    - tags: 3-8 个标签的数组（保留向后兼容）

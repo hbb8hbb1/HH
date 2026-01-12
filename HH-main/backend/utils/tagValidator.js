@@ -14,8 +14,34 @@ const STANDARD_VALUES = {
   salary: ['0-100k', '100k-150k', '150k-200k', '200k-300k', '300k+']
 };
 
+// 公司名称别名映射（必须与 config/tags.json 保持一致）
+const COMPANY_ALIASES = {
+  '谷歌': 'Google',
+  '狗家': 'Google',
+  'G家': 'Google',
+  'g家': 'Google',
+  '骨骼': 'Google',
+  '狗狗家': 'Google',
+  '狗云': 'Google',
+  'GOOGLE': 'Google',
+  'goog': 'Google',
+  'GooGle': 'Google',
+  '脸书': 'Meta',
+  'Facebook': 'Meta',
+  'FB': 'Meta',
+  'fb': 'Meta',
+  '买它': 'Meta',
+  '买他': 'Meta',
+  'buyit': 'Meta',
+  'BuyIt': 'Meta',
+  'BUYIT': 'Meta',
+  'META': 'Meta',
+  'meta': 'Meta'
+};
+
 // 别名映射（中文/其他格式 → 英文标准值）
 const ALIAS_MAPPINGS = {
+  company: COMPANY_ALIASES,  // 添加公司别名映射
   category: {
     '算法': 'Data',
     '数据': 'Data',
@@ -75,7 +101,7 @@ class TagValidator {
 
   /**
    * 规范化标签值（将中文/其他格式转换为英文标准值）
-   * @param {string} dimension - 维度名称（如 "category", "recruitType"）
+   * @param {string} dimension - 维度名称（如 "category", "recruitType", "company"）
    * @param {string} value - 原始值（可能是中文或其他格式）
    * @returns {string} - 标准值（英文）
    */
@@ -87,6 +113,50 @@ class TagValidator {
     value = value.trim();
     if (!value) {
       return '';
+    }
+
+    // 对于公司名称，特殊处理
+    if (dimension === 'company') {
+      // 先去除空格并转换为小写，用于匹配
+      const valueNoSpaces = value.replace(/\s+/g, '').toLowerCase();
+      const valueLower = value.toLowerCase();
+      const valueTrimmed = value.trim();
+      
+      // 首先检查是否是预定义的标准公司名称（精确匹配，大小写不敏感）
+      const standardCompanies = ['Google', 'Meta', 'Amazon', 'Apple', 'Microsoft', 'Netflix', 'ByteDance', 'Alibaba', 'Tencent', 'Nvidia', 'OpenAI', 'Stripe', 'Airbnb', 'Uber', 'LinkedIn'];
+      for (const company of standardCompanies) {
+        if (company.toLowerCase() === valueLower || company.toLowerCase() === valueNoSpaces) {
+          return company; // 返回标准大小写
+        }
+      }
+      
+      // 精确匹配别名（大小写不敏感，忽略空格）
+      for (const [alias, standardValue] of Object.entries(COMPANY_ALIASES)) {
+        const aliasLower = alias.toLowerCase();
+        const aliasNoSpaces = aliasLower.replace(/\s+/g, '');
+        if (aliasLower === valueLower || aliasNoSpaces === valueNoSpaces) {
+          return standardValue;
+        }
+      }
+      
+      // 部分匹配：检查值是否包含别名（按长度排序，优先匹配长别名）
+      // 例如："买它Ng"、"买它新鲜"、"买他"、"Buy It"、"BuyIt (E6)"等都应该匹配到"Meta"
+      const sortedAliases = Object.entries(COMPANY_ALIASES).sort((a, b) => b[0].length - a[0].length);
+      for (const [alias, standardValue] of sortedAliases) {
+        const aliasLower = alias.toLowerCase();
+        const aliasNoSpaces = aliasLower.replace(/\s+/g, '');
+        // 如果值包含别名（如"买它Ng"包含"买它"），则规范化
+        // 要求别名长度至少2个字符，避免单字符误匹配
+        if (aliasLower.length >= 2) {
+          // 检查原始值（带空格）和去除空格后的值
+          if (valueLower.includes(aliasLower) || valueNoSpaces.includes(aliasNoSpaces)) {
+            return standardValue;
+          }
+        }
+      }
+      
+      // 无法映射，返回原值（但会被筛选逻辑过滤掉）
+      return value;
     }
 
     // 首先检查是否已经是标准值

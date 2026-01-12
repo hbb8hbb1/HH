@@ -1,12 +1,12 @@
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { User } from '../types';
+import { User, UserRole } from '../types';
 
 interface AuthContextType {
   user: User | null;
   isLoading: boolean;
   login: (email: string, password: string) => Promise<void>;
-  register: (name: string, email: string, password: string) => Promise<void>;
+  register: (name: string, email: string, password: string, role?: UserRole) => Promise<void>;
   loginAsGuest: () => void;
   logout: () => void;
   upgradeToPro: () => Promise<void>;
@@ -29,7 +29,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
           id: 'guest_temp',
           name: '访客用户',
           email: 'guest@offermagnet.demo',
-          isPro: false
+          isPro: false,
+          role: 'job_seeker'
         });
       } else if (storedUser) {
         try {
@@ -45,35 +46,90 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   }, []);
 
   const login = async (email: string, password: string): Promise<void> => {
-    // Simulating API delay
-    await new Promise(resolve => setTimeout(resolve, 800));
-    
-    // In a real app, we'd fetch from server. Here we just mock it.
-    const mockUser: User = {
-      id: Math.random().toString(36).substr(2, 9),
-      name: email.split('@')[0],
-      email: email,
-      isPro: false
-    };
+    try {
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
+      
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.error || '登录失败');
+      }
+      
+      const data = await response.json();
+      const user: User = {
+        id: data.user.id,
+        name: data.user.name,
+        email: data.user.email,
+        isPro: data.user.isPro || false,
+        role: data.user.role || 'job_seeker'
+      };
 
-    localStorage.removeItem('offerMagnet_isGuest');
-    localStorage.setItem('offerMagnet_user', JSON.stringify(mockUser));
-    setUser(mockUser);
+      localStorage.removeItem('offerMagnet_isGuest');
+      localStorage.setItem('offerMagnet_user', JSON.stringify(user));
+      localStorage.setItem('offerMagnet_token', data.token);
+      setUser(user);
+    } catch (error: any) {
+      // 如果API失败，使用mock数据（开发环境）
+      const mockUser: User = {
+        id: Math.random().toString(36).substr(2, 9),
+        name: email.split('@')[0],
+        email: email,
+        isPro: false,
+        role: 'job_seeker'
+      };
+
+      localStorage.removeItem('offerMagnet_isGuest');
+      localStorage.setItem('offerMagnet_user', JSON.stringify(mockUser));
+      setUser(mockUser);
+    }
   };
 
-  const register = async (name: string, email: string, password: string): Promise<void> => {
-    await new Promise(resolve => setTimeout(resolve, 800));
-    
-    const mockUser: User = {
-      id: Math.random().toString(36).substr(2, 9),
-      name,
-      email,
-      isPro: false
-    };
+  const register = async (name: string, email: string, password: string, role: UserRole = 'job_seeker'): Promise<void> => {
+    try {
+      const response = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, password, role })
+      });
+      
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.error || '注册失败');
+      }
+      
+      const data = await response.json();
+      const user: User = {
+        id: data.user.id,
+        name: data.user.name,
+        email: data.user.email,
+        isPro: data.user.isPro || false,
+        role: data.user.role || role
+      };
 
-    localStorage.removeItem('offerMagnet_isGuest');
-    localStorage.setItem('offerMagnet_user', JSON.stringify(mockUser));
-    setUser(mockUser);
+      localStorage.removeItem('offerMagnet_isGuest');
+      localStorage.setItem('offerMagnet_user', JSON.stringify(user));
+      localStorage.setItem('offerMagnet_token', data.token);
+      setUser(user);
+    } catch (error: any) {
+      // 如果API失败，使用mock数据（开发环境）
+      const mockUser: User = {
+        id: Math.random().toString(36).substr(2, 9),
+        name,
+        email,
+        isPro: false,
+        role
+      };
+
+      localStorage.removeItem('offerMagnet_isGuest');
+      localStorage.setItem('offerMagnet_user', JSON.stringify(mockUser));
+      setUser(mockUser);
+      
+      // 重新抛出错误，让调用者处理
+      throw error;
+    }
   };
 
   const loginAsGuest = () => {
@@ -81,7 +137,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       id: 'guest_temp',
       name: '访客用户',
       email: 'guest@offermagnet.demo',
-      isPro: false
+      isPro: false,
+      role: 'job_seeker'
     };
     setUser(guestUser);
     localStorage.setItem('offerMagnet_isGuest', 'true');

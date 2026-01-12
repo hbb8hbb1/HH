@@ -61,25 +61,44 @@ class TagExtractor:
         dim = self.dimensions.get(dimension, {})
         aliases = dim.get('aliases', {})
         
-        # 检查别名映射
+        # 检查别名映射（精确匹配）
+        cleaned_lower = cleaned.lower()
         for alias, standard in aliases.items():
-            if alias.lower() == cleaned.lower():
+            if alias.lower() == cleaned_lower:
                 return standard
+        
+        # 对于公司名称，也检查是否包含别名（部分匹配）
+        if dimension == 'company':
+            # 按长度排序，优先匹配较长的别名
+            sorted_aliases = sorted(aliases.items(), key=lambda x: len(x[0]), reverse=True)
+            for alias, standard in sorted_aliases:
+                if alias.lower() in cleaned_lower or cleaned_lower in alias.lower():
+                    return standard
         
         return cleaned
     
     def _extract_company(self, title: str, text: str) -> str:
-        """提取公司名称"""
+        """提取公司名称（支持谐音和别名识别）"""
         dim = self.dimensions['company']
+        text_lower = text.lower()
+        title_lower = title.lower()
+        combined_text = f"{title_lower} {text_lower}"
         
-        # 1. 先检查别名
-        for alias, standard in dim['aliases'].items():
-            if alias.lower() in text:
+        # 1. 先检查别名（使用单词边界匹配，避免部分匹配错误）
+        # 按长度排序，优先匹配较长的别名（避免"买"匹配到"买它"）
+        sorted_aliases = sorted(dim['aliases'].items(), key=lambda x: len(x[0]), reverse=True)
+        for alias, standard in sorted_aliases:
+            alias_lower = alias.lower()
+            # 使用单词边界或独立出现来匹配
+            pattern = r'\b' + re.escape(alias_lower) + r'\b'
+            if re.search(pattern, combined_text, re.IGNORECASE):
                 return standard
         
-        # 2. 检查预定义公司
+        # 2. 检查预定义公司（使用单词边界匹配）
         for company in dim['predefined']:
-            if company.lower() in text:
+            company_lower = company.lower()
+            pattern = r'\b' + re.escape(company_lower) + r'\b'
+            if re.search(pattern, combined_text, re.IGNORECASE):
                 return company
         
         # 3. 从标题提取（常见格式：公司名 - 岗位名）

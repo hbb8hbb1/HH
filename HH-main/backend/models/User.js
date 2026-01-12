@@ -17,6 +17,11 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  role: {
+    type: String,
+    enum: ['job_seeker', 'recruiter', 'coach'],
+    default: 'job_seeker'
+  },
   isPro: {
     type: Boolean,
     default: false

@@ -14,13 +14,14 @@ from mongodb_utils import get_mongo_collection, COLLECTION_NAME
 
 # Google相关关键词（用于识别）
 GOOGLE_KEYWORDS = [
-    "狗家", "谷歌", "Google", "google", "G家", "g家", "骨骼", "狗狗家",
+    "狗家", "谷歌", "Google", "google", "G家", "g家", "骨骼", "狗狗家", "狗云",
     "goog", "GOOGLE", "GooGle"
 ]
 
 # Meta相关关键词（用于识别）
 META_KEYWORDS = [
-    "Meta", "meta", "Facebook", "facebook", "FB", "fb", "脸书", "META"
+    "Meta", "meta", "Facebook", "facebook", "FB", "fb", "脸书", "META",
+    "买它", "买他", "buyit", "BuyIt", "BUYIT"
 ]
 
 def detect_company_from_content(title: str, content: str = "") -> str:
