@@ -6,12 +6,11 @@ HH Pipeline - 统一的HTML面经处理流程
 功能：
 1. 解析HTML文件为raw JSON
 2. 通过AI清洗为final JSON（必须有AI API）
-3. 可选：导入到后端数据库
+3. 使用TagExtractor规范化标签值
 4. 幂等去重：基于内容hash，已处理的文件自动跳过
 
 使用方法：
     python pipeline.py run --html-dir ./input_html --out-dir ./out
-    python pipeline.py run --html-dir ./input_html --out-dir ./out --api-base http://localhost:5001 --email user@example.com --password pass
 """
 
 import argparse
@@ -24,12 +23,28 @@ import sys
 import time
 from pathlib import Path
 from typing import Dict, Any, Optional, Tuple
-from datetime import datetime
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from threading import Lock
 
 import requests
 from bs4 import BeautifulSoup
+
+# 尝试导入 TagExtractor（如果存在）
+try:
+    from tag_extractor import TagExtractor
+    TAG_EXTRACTOR_AVAILABLE = True
+except ImportError:
+    TAG_EXTRACTOR_AVAILABLE = False
+    print("⚠️  Warning: TagExtractor not found. Tag normalization will be skipped.")
+
+# 导入标签验证器（必需）
+try:
+    from validators import TagValidator
+    TAG_VALIDATOR_AVAILABLE = True
+except ImportError:
+    TAG_VALIDATOR_AVAILABLE = False
+    print("❌ Error: TagValidator not found. Tag validation is required!")
+    sys.exit(1)
 
 # ==================== 配置 ====================
 
@@ -99,10 +114,11 @@ def build_prompt(title: str, content_text: str) -> str:
    - tags: 3-8 个标签的数组（保留向后兼容）
    - tagDimensions: 结构化标签对象，包含以下字段：
      * technologies: 技术栈数组，如 ["React", "TypeScript", "Node.js"]（从内容中提取提到的技术）
-     * recruitType: 招聘类型，可选值："校招"、"社招"、"暑期实习"、"日常实习"、"其他"（从标题或内容识别）
-     * location: 地点字符串，如 "北京"、"上海"、"深圳"、"硅谷"（从标题或内容提取，不确定则空字符串）
-     * category: 部门类别，可选值："研发"、"算法"、"产品"、"设计"、"运营"、"市场"、"HR"（根据role和内容判断）
-     * subRole: 子角色字符串，如 "前端"、"后端"、"机器学习"、"CV"（根据role和内容判断）
+     * recruitType: 招聘类型，可选值："intern"、"newgrad"、"experienced"（从标题或内容识别：实习→intern，校招/应届→newgrad，社招→experienced）
+     * location: 地点字符串，如 "北京"、"上海"、"San Francisco Bay Area"（从标题或内容提取，不确定则空字符串）
+     * category: 部门类别，可选值："SWE"、"Data"、"PM"、"Design"、"Infra"、"Other"（根据role和内容判断）
+     * experience: 经验要求，如 "0"、"0-2"、"2-5"、"5-10"、"10+"（从内容推断，不确定则空字符串）
+     * salary: 薪资范围，如 "0-100k"、"100k-150k"、"150k-200k"、"200k-300k"、"300k+"（从内容推断，不确定则空字符串）
      * custom: 自定义标签数组，如 ["手写代码", "系统设计", "算法题"]（其他有价值的标签）
 
 原始标题（可能很糙）：
@@ -112,7 +128,7 @@ def build_prompt(title: str, content_text: str) -> str:
 {content_text}
 
 请返回 JSON 格式，包含 title, processedContent, company, role, difficulty, tags, tagDimensions 字段。
-tagDimensions 必须包含所有子字段（technologies, recruitType, location, category, subRole, custom）。
+tagDimensions 必须包含所有子字段（technologies, recruitType, location, category, experience, salary, custom）。
 只返回 JSON，不要其他文字。"""
 
 def call_qwen_api(prompt: str, retries: int = MAX_RETRIES) -> Dict[str, Any]:
@@ -219,27 +235,72 @@ def process_with_ai(raw_data: Dict[str, Any]) -> Dict[str, Any]:
     if missing:
         raise ValueError(f"AI返回缺少必需字段: {missing}")
     
+    # 初始化标签验证器（必需）
+    validator = TagValidator()
+    
+    # 初始化 TagExtractor（如果可用）用于公司名称和地点规范化
+    tag_extractor = None
+    if TAG_EXTRACTOR_AVAILABLE:
+        try:
+            tag_extractor = TagExtractor()
+        except Exception as e:
+            print(f"⚠️  TagExtractor初始化失败，将跳过标签规范化: {e}")
+    
     # 验证 tagDimensions 结构
     tag_dims = processed.get("tagDimensions", {})
-    required_dims = ["technologies", "recruitType", "location", "category", "subRole", "custom"]
+    required_dims = ["technologies", "recruitType", "location", "category", "experience", "salary", "custom"]
     missing_dims = [d for d in required_dims if d not in tag_dims]
     if missing_dims:
         raise ValueError(f"tagDimensions 缺少必需字段: {missing_dims}")
     
-    # 验证和规范化 tagDimensions
+    # 提取并规范化 tagDimensions
     tag_dimensions = {
         "technologies": list(tag_dims.get("technologies", [])) if isinstance(tag_dims.get("technologies"), list) else [],
-        "recruitType": str(tag_dims.get("recruitType", "其他")).strip() or "其他",
-        "location": str(tag_dims.get("location", "")).strip(),
-        "category": str(tag_dims.get("category", "")).strip() or "",
-        "subRole": str(tag_dims.get("subRole", "")).strip() or "",
+        "recruitType": str(tag_dims.get("recruitType", "")).strip() or "",
+        "location": str(tag_dims.get("location", "")).strip() or "",
+        "category": str(tag_dims.get("category", "")).strip() or "Other",
+        "experience": str(tag_dims.get("experience", "")).strip() or "",
+        "salary": str(tag_dims.get("salary", "")).strip() or "",
         "custom": list(tag_dims.get("custom", [])) if isinstance(tag_dims.get("custom"), list) else []
     }
     
-    # 验证 recruitType 值
-    valid_recruit_types = ["校招", "社招", "暑期实习", "日常实习", "其他"]
-    if tag_dimensions["recruitType"] not in valid_recruit_types:
-        tag_dimensions["recruitType"] = "其他"
+    # 使用验证器规范化标签值（关键：将中文转换为英文标准值）
+    tag_dimensions["category"] = validator.normalize_value("category", tag_dimensions["category"]) or "Other"
+    if tag_dimensions["recruitType"]:
+        tag_dimensions["recruitType"] = validator.normalize_value("recruitType", tag_dimensions["recruitType"]) or ""
+    if tag_dimensions["experience"]:
+        tag_dimensions["experience"] = validator.normalize_value("experience", tag_dimensions["experience"]) or ""
+    if tag_dimensions["salary"]:
+        tag_dimensions["salary"] = validator.normalize_value("salary", tag_dimensions["salary"]) or ""
+    
+    # 使用 TagExtractor 规范化公司名称和地点（如果可用）
+    if tag_extractor:
+        try:
+            # 规范化公司名称
+            if processed.get("company"):
+                normalized_company = tag_extractor._normalize_value(processed["company"], "company")
+                if normalized_company:
+                    processed["company"] = normalized_company
+            
+            # 规范化地点
+            if tag_dimensions["location"]:
+                normalized_location = tag_extractor._normalize_value(tag_dimensions["location"], "location")
+                if normalized_location:
+                    tag_dimensions["location"] = normalized_location
+        except Exception as e:
+            print(f"⚠️  标签规范化过程中出错: {e}")
+    
+    # 使用验证器验证 tagDimensions（确保符合规范）
+    is_valid, errors, warnings = validator.validate_tag_dimensions(tag_dimensions)
+    if not is_valid:
+        error_msg = f"tagDimensions 验证失败: {', '.join(errors)}"
+        print(f"❌ {error_msg}")
+        raise ValueError(error_msg)
+    
+    # 输出警告（如果有）
+    if warnings:
+        for warning in warnings:
+            print(f"⚠️  {warning}")
     
     # 构建final payload
     return {
@@ -350,48 +411,9 @@ def update_state(conn: sqlite3.Connection, content_hash: str, status: str, file_
     """, (content_hash, status, file_id, error_reason))
     conn.commit()
 
-# ==================== 后端导入 ====================
-
-def register_user(api_base: str, name: str, email: str, password: str):
-    """注册用户（忽略错误）"""
-    try:
-        requests.post(
-            f"{api_base}/api/auth/register",
-            json={"name": name, "email": email, "password": password},
-            timeout=10
-        )
-    except:
-        pass
-
-def login(api_base: str, email: str, password: str) -> str:
-    """登录获取token"""
-    response = requests.post(
-        f"{api_base}/api/auth/login",
-        json={"email": email, "password": password},
-        timeout=10
-    )
-    response.raise_for_status()
-    data = response.json()
-    token = data.get("token") or data.get("accessToken") or data.get("jwt")
-    if not token:
-        raise RuntimeError(f"登录成功但未返回token: {data}")
-    return token
-
-def upload_to_backend(api_base: str, token: str, payload: Dict[str, Any]) -> Dict[str, Any]:
-    """上传到后端"""
-    response = requests.post(
-        f"{api_base}/api/posts",
-        headers={"Authorization": f"Bearer {token}"},
-        json=payload,
-        timeout=API_TIMEOUT
-    )
-    response.raise_for_status()
-    return response.json()
-
 # ==================== 主流程 ====================
 
-def run_pipeline(html_dir: Path, out_dir: Path, api_base: Optional[str] = None, 
-                 email: Optional[str] = None, password: Optional[str] = None):
+def run_pipeline(html_dir: Path, out_dir: Path):
     """运行pipeline主流程"""
     
     # 1. AI-gate：检查AI API
@@ -428,7 +450,17 @@ def run_pipeline(html_dir: Path, out_dir: Path, api_base: Optional[str] = None,
     # 5. 处理每个文件（并发处理）
     stats = {"total": len(html_files), "ok": 0, "bad": 0, "skipped": 0}
     stats_lock = Lock()  # 用于线程安全的统计更新
-    state_lock = Lock()  # 状态数据库锁
+    
+    def get_state_conn():
+        """获取当前线程的 SQLite 连接（每个线程使用独立连接）"""
+        import threading
+        thread_local = getattr(get_state_conn, '_thread_local', None)
+        if thread_local is None:
+            thread_local = threading.local()
+            get_state_conn._thread_local = thread_local
+        if not hasattr(thread_local, 'conn'):
+            thread_local.conn = sqlite3.connect(str(state_db_path), check_same_thread=False)
+        return thread_local.conn
     
     def process_single_file(html_path: Path, index: int) -> Tuple[str, str, Optional[str]]:
         """处理单个HTML文件（用于并发）"""
@@ -436,17 +468,19 @@ def run_pipeline(html_dir: Path, out_dir: Path, api_base: Optional[str] = None,
         result_msg = ""
         file_id = None
         
+        # 获取当前线程的 SQLite 连接
+        thread_conn = get_state_conn()
+        
         try:
             # 计算内容hash（用于去重）
             content_hash = compute_content_hash(html_path)
             
             # 步骤1: 检查hash是否已处理（快速检查状态数据库）
-            with state_lock:
-                cursor = state_conn.execute(
-                    "SELECT status, error_reason, file_id FROM processing_state WHERE content_hash = ?",
-                    (content_hash,)
-                )
-                state_row = cursor.fetchone()
+            cursor = thread_conn.execute(
+                "SELECT status, error_reason, file_id FROM processing_state WHERE content_hash = ?",
+                (content_hash,)
+            )
+            state_row = cursor.fetchone()
             
             prev_error = None
             if state_row:
@@ -478,8 +512,7 @@ def run_pipeline(html_dir: Path, out_dir: Path, api_base: Optional[str] = None,
                 error_msg = str(e)
                 error_path = bad_dir / f"{html_path.stem}.error.txt"
                 error_path.write_text(f"{html_path}\n{type(e).__name__}: {error_msg}\n", encoding="utf-8")
-                with state_lock:
-                    update_state(state_conn, content_hash, "bad", html_path.stem, error_msg[:500])
+                update_state(thread_conn, content_hash, "bad", html_path.stem, error_msg[:500])
                 with stats_lock:
                     stats["bad"] += 1
                 return ("bad", f"❌ HTML解析失败: {error_msg[:100]}", None)
@@ -491,8 +524,7 @@ def run_pipeline(html_dir: Path, out_dir: Path, api_base: Optional[str] = None,
                     final_data = json.loads(final_path.read_text(encoding="utf-8"))
                     processed = final_data.get("processedContent", "")
                     if is_content_already_processed(processed):
-                        with state_lock:
-                            update_state(state_conn, content_hash, "ok", file_id)
+                        update_state(thread_conn, content_hash, "ok", file_id)
                         with stats_lock:
                             stats["skipped"] += 1
                         return ("skipped", f"⏭️  已处理过，跳过（final文件已存在且有效）", None)
@@ -515,8 +547,7 @@ def run_pipeline(html_dir: Path, out_dir: Path, api_base: Optional[str] = None,
             final_path.write_text(json.dumps(final_data, ensure_ascii=False, indent=2), encoding="utf-8")
             
             # 步骤7: 更新状态
-            with state_lock:
-                update_state(state_conn, content_hash, "ok", file_id)
+            update_state(thread_conn, content_hash, "ok", file_id)
             with stats_lock:
                 stats["ok"] += 1
             
@@ -528,8 +559,12 @@ def run_pipeline(html_dir: Path, out_dir: Path, api_base: Optional[str] = None,
             error_path = bad_dir / f"{file_id}.error.txt"
             error_path.write_text(f"{html_path}\n{type(e).__name__}: {error_msg}\n", encoding="utf-8")
             
-            with state_lock:
-                update_state(state_conn, content_hash, "bad", file_id, error_msg[:500])
+            # 注意：这里 content_hash 可能未定义，需要处理
+            try:
+                content_hash = compute_content_hash(html_path)
+                update_state(thread_conn, content_hash, "bad", file_id, error_msg[:500])
+            except:
+                pass  # 如果 content_hash 计算失败，跳过状态更新
             with stats_lock:
                 stats["bad"] += 1
             
@@ -569,7 +604,11 @@ def run_pipeline(html_dir: Path, out_dir: Path, api_base: Optional[str] = None,
     print(f"   失败记录: {bad_dir}")
     print(f"   状态数据库: {state_db_path}")
     
-    state_conn.close()
+    # 关闭主线程的 SQLite 连接（线程本地连接会自动关闭）
+    try:
+        state_conn.close()
+    except:
+        pass
 
 # ==================== 命令行入口 ====================
 
@@ -581,9 +620,6 @@ def main():
     run_parser = subparsers.add_parser("run", help="运行pipeline")
     run_parser.add_argument("--html-dir", required=True, help="HTML文件目录")
     run_parser.add_argument("--out-dir", default="./out", help="输出目录（默认: ./out）")
-    run_parser.add_argument("--api-base", help="后端API地址（可选，用于上传）")
-    run_parser.add_argument("--email", help="登录邮箱（与--api-base一起使用）")
-    run_parser.add_argument("--password", help="登录密码（与--api-base一起使用）")
     
     args = parser.parse_args()
     
@@ -595,12 +631,7 @@ def main():
         
         out_dir = Path(args.out_dir)
         
-        # 验证上传参数
-        if args.api_base and (not args.email or not args.password):
-            print("❌ 使用--api-base时必须同时提供--email和--password")
-            sys.exit(1)
-        
-        run_pipeline(html_dir, out_dir, args.api_base, args.email, args.password)
+        run_pipeline(html_dir, out_dir)
     else:
         parser.print_help()
 

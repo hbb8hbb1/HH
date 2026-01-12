@@ -29,11 +29,23 @@ build/
 Thumbs.db
 
 # Pipeline outputs (ignore processed outputs, keep scripts)
-hh_pipeline/out/bad/*
-hh_pipeline/out/final/*
-hh_pipeline/out/state.sqlite
-hh_pipeline/input_html/*.html
+hh_pipeline/out*/
+hh_pipeline/input_html/
+hh_pipeline/*.log
 
 # Test files
 hh_pipeline/test_input/
-*.test.*
+
+# Log and PID files
+*.log
+*.log.*
+*.pid
+frontend.log
+frontend.pid
+server.log
+server.pid
+HH-main/*.log
+HH-main/*.pid
+HH-main/server/*.log
+HH-main/server/*.pid
+hh_pipeline/*.log

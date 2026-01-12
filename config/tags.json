@@ -1,0 +1,214 @@
+{
+  "version": "1.0.0",
+  "lastUpdated": "2024-01-15",
+  "dimensions": {
+    "company": {
+      "label": "公司",
+      "labelEn": "Company",
+      "type": "dynamic",
+      "allowCustom": true,
+      "predefined": ["Google", "Meta", "Amazon", "Apple", "Microsoft", "Netflix", "ByteDance", "Alibaba", "Tencent", "Nvidia", "OpenAI", "Stripe", "Airbnb", "Uber", "LinkedIn"],
+      "aliases": {
+        "谷歌": "Google",
+        "狗家": "Google",
+        "G家": "Google",
+        "g家": "Google",
+        "骨骼": "Google",
+        "狗狗家": "Google",
+        "脸书": "Meta",
+        "Facebook": "Meta",
+        "FB": "Meta",
+        "亚马逊": "Amazon",
+        "AWS": "Amazon",
+        "苹果": "Apple",
+        "微软": "Microsoft",
+        "MSFT": "Microsoft",
+        "字节": "ByteDance",
+        "字节跳动": "ByteDance",
+        "TikTok": "ByteDance",
+        "抖音": "ByteDance",
+        "阿里": "Alibaba",
+        "阿里巴巴": "Alibaba",
+        "蚂蚁": "Alibaba",
+        "腾讯": "Tencent",
+        "TX": "Tencent",
+        "英伟达": "Nvidia",
+        "NVIDIA": "Nvidia"
+      }
+    },
+    "location": {
+      "label": "地点",
+      "labelEn": "Location",
+      "type": "dynamic",
+      "allowCustom": true,
+      "predefined": {
+        "北美": ["San Francisco Bay Area", "Seattle", "New York", "Austin", "Los Angeles", "Boston", "Chicago", "San Diego", "Denver", "Atlanta"],
+        "亚洲": ["北京", "上海", "深圳", "杭州", "广州", "新加坡", "东京", "香港"],
+        "欧洲": ["London", "Berlin", "Amsterdam", "Dublin", "Paris", "Zurich"],
+        "远程": ["Remote", "Hybrid"]
+      },
+      "aliases": {
+        "湾区": "San Francisco Bay Area",
+        "SF": "San Francisco Bay Area",
+        "Bay Area": "San Francisco Bay Area",
+        "硅谷": "San Francisco Bay Area",
+        "San Francisco": "San Francisco Bay Area",
+        "NYC": "New York",
+        "纽约": "New York",
+        "西雅图": "Seattle",
+        "洛杉矶": "Los Angeles",
+        "LA": "Los Angeles",
+        "波士顿": "Boston",
+        "芝加哥": "Chicago",
+        "伦敦": "London",
+        "柏林": "Berlin",
+        "远程": "Remote",
+        "混合办公": "Hybrid"
+      }
+    },
+    "category": {
+      "label": "岗位类别",
+      "labelEn": "Category",
+      "type": "fixed",
+      "allowCustom": false,
+      "values": [
+        {
+          "value": "SWE",
+          "label": "软件工程",
+          "labelEn": "Software Engineering",
+          "keywords": ["software", "engineer", "developer", "sde", "swe", "backend", "frontend", "fullstack", "full-stack", "full stack", "mobile", "ios", "android", "web", "java", "python", "golang", "go engineer", "c++", "rust", "软件工程师", "开发", "研发", "工程师"]
+        },
+        {
+          "value": "Data",
+          "label": "数据",
+          "labelEn": "Data",
+          "keywords": ["data scientist", "data analyst", "data engineer", "analytics", "bi", "business intelligence", "machine learning", "ml engineer", "ml", "ai", "research scientist", "applied scientist", "数据科学", "数据科学家", "算法", "机器学习"]
+        },
+        {
+          "value": "PM",
+          "label": "产品",
+          "labelEn": "Product",
+          "keywords": ["product manager", "pm", "program manager", "tpm", "technical program", "product owner", "产品经理", "产品"]
+        },
+        {
+          "value": "Design",
+          "label": "设计",
+          "labelEn": "Design",
+          "keywords": ["designer", "ux", "ui", "visual", "graphic", "product design", "interaction design", "设计师", "设计"]
+        },
+        {
+          "value": "Infra",
+          "label": "基础设施",
+          "labelEn": "Infrastructure",
+          "keywords": ["devops", "sre", "site reliability", "infrastructure", "platform", "cloud", "systems", "security engineer", "network engineer", "database administrator", "dba", "运维", "基础设施"]
+        },
+        {
+          "value": "Other",
+          "label": "其他",
+          "labelEn": "Other",
+          "keywords": []
+        }
+      ]
+    },
+    "recruitType": {
+      "label": "招聘类型",
+      "labelEn": "Recruit Type",
+      "type": "fixed",
+      "allowCustom": false,
+      "values": [
+        {
+          "value": "intern",
+          "label": "实习",
+          "labelEn": "Internship",
+          "keywords": ["intern", "实习", "internship", "summer", "winter", "coop", "co-op", "实习生"]
+        },
+        {
+          "value": "newgrad",
+          "label": "校招",
+          "labelEn": "New Grad",
+          "keywords": ["new grad", "校招", "应届", "ng", "entry level", "junior", "fresh grad", "graduate", "newgrad", "new grad", "应届生", "校园招聘"]
+        },
+        {
+          "value": "experienced",
+          "label": "社招",
+          "labelEn": "Experienced",
+          "keywords": ["社招", "experienced", "senior", "staff", "principal", "lead", "manager", "director", "社会招聘"]
+        }
+      ]
+    },
+    "experience": {
+      "label": "经验要求",
+      "labelEn": "Experience",
+      "type": "fixed",
+      "allowCustom": false,
+      "values": [
+        {
+          "value": "0",
+          "label": "无经验要求",
+          "labelEn": "No Experience"
+        },
+        {
+          "value": "0-2",
+          "label": "0-2年",
+          "labelEn": "0-2 Years"
+        },
+        {
+          "value": "2-5",
+          "label": "2-5年",
+          "labelEn": "2-5 Years"
+        },
+        {
+          "value": "5-10",
+          "label": "5-10年",
+          "labelEn": "5-10 Years"
+        },
+        {
+          "value": "10+",
+          "label": "10年以上",
+          "labelEn": "10+ Years"
+        }
+      ]
+    },
+    "salary": {
+      "label": "薪资范围",
+      "labelEn": "Salary Range",
+      "type": "fixed",
+      "allowCustom": false,
+      "currency": "USD",
+      "unit": "yearly",
+      "values": [
+        {
+          "value": "0-100k",
+          "label": "$0-100K",
+          "min": 0,
+          "max": 100000
+        },
+        {
+          "value": "100k-150k",
+          "label": "$100K-150K",
+          "min": 100000,
+          "max": 150000
+        },
+        {
+          "value": "150k-200k",
+          "label": "$150K-200K",
+          "min": 150000,
+          "max": 200000
+        },
+        {
+          "value": "200k-300k",
+          "label": "$200K-300K",
+          "min": 200000,
+          "max": 300000
+        },
+        {
+          "value": "300k+",
+          "label": "$300K+",
+          "min": 300000,
+          "max": null
+        }
+      ]
+    }
+  }
+}
+
