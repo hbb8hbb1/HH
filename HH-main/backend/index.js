@@ -94,7 +94,8 @@ app.get('/api/posts', async (req, res) => {
       experience,
       salary,
       technologies,  // 可以是逗号分隔的字符串或数组
-      search
+      search,
+      publishMonth  // 发布时间月份，格式：YYYY-MM
     } = req.query;
     
     // 检查 MongoDB 连接状态
@@ -150,6 +151,25 @@ app.get('/api/posts', async (req, res) => {
       }
     }
     
+    // 时间筛选：按月份筛选（格式：YYYY-MM）
+    if (publishMonth && publishMonth !== '' && publishMonth !== '全部') {
+      // 解析月份，例如 "2024-01" -> 2024年1月
+      const monthMatch = publishMonth.match(/^(\d{4})-(\d{2})$/);
+      if (monthMatch) {
+        const year = parseInt(monthMatch[1]);
+        const month = parseInt(monthMatch[2]);
+        
+        // 构建月份范围查询（该月的第一天 00:00:00 到 最后一天 23:59:59）
+        const startDate = new Date(year, month - 1, 1, 0, 0, 0, 0);
+        const endDate = new Date(year, month, 0, 23, 59, 59, 999); // 下个月的第0天 = 这个月的最后一天
+        
+        query.createdAt = {
+          $gte: startDate,
+          $lte: endDate
+        };
+      }
+    }
+    
     // ✅ 简化搜索 - 优先精确匹配（可以使用索引），然后正则匹配
     if (search && search.trim()) {
       const searchTerm = search.trim();
@@ -178,7 +198,7 @@ app.get('/api/posts', async (req, res) => {
     }
     
     // ✅ 性能优化：并行执行数据查询和总数计算
-    const hasFilters = company || location || recruitType || category || experience || salary || technologies || search;
+    const hasFilters = company || location || recruitType || category || experience || salary || technologies || search || publishMonth;
     
     // 并行执行：同时查询数据和计算总数
     const [postsResult, total] = await Promise.all([
@@ -246,7 +266,7 @@ app.get('/api/posts', async (req, res) => {
     const duration = Date.now() - startTime;
     
     // 记录筛选参数和性能指标（用于调试）
-    const filterParams = { company, location, recruitType, category, experience, salary, technologies, search };
+    const filterParams = { company, location, recruitType, category, experience, salary, technologies, search, publishMonth };
     const performanceNote = duration > 1000 ? '⚠️ 查询较慢，建议检查索引' : duration > 500 ? '⚡ 查询偏慢' : '✅ 查询正常';
     console.log(`[MongoDB Query] GET /api/posts - Duration: ${duration}ms ${performanceNote} (page: ${page}, limit: ${limit}, total: ${total}, filtered: ${filteredPosts.length}, filters: ${JSON.stringify(filterParams)})`);
     

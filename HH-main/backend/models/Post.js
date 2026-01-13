@@ -45,7 +45,8 @@ const postSchema = new mongoose.Schema({
   // Favorites
   favoritedBy: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
 
-  createdAt: { type: Date, default: Date.now }
+  createdAt: { type: Date, default: Date.now },
+  publishTime: { type: String } // 发布时间字符串（可选，用于筛选）
 });
 
 // 添加索引以加速排序查询

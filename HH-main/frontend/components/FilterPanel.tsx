@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback, useRef, useMemo } from 'react';
-import { Building2, MapPin, Layers, Briefcase, User, DollarSign, ChevronDown, Check, X } from 'lucide-react';
+import { Building2, MapPin, Layers, Briefcase, User, DollarSign, ChevronDown, Check, X, Calendar } from 'lucide-react';
 
 interface FilterOption {
   value: string;
@@ -25,6 +25,7 @@ export interface Filters {
   recruitType: string;
   experience: string;
   salary: string;
+  publishMonth: string;
 }
 
 interface Props {
@@ -40,6 +41,7 @@ export const initialFilters: Filters = {
   recruitType: '',
   experience: '',
   salary: '',
+  publishMonth: '',
 };
 
 // 筛选维度顺序和图标映射
@@ -54,6 +56,7 @@ const DIMENSION_CONFIG: Array<{
   { key: 'location', icon: <MapPin size={16} />, order: 4 },
   { key: 'experience', icon: <User size={16} />, order: 5 },
   { key: 'salary', icon: <DollarSign size={16} />, order: 6 },
+  { key: 'publishMonth', icon: <Calendar size={16} />, order: 7 },
 ];
 
 // 虚拟滚动功能暂时移除，确保页面正常显示
@@ -79,20 +82,18 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({ icon, label, options, v
     setTimeout(() => {
       setIsOpen(false);
       setIsClosing(false);
-    }, 200); // 减少动画时间从 300ms 到 200ms，提升响应速度
+    }, 200);
   }, []);
 
   const handleSelect = useCallback((selectedValue: string) => {
-    // 立即应用选中状态，快速关闭下拉菜单（减少延迟）
     onSelect(selectedValue);
-    // 减少延迟：从 100ms + 300ms 减少到 50ms + 200ms
     setTimeout(() => {
       setIsClosing(true);
       setTimeout(() => {
         setIsOpen(false);
         setIsClosing(false);
-      }, 200); // 减少动画时间从 300ms 到 200ms
-    }, 50); // 减少确认延迟从 100ms 到 50ms
+      }, 200);
+    }, 50);
   }, [onSelect]);
 
   useEffect(() => {
@@ -120,11 +121,11 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({ icon, label, options, v
   const displayOptions = useMemo(() => options, [options]);
 
   return (
-    <div className="relative z-[60]" ref={dropdownRef}>
+    <div className="relative" ref={dropdownRef}>
       {/* 按钮 */}
       <button
         onClick={() => {
-          if (isClosing) return; // 关闭动画期间不响应点击
+          if (isClosing) return;
           if (isOpen) {
             handleClose();
           } else {
@@ -158,12 +159,12 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({ icon, label, options, v
         />
       </button>
 
-      {/* 下拉菜单 - 添加 fade-in + slide-down 动画 */}
+      {/* 下拉菜单 - 使用 absolute 定位，但提高 z-index 确保显示在所有元素之上 */}
       {isOpen && (
         <>
           {/* 背景遮罩层（用于点击外部关闭） */}
           <div 
-            className={`fixed inset-0 z-[55] transition-opacity duration-300 ${isClosing ? 'opacity-0' : 'opacity-100'}`}
+            className={`fixed inset-0 z-[9998] transition-opacity duration-300 ${isClosing ? 'opacity-0' : 'opacity-100'}`}
             onClick={handleClose}
             style={{ backgroundColor: 'transparent' }}
           />
@@ -173,10 +174,11 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({ icon, label, options, v
                        bg-white/99 backdrop-blur-xl 
                        border border-slate-200/90 
                        rounded-2xl
-                       z-[60] overflow-hidden overflow-x-hidden
+                       z-[9999] overflow-hidden overflow-x-hidden
                        transition-all duration-200 ease-out
+                       shadow-2xl
                        ${isClosing 
-                         ? 'opacity-0 -translate-y-2 scale-95 pointer-events-none' 
+                         ? 'opacity-0 -translate-y-2 scale-95 pointer-events-none'
                          : 'opacity-100 translate-y-0 scale-100 dropdown-enter'
                        }`}
             style={{
@@ -277,7 +279,7 @@ export const FilterPanel: React.FC<Props> = ({ filters, onFilterChange, isLoadin
   useEffect(() => {
     // 清除旧的缓存（修复公司名称规范化问题后，需要清除旧缓存）
     const CACHE_KEY = 'offermagnet_filter_options';
-    const CACHE_VERSION = '2.0'; // 版本号，用于强制清除旧缓存
+    const CACHE_VERSION = '3.0'; // 版本号，用于强制清除旧缓存（添加时间筛选）
     const CACHE_VERSION_KEY = 'offermagnet_filter_options_version';
     
     try {
@@ -412,12 +414,20 @@ export const FilterPanel: React.FC<Props> = ({ filters, onFilterChange, isLoadin
     );
   }
 
+  // 调试：检查publishMonth是否在filterOptions中
+  console.log('[FilterPanel] filterOptions keys:', Object.keys(filterOptions));
+  console.log('[FilterPanel] publishMonth in filterOptions:', 'publishMonth' in filterOptions);
+  console.log('[FilterPanel] sortedDimensions:', sortedDimensions.map(d => d.key));
+
   return (
-    <div className="filter-panel">
-      <div className="flex flex-wrap items-center gap-3">
+    <div className="filter-panel relative z-[50]">
+      <div className="flex flex-wrap items-center gap-3 relative">
         {sortedDimensions.map(({ key, icon }) => {
           const dim = filterOptions[key];
-          if (!dim) return null;
+          if (!dim) {
+            console.warn(`[FilterPanel] 维度 ${key} 不在 filterOptions 中，跳过渲染`);
+            return null;
+          }
 
           const currentValue = filters[key];
           const hasSelection = currentValue && currentValue !== '';

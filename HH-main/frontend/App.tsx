@@ -206,6 +206,9 @@ function App() {
       if (filters.salary && filters.salary !== '') {
         params.append('salary', filters.salary);
       }
+      if (filters.publishMonth && filters.publishMonth !== '') {
+        params.append('publishMonth', filters.publishMonth);
+      }
       if (searchQuery && searchQuery.trim()) {
         params.append('search', searchQuery.trim());
       }
@@ -334,19 +337,19 @@ function App() {
   const prevPageRef = useRef<number>(1);
   
   // 当筛选条件改变时，重置到第一页（只在interviews标签时生效）
+  // 注意：这个useEffect只负责重置页码，不更新prevFiltersRef
   useEffect(() => {
     if (activeTab !== 'interviews') return;
     
     const currentFiltersStr = JSON.stringify({ filters, searchQuery });
-    if (prevFiltersRef.current && prevFiltersRef.current !== currentFiltersStr) {
+    const isFilterChange = prevFiltersRef.current && prevFiltersRef.current !== currentFiltersStr;
+    
+    if (isFilterChange && currentPage !== 1) {
       // 筛选条件改变，重置到第一页
-      if (currentPage !== 1) {
-        setCurrentPage(1);
-      }
+      setCurrentPage(1);
     }
-    // 只在interviews标签时更新prevFiltersRef
-    prevFiltersRef.current = currentFiltersStr;
-  }, [filters.company, filters.location, filters.recruitType, filters.category, filters.experience, filters.salary, searchQuery, activeTab, currentPage]);
+    // 注意：不要在这里更新prevFiltersRef，让数据获取的useEffect来更新，避免逻辑冲突
+  }, [filters.company, filters.location, filters.recruitType, filters.category, filters.experience, filters.salary, filters.publishMonth, searchQuery, activeTab]);
 
   // 使用 ref 跟踪上一个标签，用于检测标签切换
   const prevTabRef = useRef<'interviews' | 'jobs' | 'coaching'>('interviews');
@@ -407,8 +410,18 @@ function App() {
     const isFilterChange = prevFiltersRef.current !== '' && prevFiltersRef.current !== currentFiltersStr;
     const isPageChange = prevPageRef.current !== currentPage;
     
+    console.log('[筛选调试]', {
+      currentFiltersStr,
+      prevFiltersStr: prevFiltersRef.current,
+      isFilterChange,
+      isPageChange,
+      currentPage,
+      filters: filters
+    });
+    
     // 如果是页码改变（且不是筛选导致的页码重置），立即执行
     if (isPageChange && !isFilterChange) {
+      console.log('[筛选调试] 页码改变，立即执行');
       fetchPosts(currentPage);
       // 使用更平滑的滚动
       window.scrollTo({ 
@@ -421,10 +434,12 @@ function App() {
     }
     
     // 如果是筛选条件改变，使用防抖延迟执行
-    if (isFilterChange || (prevFiltersRef.current === '' && currentFiltersStr !== '')) {
+    if (isFilterChange) {
+      console.log('[筛选调试] 筛选条件改变，使用防抖执行');
       debounceRef.current = setTimeout(() => {
         // 再次检查activeTab，避免在定时器执行时标签已切换
         if (activeTab === 'interviews') {
+          console.log('[筛选调试] 执行fetchPosts，筛选条件:', filters);
           fetchPosts(currentPage);
           // 使用更平滑的滚动
           window.scrollTo({ 
@@ -437,18 +452,19 @@ function App() {
         }
         debounceRef.current = null;
       }, 250); // 减少防抖延迟到250ms，提升响应速度
-    } else {
+    } else if (prevFiltersRef.current === '') {
       // 初始加载：立即执行（只在prevFiltersRef为空时，即首次加载或标签切换后）
-      if (prevFiltersRef.current === '') {
-        fetchPosts(currentPage);
-        window.scrollTo({ 
-          top: 0, 
-          behavior: 'smooth',
-          block: 'start'
-        });
-        prevFiltersRef.current = currentFiltersStr;
-        prevPageRef.current = currentPage;
-      }
+      console.log('[筛选调试] 初始加载，立即执行');
+      fetchPosts(currentPage);
+      window.scrollTo({ 
+        top: 0, 
+        behavior: 'smooth',
+        block: 'start'
+      });
+      prevFiltersRef.current = currentFiltersStr;
+      prevPageRef.current = currentPage;
+    } else {
+      console.log('[筛选调试] 无变化，跳过');
     }
     
     // 清理函数
@@ -458,7 +474,7 @@ function App() {
         debounceRef.current = null;
       }
     };
-  }, [currentPage, filters.company, filters.location, filters.recruitType, filters.category, filters.experience, filters.salary, searchQuery, activeTab]);
+  }, [currentPage, filters.company, filters.location, filters.recruitType, filters.category, filters.experience, filters.salary, filters.publishMonth, searchQuery, activeTab]);
 
   // 模拟搜索和过滤的加载效果（只在筛选条件改变时触发，不要阻塞初始加载）
   // 注意：prevFiltersRef 已在上面声明，这里使用它来检测筛选条件变化
@@ -470,7 +486,7 @@ function App() {
       const timer = setTimeout(() => setIsFiltering(false), 300);
       return () => clearTimeout(timer);
     }
-  }, [filters.company, filters.location, filters.recruitType, filters.category, filters.experience, filters.salary, searchQuery]);
+  }, [filters.company, filters.location, filters.recruitType, filters.category, filters.experience, filters.salary, filters.publishMonth, searchQuery]);
 
   const handleFilterChange = (key: keyof Filters, value: string) => {
     setFilters(prev => ({
@@ -553,7 +569,7 @@ function App() {
     return matchesCompany && matchesLocation && matchesSearch;
   });
 
-  const isFilterActive = filters.company !== '' || filters.location !== '' || filters.recruitType !== '' || filters.category !== '' || filters.experience !== '' || filters.salary !== '' || searchQuery !== '';
+  const isFilterActive = filters.company !== '' || filters.location !== '' || filters.recruitType !== '' || filters.category !== '' || filters.experience !== '' || filters.salary !== '' || filters.publishMonth !== '' || searchQuery !== '';
 
   return (
     <div className="min-h-screen bg-[#F8FAFC]">

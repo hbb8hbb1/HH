@@ -220,6 +220,12 @@
           "max": null
         }
       ]
+    },
+    "publishMonth": {
+      "label": "发布时间",
+      "labelEn": "Publish Time",
+      "type": "dynamic",
+      "allowCustom": false
     }
   }
 }

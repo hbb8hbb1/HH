@@ -5,6 +5,66 @@ const TagValidator = require('../utils/tagValidator');
 const fs = require('fs');
 const path = require('path');
 
+/**
+ * 计算发布时间月份维度
+ */
+async function computePublishMonthDimension() {
+  try {
+    const startTime = Date.now();
+    
+    // 从数据库中获取所有帖子的创建时间，提取年月
+    const months = await Post.aggregate([
+      { $match: { createdAt: { $exists: true, $ne: null } } },
+      {
+        $project: {
+          year: { $year: '$createdAt' },
+          month: { $month: '$createdAt' }
+        }
+      },
+      {
+        $group: {
+          _id: { year: '$year', month: '$month' },
+          count: { $sum: 1 }
+        }
+      },
+      { $sort: { '_id.year': -1, '_id.month': -1 } },
+      { $limit: 24 } // 最多显示最近24个月
+    ]);
+    
+    // 转换为 "YYYY-MM" 格式，并生成中文标签
+    const monthOptions = months.map(item => {
+      const year = item._id.year;
+      const month = String(item._id.month).padStart(2, '0');
+      const value = `${year}-${month}`;
+      const monthNames = ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'];
+      const label = `${year}年${monthNames[item._id.month - 1]}`;
+      
+      return {
+        value: value,
+        label: label
+      };
+    });
+    
+    const duration = Date.now() - startTime;
+    console.log(`[Filters] publishMonth 查询完成: ${duration}ms, 找到 ${monthOptions.length} 个月份`);
+    
+    return {
+      label: '发布时间',
+      labelEn: 'Publish Time',
+      type: 'dynamic',
+      values: monthOptions
+    };
+  } catch (e) {
+    console.error(`[Filters] 查询 publishMonth 失败:`, e);
+    return {
+      label: '发布时间',
+      labelEn: 'Publish Time',
+      type: 'dynamic',
+      values: []
+    };
+  }
+}
+
 // 尝试多个可能的配置文件路径
 const possiblePaths = [
   path.join(__dirname, '../../../config/tags.json'),
@@ -51,6 +111,11 @@ function clearCache() {
  * 计算单个动态维度的筛选选项
  */
 async function computeDynamicDimension(dimKey, dimConfig) {
+  // 特殊处理：发布时间月份维度
+  if (dimKey === 'publishMonth') {
+    return await computePublishMonthDimension();
+  }
+  
   const fieldPath = dimKey === 'company' ? 'company' : `tagDimensions.${dimKey}`;
   
   let dbValues = [];
